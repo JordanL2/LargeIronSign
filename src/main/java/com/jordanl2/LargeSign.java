@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 public class LargeSign implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("largesign");
 
-	public static final Block LARGE_SIGN = new Block(FabricBlockSettings.create().strength(4.0f));
+	public static final Block LARGE_SIGN = new LargeSignBlock(FabricBlockSettings.create().strength(4.0f));
 
 	@Override
 	public void onInitialize() {
