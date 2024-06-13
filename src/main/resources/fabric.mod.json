@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "symbolsign",
+	"id": "largesign",
 	"version": "${version}",
 	"name": "Symbol Sign",
 	"description": "This is an example description! Tell everyone what your mod is about!",
@@ -12,14 +12,14 @@
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/symbolsign/icon.png",
+	"icon": "assets/largesign/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.jordanl2.ExampleMod"
+			"com.jordanl2.LargeSign"
 		],
 		"client": [
-			"com.jordanl2.ExampleModClient"
+			"com.jordanl2.LargeSignClient"
 		]
 	},
 	"mixins": [

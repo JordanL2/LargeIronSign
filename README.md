@@ -1,1 +1,1 @@
-# Symbol Sign
+# Large Sign
