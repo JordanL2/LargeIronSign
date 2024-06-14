@@ -28,18 +28,18 @@ public class LargeSignBlock extends Block {
 	
 	@Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		if (CHAR == null) {
-			System.out.println("CHAR IS NULL!!!!!");
-		}
 		builder.add(CHAR);
     }
 	
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        BlockState blockState = world.getBlockState(pos);
+        LargeSignCharacter currentChar = blockState.getOrEmpty(CHAR).get();
+        LargeSignCharacter nextChar = currentChar.getNext();
+    	world.setBlockState(pos, state.with(CHAR, nextChar));
         if (!world.isClient) {
-            player.sendMessage(Text.literal("Setting block to A"), false);
+            player.sendMessage(Text.literal("Changed block from " + currentChar.getDescription() + " to " + nextChar.getDescription()), false);
         }
-    	world.setBlockState(pos, state.with(CHAR, LargeSignCharacter.A));
  
         return ActionResult.SUCCESS;
     }
