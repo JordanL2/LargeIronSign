@@ -1,5 +1,6 @@
 {
   "variants": {
-    "": { "model": "jordanl2:block/large_sign" }
+    "char=space": { "model": "jordanl2:block/large_sign" },
+    "char=a": { "model": "jordanl2:block/large_sign_a" }
   }
 }
