@@ -46,10 +46,8 @@ public class LargeSignDataGenerator implements DataGeneratorEntrypoint {
 				Model model = new Model(
 						Optional.of(new Identifier("jordanl2", "block/large_sign_parent")),
 						Optional.of(character.getSuffix()),
-						LargeSignBlock.EDGE,
 						LargeSignBlock.SYMBOL);
 				TextureMap textures = new TextureMap();
-				textures.put(LargeSignBlock.EDGE, new Identifier("jordanl2", "block/large_sign_space"));
 				textures.put(LargeSignBlock.SYMBOL, character.getPath());
 				model.upload(LargeSignBlock.LARGE_SIGN_BLOCK, textures, blockStateModelGenerator.modelCollector);
 			}
