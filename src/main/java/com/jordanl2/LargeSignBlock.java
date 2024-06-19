@@ -19,11 +19,11 @@ import net.minecraft.world.World;
 
 public class LargeSignBlock extends Block {
 	
-	public static final EnumProperty<LargeSignCharacter> CHAR = EnumProperty.of("char", LargeSignCharacter.class);
-	
 	public static final Identifier ID = new Identifier("jordanl2", "large_sign");
 	public static final LargeSignBlock LARGE_SIGN_BLOCK = new LargeSignBlock(FabricBlockSettings.copyOf(Blocks.STONE));
 	public static final BlockItem LARGE_SIGN_BLOCK_ITEM = new BlockItem(LargeSignBlock.LARGE_SIGN_BLOCK, new FabricItemSettings());
+	
+	public static final EnumProperty<LargeSignCharacter> CHAR = EnumProperty.of("char", LargeSignCharacter.class);
 	
 
 	public LargeSignBlock(Settings settings) {

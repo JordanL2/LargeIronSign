@@ -28,11 +28,6 @@ public class LargeSignDataGenerator implements DataGeneratorEntrypoint {
 	
 	private static class LargeSignModelGenerator extends FabricModelProvider {
 		
-		/*
-		 * public static BlockItem LARGE_SIGN_BLOCK_ITEM =
-		 * Registry.register(Registries.ITEM, new Identifier("jordanl2", "large_sign"),
-		 * new BlockItem(LargeSignBlock.LARGE_SIGN_BLOCK, new FabricItemSettings()));
-		 */
 		private LargeSignModelGenerator(FabricDataOutput generator) {
 			super(generator);
 		}
@@ -48,7 +43,8 @@ public class LargeSignDataGenerator implements DataGeneratorEntrypoint {
 								  VariantSettings.MODEL, 
 								  character.getPath()));
 
-				Model model = new Model(Optional.of(new Identifier("minecraft", "block/cube_all")),
+				Model model = new Model(
+						Optional.of(new Identifier("minecraft", "block/cube_all")),
 						Optional.of(character.getSuffix()),
 						TextureKey.ALL);
 				TextureMap textures = new TextureMap();
@@ -61,8 +57,10 @@ public class LargeSignDataGenerator implements DataGeneratorEntrypoint {
 	 
 		@Override
 		public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-			Model model = new Model(Optional.of(new Identifier("minecraft",
-					"block/cube_all")), Optional.empty(), TextureKey.ALL);
+			Model model = new Model(
+					Optional.of(new Identifier("minecraft", "block/cube_all")),
+					Optional.empty(),
+					TextureKey.ALL);
 			TextureMap textures = TextureMap.all(Identifier.of("jordanl2", "block/large_sign_a"));
 			Identifier itemModelId = ModelIds.getItemModelId(LargeSignBlock.LARGE_SIGN_BLOCK_ITEM);
 			model.upload(itemModelId, textures, itemModelGenerator.writer);
