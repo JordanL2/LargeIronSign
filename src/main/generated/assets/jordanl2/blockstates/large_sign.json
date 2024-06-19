@@ -2,290 +2,2306 @@
   "multipart": [
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_space"
+        "model": "jordanl2:block/large_sign_space",
+        "y": 0
       },
       "when": {
-        "char": "space"
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "space"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_a"
+        "model": "jordanl2:block/large_sign_space",
+        "y": 90
       },
       "when": {
-        "char": "a"
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "space"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_b"
+        "model": "jordanl2:block/large_sign_space",
+        "y": 180
       },
       "when": {
-        "char": "b"
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "space"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_c"
+        "model": "jordanl2:block/large_sign_space",
+        "y": 270
       },
       "when": {
-        "char": "c"
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "space"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_d"
+        "model": "jordanl2:block/large_sign_a",
+        "y": 0
       },
       "when": {
-        "char": "d"
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "a"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_e"
+        "model": "jordanl2:block/large_sign_a",
+        "y": 90
       },
       "when": {
-        "char": "e"
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "a"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_f"
+        "model": "jordanl2:block/large_sign_a",
+        "y": 180
       },
       "when": {
-        "char": "f"
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "a"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_g"
+        "model": "jordanl2:block/large_sign_a",
+        "y": 270
       },
       "when": {
-        "char": "g"
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "a"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_h"
+        "model": "jordanl2:block/large_sign_b",
+        "y": 0
       },
       "when": {
-        "char": "h"
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "b"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_i"
+        "model": "jordanl2:block/large_sign_b",
+        "y": 90
       },
       "when": {
-        "char": "i"
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "b"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_j"
+        "model": "jordanl2:block/large_sign_b",
+        "y": 180
       },
       "when": {
-        "char": "j"
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "b"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_k"
+        "model": "jordanl2:block/large_sign_b",
+        "y": 270
       },
       "when": {
-        "char": "k"
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "b"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_l"
+        "model": "jordanl2:block/large_sign_c",
+        "y": 0
       },
       "when": {
-        "char": "l"
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "c"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_n"
+        "model": "jordanl2:block/large_sign_c",
+        "y": 90
       },
       "when": {
-        "char": "n"
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "c"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_o"
+        "model": "jordanl2:block/large_sign_c",
+        "y": 180
       },
       "when": {
-        "char": "o"
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "c"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_p"
+        "model": "jordanl2:block/large_sign_c",
+        "y": 270
       },
       "when": {
-        "char": "p"
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "c"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_q"
+        "model": "jordanl2:block/large_sign_d",
+        "y": 0
       },
       "when": {
-        "char": "q"
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "d"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_r"
+        "model": "jordanl2:block/large_sign_d",
+        "y": 90
       },
       "when": {
-        "char": "r"
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "d"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_s"
+        "model": "jordanl2:block/large_sign_d",
+        "y": 180
       },
       "when": {
-        "char": "s"
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "d"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_t"
+        "model": "jordanl2:block/large_sign_d",
+        "y": 270
       },
       "when": {
-        "char": "t"
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "d"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_u"
+        "model": "jordanl2:block/large_sign_e",
+        "y": 0
       },
       "when": {
-        "char": "u"
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "e"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_v"
+        "model": "jordanl2:block/large_sign_e",
+        "y": 90
       },
       "when": {
-        "char": "v"
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "e"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_w"
+        "model": "jordanl2:block/large_sign_e",
+        "y": 180
       },
       "when": {
-        "char": "w"
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "e"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_x"
+        "model": "jordanl2:block/large_sign_e",
+        "y": 270
       },
       "when": {
-        "char": "x"
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "e"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_y"
+        "model": "jordanl2:block/large_sign_f",
+        "y": 0
       },
       "when": {
-        "char": "y"
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "f"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_z"
+        "model": "jordanl2:block/large_sign_f",
+        "y": 90
       },
       "when": {
-        "char": "z"
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "f"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_0"
+        "model": "jordanl2:block/large_sign_f",
+        "y": 180
       },
       "when": {
-        "char": "0"
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "f"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_1"
+        "model": "jordanl2:block/large_sign_f",
+        "y": 270
       },
       "when": {
-        "char": "1"
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "f"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_2"
+        "model": "jordanl2:block/large_sign_g",
+        "y": 0
       },
       "when": {
-        "char": "2"
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "g"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_3"
+        "model": "jordanl2:block/large_sign_g",
+        "y": 90
       },
       "when": {
-        "char": "3"
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "g"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_4"
+        "model": "jordanl2:block/large_sign_g",
+        "y": 180
       },
       "when": {
-        "char": "4"
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "g"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_5"
+        "model": "jordanl2:block/large_sign_g",
+        "y": 270
       },
       "when": {
-        "char": "5"
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "g"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_6"
+        "model": "jordanl2:block/large_sign_h",
+        "y": 0
       },
       "when": {
-        "char": "6"
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "h"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_7"
+        "model": "jordanl2:block/large_sign_h",
+        "y": 90
       },
       "when": {
-        "char": "7"
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "h"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_8"
+        "model": "jordanl2:block/large_sign_h",
+        "y": 180
       },
       "when": {
-        "char": "8"
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "h"
+          }
+        ]
       }
     },
     {
       "apply": {
-        "model": "jordanl2:block/large_sign_9"
+        "model": "jordanl2:block/large_sign_h",
+        "y": 270
       },
       "when": {
-        "char": "9"
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "h"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_i",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "i"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_i",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "i"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_i",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "i"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_i",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "i"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_j",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "j"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_j",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "j"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_j",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "j"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_j",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "j"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_k",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "k"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_k",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "k"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_k",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "k"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_k",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "k"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_l",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "l"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_l",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "l"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_l",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "l"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_l",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "l"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_n",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "n"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_n",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "n"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_n",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "n"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_n",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "n"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_o",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "o"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_o",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "o"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_o",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "o"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_o",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "o"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_p",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "p"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_p",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "p"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_p",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "p"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_p",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "p"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_q",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "q"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_q",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "q"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_q",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "q"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_q",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "q"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_r",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "r"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_r",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "r"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_r",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "r"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_r",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "r"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_s",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "s"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_s",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "s"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_s",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "s"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_s",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "s"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_t",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "t"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_t",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "t"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_t",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "t"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_t",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "t"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_u",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "u"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_u",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "u"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_u",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "u"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_u",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "u"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_v",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "v"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_v",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "v"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_v",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "v"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_v",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "v"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_w",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "w"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_w",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "w"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_w",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "w"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_w",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "w"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_x",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "x"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_x",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "x"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_x",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "x"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_x",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "x"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_y",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "y"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_y",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "y"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_y",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "y"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_y",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "y"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_z",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "z"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_z",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "z"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_z",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "z"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_z",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "z"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_0",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "0"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_0",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "0"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_0",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "0"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_0",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "0"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_1",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "1"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_1",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "1"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_1",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "1"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_1",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "1"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_2",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "2"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_2",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "2"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_2",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "2"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_2",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "2"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_3",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "3"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_3",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "3"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_3",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "3"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_3",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "3"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_4",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "4"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_4",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "4"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_4",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "4"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_4",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "4"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_5",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "5"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_5",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "5"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_5",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "5"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_5",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "5"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_6",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "6"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_6",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "6"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_6",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "6"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_6",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "6"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_7",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "7"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_7",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "7"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_7",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "7"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_7",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "7"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_8",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "8"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_8",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "8"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_8",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "8"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_8",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "8"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_9",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "9"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_9",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "9"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_9",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "9"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_9",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "9"
+          }
+        ]
       }
     }
   ]

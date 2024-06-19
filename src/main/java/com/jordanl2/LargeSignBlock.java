@@ -9,14 +9,18 @@ import net.minecraft.block.ShapeContext;
 import net.minecraft.data.client.TextureKey;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.EnumProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -24,6 +28,7 @@ import net.minecraft.world.World;
 
 public class LargeSignBlock extends Block {
 	
+	public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 	public static final EnumProperty<LargeSignCharacter> CHAR = EnumProperty.of("char", LargeSignCharacter.class);
 	
 	public static final Identifier ID = new Identifier("jordanl2", "large_sign");
@@ -36,17 +41,31 @@ public class LargeSignBlock extends Block {
 
 	public LargeSignBlock(Settings settings) {
         super(settings);
+        setDefaultState(getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.NORTH));
         setDefaultState(getDefaultState().with(CHAR, LargeSignCharacter.SPACE));
 	}
 	
 	@Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		builder.add(FACING);
 		builder.add(CHAR);
     }
 	
 	@Override
     public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
-        return VoxelShapes.cuboid(0f, 0f, 0f, 1f, 1f, 0.125f);
+		Direction dir = state.get(FACING);
+		switch(dir) {
+			case NORTH:
+				return VoxelShapes.cuboid(0f, 0f, 0f, 1f, 1f, 0.125f);
+			case SOUTH:
+				return VoxelShapes.cuboid(0f, 0f, 0.875f, 1f, 1f, 1f);
+			case EAST:
+				return VoxelShapes.cuboid(0.875f, 0f, 0f, 1f, 1f, 1f);
+			case WEST:
+				return VoxelShapes.cuboid(0f, 0f, 0f, 0.125f, 1f, 1f);
+			default:
+				return VoxelShapes.fullCube();
+		}
     }
 	
     @Override
@@ -61,5 +80,10 @@ public class LargeSignBlock extends Block {
  
         return ActionResult.SUCCESS;
     }
-
+    
+    @Override
+	public BlockState getPlacementState(ItemPlacementContext ctx) {
+		return super.getPlacementState(ctx).with(Properties.HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing());
+    }
+    
 }

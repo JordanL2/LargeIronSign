@@ -23,6 +23,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 
 public class LargeSignDataGenerator implements DataGeneratorEntrypoint {
 	
@@ -38,10 +39,52 @@ public class LargeSignDataGenerator implements DataGeneratorEntrypoint {
 			
 			for (LargeSignCharacter character : LargeSignCharacter.values()) {
 				multiPartBlockStateSupplier = multiPartBlockStateSupplier
-					.with(When.create().set(LargeSignBlock.CHAR, character),
-						  BlockStateVariant.create().put(
-								  VariantSettings.MODEL, 
-								  character.getPath()));
+					.with(When.allOf(
+							When.create().set(LargeSignBlock.FACING, Direction.NORTH),
+							When.create().set(LargeSignBlock.CHAR, character)
+						  ),
+						  BlockStateVariant.create()
+						  	.put(VariantSettings.Y, 
+						  		 VariantSettings.Rotation.R0)
+						  	.put(VariantSettings.MODEL, 
+								 character.getPath())
+						  	);
+
+				multiPartBlockStateSupplier = multiPartBlockStateSupplier
+						.with(When.allOf(
+								When.create().set(LargeSignBlock.FACING, Direction.EAST),
+								When.create().set(LargeSignBlock.CHAR, character)
+							  ),
+							  BlockStateVariant.create()
+							  	.put(VariantSettings.Y, 
+							  		 VariantSettings.Rotation.R90)
+							  	.put(VariantSettings.MODEL, 
+									 character.getPath())
+							  	);
+
+				multiPartBlockStateSupplier = multiPartBlockStateSupplier
+						.with(When.allOf(
+								When.create().set(LargeSignBlock.FACING, Direction.SOUTH),
+								When.create().set(LargeSignBlock.CHAR, character)
+							  ),
+							  BlockStateVariant.create()
+							  	.put(VariantSettings.Y, 
+							  		 VariantSettings.Rotation.R180)
+							  	.put(VariantSettings.MODEL, 
+									 character.getPath())
+							  	);
+
+				multiPartBlockStateSupplier = multiPartBlockStateSupplier
+						.with(When.allOf(
+								When.create().set(LargeSignBlock.FACING, Direction.WEST),
+								When.create().set(LargeSignBlock.CHAR, character)
+							  ),
+							  BlockStateVariant.create()
+							  	.put(VariantSettings.Y, 
+							  		 VariantSettings.Rotation.R270)
+							  	.put(VariantSettings.MODEL, 
+									 character.getPath())
+							  	);
 
 				Model model = new Model(
 						Optional.of(new Identifier("jordanl2", "block/large_sign_parent")),
@@ -51,7 +94,7 @@ public class LargeSignDataGenerator implements DataGeneratorEntrypoint {
 				textures.put(LargeSignBlock.SYMBOL, character.getPath());
 				model.upload(LargeSignBlock.LARGE_SIGN_BLOCK, textures, blockStateModelGenerator.modelCollector);
 			}
-			
+
 			blockStateModelGenerator.blockStateCollector.accept(multiPartBlockStateSupplier);
 		}
 	 
