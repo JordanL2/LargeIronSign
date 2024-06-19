@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "jordanl2:block/large_sign_parent",
   "textures": {
-    "all": "jordanl2:block/large_sign_t"
+    "edge": "jordanl2:block/large_sign_space",
+    "symbol": "jordanl2:block/large_sign_t"
   }
 }

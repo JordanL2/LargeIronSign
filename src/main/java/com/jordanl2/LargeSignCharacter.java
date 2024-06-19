@@ -65,7 +65,7 @@ public enum LargeSignCharacter implements StringIdentifiable {
     }
     
     public Identifier getIdentifier() {
-    	return Identifier.of("jordanl2", "large_sign_" + this.asString());
+    	return new Identifier("jordanl2", "large_sign_" + this.asString());
     }
     
     public String getSuffix() {
@@ -73,7 +73,7 @@ public enum LargeSignCharacter implements StringIdentifiable {
     }
     
     public Identifier getPath() {
-    	return Identifier.of("jordanl2", "block/large_sign_" + this.asString());
+    	return new Identifier("jordanl2", "block/large_sign_" + this.asString());
     }
     
     public LargeSignCharacter getNext() {

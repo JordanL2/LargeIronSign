@@ -44,11 +44,13 @@ public class LargeSignDataGenerator implements DataGeneratorEntrypoint {
 								  character.getPath()));
 
 				Model model = new Model(
-						Optional.of(new Identifier("minecraft", "block/cube_all")),
+						Optional.of(new Identifier("jordanl2", "block/large_sign_parent")),
 						Optional.of(character.getSuffix()),
-						TextureKey.ALL);
+						LargeSignBlock.EDGE,
+						LargeSignBlock.SYMBOL);
 				TextureMap textures = new TextureMap();
-				textures.put(TextureKey.ALL, character.getPath());
+				textures.put(LargeSignBlock.EDGE, new Identifier("jordanl2", "block/large_sign_space"));
+				textures.put(LargeSignBlock.SYMBOL, character.getPath());
 				model.upload(LargeSignBlock.LARGE_SIGN_BLOCK, textures, blockStateModelGenerator.modelCollector);
 			}
 			

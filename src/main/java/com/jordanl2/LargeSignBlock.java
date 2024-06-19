@@ -5,6 +5,8 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.data.client.TextureKey;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.state.StateManager;
@@ -15,6 +17,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class LargeSignBlock extends Block {
@@ -25,6 +30,9 @@ public class LargeSignBlock extends Block {
 	public static final LargeSignBlock LARGE_SIGN_BLOCK = new LargeSignBlock(FabricBlockSettings.copyOf(Blocks.STONE));
 	public static final BlockItem LARGE_SIGN_BLOCK_ITEM = new BlockItem(LargeSignBlock.LARGE_SIGN_BLOCK, new FabricItemSettings());
 	
+	public static final TextureKey EDGE = TextureKey.of("edge");
+	public static final TextureKey SYMBOL = TextureKey.of("symbol");
+	
 
 	public LargeSignBlock(Settings settings) {
         super(settings);
@@ -34,6 +42,11 @@ public class LargeSignBlock extends Block {
 	@Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		builder.add(CHAR);
+    }
+	
+	@Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
+        return VoxelShapes.cuboid(0f, 0f, 0f, 1f, 1f, 0.125f);
     }
 	
     @Override
