@@ -6,22 +6,33 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.BlockStateVariant;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Model;
+import net.minecraft.data.client.ModelIds;
+import net.minecraft.data.client.Models;
 import net.minecraft.data.client.MultipartBlockStateSupplier;
 import net.minecraft.data.client.TextureKey;
 import net.minecraft.data.client.TextureMap;
 import net.minecraft.data.client.TexturedModel;
 import net.minecraft.data.client.VariantSettings;
 import net.minecraft.data.client.When;
+import net.minecraft.item.BlockItem;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class LargeSignDataGenerator implements DataGeneratorEntrypoint {
 	
 	private static class LargeSignModelGenerator extends FabricModelProvider {
 		
+		/*
+		 * public static BlockItem LARGE_SIGN_BLOCK_ITEM =
+		 * Registry.register(Registries.ITEM, new Identifier("jordanl2", "large_sign"),
+		 * new BlockItem(LargeSignBlock.LARGE_SIGN_BLOCK, new FabricItemSettings()));
+		 */
 		private LargeSignModelGenerator(FabricDataOutput generator) {
 			super(generator);
 		}
@@ -50,8 +61,13 @@ public class LargeSignDataGenerator implements DataGeneratorEntrypoint {
 	 
 		@Override
 		public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-			// ...
+			Model model = new Model(Optional.of(new Identifier("minecraft",
+					"block/cube_all")), Optional.empty(), TextureKey.ALL);
+			TextureMap textures = TextureMap.all(Identifier.of("jordanl2", "block/large_sign_a"));
+			Identifier itemModelId = ModelIds.getItemModelId(LargeSignBlock.LARGE_SIGN_BLOCK_ITEM);
+			model.upload(itemModelId, textures, itemModelGenerator.writer);
 		}
+			
 	}
 	 
     @Override
