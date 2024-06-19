@@ -15,6 +15,9 @@
 	"icon": "assets/largesign/icon.png",
 	"environment": "*",
 	"entrypoints": {
+		"fabric-datagen": [
+      		"com.jordanl2.LargeSignDataGenerator"
+    	],
 		"main": [
 			"com.jordanl2.LargeSign"
 		],

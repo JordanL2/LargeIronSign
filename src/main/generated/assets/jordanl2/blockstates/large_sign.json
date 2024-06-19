@@ -1,0 +1,292 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_space"
+      },
+      "when": {
+        "char": "space"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_a"
+      },
+      "when": {
+        "char": "a"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_b"
+      },
+      "when": {
+        "char": "b"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_c"
+      },
+      "when": {
+        "char": "c"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_d"
+      },
+      "when": {
+        "char": "d"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_e"
+      },
+      "when": {
+        "char": "e"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_f"
+      },
+      "when": {
+        "char": "f"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_g"
+      },
+      "when": {
+        "char": "g"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_h"
+      },
+      "when": {
+        "char": "h"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_i"
+      },
+      "when": {
+        "char": "i"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_j"
+      },
+      "when": {
+        "char": "j"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_k"
+      },
+      "when": {
+        "char": "k"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_l"
+      },
+      "when": {
+        "char": "l"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_n"
+      },
+      "when": {
+        "char": "n"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_o"
+      },
+      "when": {
+        "char": "o"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_p"
+      },
+      "when": {
+        "char": "p"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_q"
+      },
+      "when": {
+        "char": "q"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_r"
+      },
+      "when": {
+        "char": "r"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_s"
+      },
+      "when": {
+        "char": "s"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_t"
+      },
+      "when": {
+        "char": "t"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_u"
+      },
+      "when": {
+        "char": "u"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_v"
+      },
+      "when": {
+        "char": "v"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_w"
+      },
+      "when": {
+        "char": "w"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_x"
+      },
+      "when": {
+        "char": "x"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_y"
+      },
+      "when": {
+        "char": "y"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_z"
+      },
+      "when": {
+        "char": "z"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_0"
+      },
+      "when": {
+        "char": "0"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_1"
+      },
+      "when": {
+        "char": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_2"
+      },
+      "when": {
+        "char": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_3"
+      },
+      "when": {
+        "char": "3"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_4"
+      },
+      "when": {
+        "char": "4"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_5"
+      },
+      "when": {
+        "char": "5"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_6"
+      },
+      "when": {
+        "char": "6"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_7"
+      },
+      "when": {
+        "char": "7"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_8"
+      },
+      "when": {
+        "char": "8"
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_9"
+      },
+      "when": {
+        "char": "9"
+      }
+    }
+  ]
+}

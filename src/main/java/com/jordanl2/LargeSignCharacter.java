@@ -1,5 +1,6 @@
 package com.jordanl2;
 
+import net.minecraft.util.Identifier;
 import net.minecraft.util.StringIdentifiable;
 
 public enum LargeSignCharacter implements StringIdentifiable {
@@ -61,6 +62,18 @@ public enum LargeSignCharacter implements StringIdentifiable {
     
     public String getDescription() {
     	return description;
+    }
+    
+    public Identifier getIdentifier() {
+    	return Identifier.of("jordanl2", "large_sign_" + this.asString());
+    }
+    
+    public String getSuffix() {
+    	return "_" + this.asString();
+    }
+    
+    public Identifier getPath() {
+    	return Identifier.of("jordanl2", "block/large_sign_" + this.asString());
     }
     
     public LargeSignCharacter getNext() {
