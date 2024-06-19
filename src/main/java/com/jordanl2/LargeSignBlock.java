@@ -1,6 +1,8 @@
 package com.jordanl2;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -11,11 +13,13 @@ import net.minecraft.data.client.TextureKey;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.text.Text;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -38,6 +42,8 @@ public class LargeSignBlock extends HorizontalFacingBlock {
 	
 	public static final TextureKey EDGE = TextureKey.of("edge");
 	public static final TextureKey SYMBOL = TextureKey.of("symbol");
+	
+	public static final Identifier LARGE_SIGN_SCREEN_OPEN_PACKET_ID = new Identifier("jordanl2", "large_sign_screen_open");
 	
 
 	public LargeSignBlock(Settings settings) {
@@ -68,20 +74,18 @@ public class LargeSignBlock extends HorizontalFacingBlock {
 				return VoxelShapes.fullCube();
 		}
     }
-	
-    @Override
+
+	@Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        BlockState blockState = world.getBlockState(pos);
-        LargeSignCharacter currentChar = blockState.getOrEmpty(CHAR).get();
-        LargeSignCharacter nextChar = currentChar.getNext();
-    	world.setBlockState(pos, state.with(CHAR, nextChar));
-        if (!world.isClient) {
-            player.sendMessage(Text.literal("Changed block from " + currentChar.getDescription() + " to " + nextChar.getDescription()), false);
-        }
- 
-        return ActionResult.SUCCESS;
-    }
-    
+		if (!world.isClient() && player instanceof ServerPlayerEntity serverPlayer) {
+			PacketByteBuf buf = PacketByteBufs.create();
+			buf.writeBlockPos(pos);
+			ServerPlayNetworking.send(serverPlayer, LARGE_SIGN_SCREEN_OPEN_PACKET_ID, buf);
+			return ActionResult.SUCCESS;
+		}
+		return ActionResult.PASS;
+	}
+	
     @Override
 	public BlockState getPlacementState(ItemPlacementContext ctx) {
 		return super.getPlacementState(ctx).with(Properties.HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing());
