@@ -100,13 +100,7 @@ public class LargeSignDataGenerator implements DataGeneratorEntrypoint {
 	 
 		@Override
 		public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-			Model model = new Model(
-					Optional.of(new Identifier("minecraft", "block/cube_all")),
-					Optional.empty(),
-					TextureKey.ALL);
-			TextureMap textures = TextureMap.all(Identifier.of("jordanl2", "block/large_sign_a"));
-			Identifier itemModelId = ModelIds.getItemModelId(LargeSignBlock.LARGE_SIGN_BLOCK_ITEM);
-			model.upload(itemModelId, textures, itemModelGenerator.writer);
+			// Item config written manually
 		}
 			
 	}

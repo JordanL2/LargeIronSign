@@ -1,0 +1,6 @@
+{
+  "parent": "jordanl2:block/large_sign_parent",
+  "textures": {
+    "symbol": "jordanl2:block/large_sign_a"
+  }
+}
