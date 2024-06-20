@@ -81,9 +81,8 @@ public class LargeSignBlock extends HorizontalFacingBlock {
 			buf.writeIdentifier(world.getRegistryKey().getValue());
 			buf.writeBlockPos(pos);
 			ServerPlayNetworking.send(serverPlayer, LARGE_SIGN_SCREEN_OPEN_PACKET_ID, buf);
-			return ActionResult.SUCCESS;
 		}
-		return ActionResult.PASS;
+		return ActionResult.SUCCESS;
 	}
 	
     @Override
