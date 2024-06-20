@@ -31,6 +31,8 @@ public class LargeSignScreen extends Screen {
 
 	@Override
 	protected void init() {
+		super.init();
+		
 		buttons = new ArrayList<>();
 		int buttonWidth = 40;
 		int buttonHeight = 20;
