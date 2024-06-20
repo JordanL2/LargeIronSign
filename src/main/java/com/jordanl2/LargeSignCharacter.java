@@ -44,8 +44,6 @@ public enum LargeSignCharacter implements StringIdentifiable {
 	private final String name;
 	private final String description;
 	
-	private static final LargeSignCharacter[] vals = values();
-
 	private LargeSignCharacter(String name, String description) {
 		this.name = name;
 		this.description = description;
@@ -74,9 +72,5 @@ public enum LargeSignCharacter implements StringIdentifiable {
     
     public Identifier getPath() {
     	return new Identifier("jordanl2", "block/large_sign_" + this.asString());
-    }
-    
-    public LargeSignCharacter getNext() {
-    	return vals[(this.ordinal() + 1) % vals.length];
     }
 }

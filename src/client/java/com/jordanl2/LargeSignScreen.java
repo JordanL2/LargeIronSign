@@ -1,5 +1,8 @@
 package com.jordanl2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -24,28 +27,36 @@ public class LargeSignScreen extends Screen {
 		this.pos = pos;
 	}
 
-	public ButtonWidget buttonA;
-	public ButtonWidget buttonB;
+	public List<ButtonWidget> buttons;
 
 	@Override
 	protected void init() {
-		buttonA = ButtonWidget.builder(Text.literal("A"), button -> {
-			setBlockChar(LargeSignCharacter.KEY_A);
-		})
-				.dimensions(width / 2 - 205, 20, 200, 20)
-				.tooltip(Tooltip.of(Text.literal("Tooltip of button1")))
-				.build();
-		buttonB = ButtonWidget.builder(Text.literal("B"), button -> {
-			setBlockChar(LargeSignCharacter.KEY_B);
-		})
-				.dimensions(width / 2 + 5, 20, 200, 20)
-				.tooltip(Tooltip.of(Text.literal("Tooltip of button2")))
-				.build();
-
-		addDrawableChild(buttonA);
-		addDrawableChild(buttonB);
+		buttons = new ArrayList<>();
+		int buttonWidth = 40;
+		int buttonHeight = 20;
+		int space = 10;
+		int margin = 20;
+		int x = margin;
+		int y = margin;
+		
+		for (LargeSignCharacter character : LargeSignCharacter.values()) {
+			ButtonWidget button = ButtonWidget.builder(Text.literal(character.getDescription()), a -> {
+				setBlockChar(character);
+			})
+					.dimensions(x, y, buttonWidth, buttonHeight)
+					.tooltip(Tooltip.of(Text.literal("Set sign to " + character.getDescription())))
+					.build();
+			buttons.add(button);
+			addDrawableChild(button);
+			
+			x += buttonWidth + space;
+			if (x + buttonWidth + margin > width) {
+				x = margin;
+				y += buttonHeight + space;
+			}
+		}
 	}
-	
+		
 	private void setBlockChar(LargeSignCharacter character) {
 		System.out.println(
 				"Setting block " + pos.getX() + "," + pos.getY() + "," + pos.getZ()
