@@ -3,12 +3,12 @@ from PIL import Image, ImageFont, ImageDraw
 import math
 
 # use a truetype font (.ttf)
-# font file from: https://www.dafont.com/pixellari.font
+# font file from: https://www.dafont.com/vcr-osd-mono.font
 font_path = ""
-font_name = "Pixellari.ttf"
-out_path = font_path + "Output/"
+font_name = "VCR_OSD_MONO_1.001.ttf"
+out_path = font_path + "src/main/resources/assets/jordanl2/textures/block/"
 
-font_size = 16 # px
+font_size = 21 # px
 font_color = "#000000" # HEX Black
 
 # Create Font using PIL
@@ -32,7 +32,7 @@ for character in desired_characters:
     draw = ImageDraw.Draw(img)
 
     # Draw the character
-    draw.text((offset, 1), str(character), font=font, fill=font_color)
+    draw.text((offset, -3), str(character), font=font, fill=font_color)
 
     # Save the character as png
     try:
