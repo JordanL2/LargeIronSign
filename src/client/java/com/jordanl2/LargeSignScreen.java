@@ -70,4 +70,8 @@ public class LargeSignScreen extends Screen {
 		ClientPlayNetworking.send(LargeSignBlock.LARGE_SIGN_SET_SYMBOL_PACKET_ID, buf);
 		this.close();
 	}
+
+    public boolean shouldPause() {
+        return false;
+    }
 }

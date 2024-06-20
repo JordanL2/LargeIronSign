@@ -31,7 +31,9 @@ public class LargeSignSetSymbolHandler implements ServerPlayNetworking.PlayChann
 		LargeSignCharacter character = LargeSignCharacter.valueOf(characterName);
 
 		BlockState blockState = world.getBlockState(pos);
-		world.setBlockState(pos, blockState.with(LargeSignBlock.CHAR, character));
+		if (blockState.getBlock() instanceof LargeSignBlock) {
+			world.setBlockState(pos, blockState.with(LargeSignBlock.CHAR, character));
+		}
 	}
 
 }
