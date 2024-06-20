@@ -10,10 +10,10 @@ import net.minecraft.text.Text;
 @Environment(EnvType.CLIENT)
 public class LargeSignScreen extends Screen {
 
-	protected LargeSignScreen() {
+	protected LargeSignScreen(Text title) {
 		// The parameter is the title of the screen,
 		// which will be narrated when you enter the screen.
-		super(Text.literal("My tutorial screen"));
+		super(title);
 	}
 
 	public ButtonWidget button1;
