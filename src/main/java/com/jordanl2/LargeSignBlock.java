@@ -19,7 +19,6 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -44,8 +43,8 @@ public class LargeSignBlock extends HorizontalFacingBlock {
 	public static final TextureKey SYMBOL = TextureKey.of("symbol");
 	
 	public static final Identifier LARGE_SIGN_SCREEN_OPEN_PACKET_ID = new Identifier("jordanl2", "large_sign_screen_open");
+	public static final Identifier LARGE_SIGN_SET_SYMBOL_PACKET_ID = new Identifier("jordanl2", "large_sign_set_symbol");
 	
-
 	public LargeSignBlock(Settings settings) {
         super(settings);
         setDefaultState(getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.NORTH));
@@ -77,9 +76,9 @@ public class LargeSignBlock extends HorizontalFacingBlock {
 
 	@Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		if (!world.isClient() && player instanceof ServerPlayerEntity serverPlayer) {
-			player.sendMessage(Text.literal("Packet sent"), false);
+		if (hand == Hand.MAIN_HAND && !world.isClient() && player instanceof ServerPlayerEntity serverPlayer) {
 			PacketByteBuf buf = PacketByteBufs.create();
+			buf.writeIdentifier(world.getRegistryKey().getValue());
 			buf.writeBlockPos(pos);
 			ServerPlayNetworking.send(serverPlayer, LARGE_SIGN_SCREEN_OPEN_PACKET_ID, buf);
 			return ActionResult.SUCCESS;
