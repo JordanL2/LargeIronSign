@@ -834,6 +834,70 @@
     },
     {
       "apply": {
+        "model": "jordanl2:block/large_sign_m",
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "char": "m"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_m",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "char": "m"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_m",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "char": "m"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "jordanl2:block/large_sign_m",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "char": "m"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
         "model": "jordanl2:block/large_sign_n",
         "y": 0
       },
