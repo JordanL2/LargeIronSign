@@ -36,19 +36,25 @@ import net.minecraft.world.WorldAccess;
 
 public class LargeSignBlock extends HorizontalFacingBlock implements Waterloggable {
 	
+	// BlockState properties
 	public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 	public static final EnumProperty<LargeSignCharacter> CHAR = EnumProperty.of("char", LargeSignCharacter.class);
 	
+	// Block ID, block and item singletons
 	public static final Identifier ID = new Identifier("jordanl2", "large_sign");
 	public static final LargeSignBlock LARGE_SIGN_BLOCK = new LargeSignBlock(FabricBlockSettings.create()
 			.requiresTool()
 			.strength(1.5f, 6.0f));
-	public static final BlockItem LARGE_SIGN_BLOCK_ITEM = new BlockItem(LargeSignBlock.LARGE_SIGN_BLOCK, new FabricItemSettings());
+	public static final BlockItem LARGE_SIGN_BLOCK_ITEM = new BlockItem(
+			LargeSignBlock.LARGE_SIGN_BLOCK, 
+			new FabricItemSettings());
 	
+	// Textures
 	public static final TextureKey EDGE = TextureKey.of("edge");
 	public static final TextureKey SYMBOL = TextureKey.of("symbol");
 	
+	// Network packets
 	public static final Identifier LARGE_SIGN_SCREEN_OPEN_PACKET_ID = new Identifier("jordanl2", "large_sign_screen_open");
 	public static final Identifier LARGE_SIGN_SET_SYMBOL_PACKET_ID = new Identifier("jordanl2", "large_sign_set_symbol");
 	
