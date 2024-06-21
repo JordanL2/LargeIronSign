@@ -38,9 +38,12 @@ public class LargeSignScreen extends Screen {
 		int buttonWidth = 40;
 		int buttonHeight = 20;
 		int space = 10;
-		int margin = 20;
+		int minMargin = 20;
+		
+		int margin = minMargin + (((width - minMargin - minMargin - buttonWidth) % (buttonWidth + space)) / 2);
+		
 		int x = margin;
-		int y = margin;
+		int y = minMargin;
 		
 		for (LargeSignCharacter character : LargeSignCharacter.values()) {
 			ButtonWidget button = ButtonWidget.builder(Text.literal(character.getDescription()), a -> {
