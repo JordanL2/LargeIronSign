@@ -77,6 +77,7 @@ public class LargeSignScreen extends Screen {
 		this.close();
 	}
 
+	@Override
     public boolean shouldPause() {
         return false;
     }

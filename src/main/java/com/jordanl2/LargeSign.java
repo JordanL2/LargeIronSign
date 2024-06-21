@@ -15,15 +15,20 @@ public class LargeSign implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		// Blocks
 		Registry.register(Registries.BLOCK, 
 				LargeSignBlock.ID, 
 				LargeSignBlock.LARGE_SIGN_BLOCK);
+		
+		// Items
 		Registry.register(Registries.ITEM, 
 				LargeSignBlock.ID, 
 				LargeSignBlock.LARGE_SIGN_BLOCK_ITEM);
 	    ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(content -> {
 	    	content.add(LargeSignBlock.LARGE_SIGN_BLOCK_ITEM);
 	    });
+	    
+	    // Network
 		ServerPlayNetworking.registerGlobalReceiver(
 				LargeSignBlock.LARGE_SIGN_SET_SYMBOL_PACKET_ID,
 				new LargeSignSetSymbolHandler());
