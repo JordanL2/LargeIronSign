@@ -36,7 +36,9 @@ public class LargeSignBlock extends HorizontalFacingBlock {
 	public static final EnumProperty<LargeSignCharacter> CHAR = EnumProperty.of("char", LargeSignCharacter.class);
 	
 	public static final Identifier ID = new Identifier("jordanl2", "large_sign");
-	public static final LargeSignBlock LARGE_SIGN_BLOCK = new LargeSignBlock(FabricBlockSettings.copyOf(Blocks.STONE));
+	public static final LargeSignBlock LARGE_SIGN_BLOCK = new LargeSignBlock(FabricBlockSettings.create()
+			.requiresTool()
+			.strength(1.5f, 6.0f));
 	public static final BlockItem LARGE_SIGN_BLOCK_ITEM = new BlockItem(LargeSignBlock.LARGE_SIGN_BLOCK, new FabricItemSettings());
 	
 	public static final TextureKey EDGE = TextureKey.of("edge");
