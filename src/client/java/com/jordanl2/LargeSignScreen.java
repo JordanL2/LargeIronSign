@@ -38,12 +38,14 @@ public class LargeSignScreen extends Screen {
 		int buttonWidth = 40;
 		int buttonHeight = 20;
 		int space = 10;
-		int minMargin = 20;
+		int minMargin = 40;
 		
 		int margin = minMargin + (((width - minMargin - minMargin - buttonWidth) % (buttonWidth + space)) / 2);
-		
 		int x = margin;
-		int y = minMargin;
+		
+		int buttonsPerRow = ((width - minMargin - minMargin - buttonWidth) / (buttonWidth + space)) + 1;
+		int rows = (int) Math.ceil((float)LargeSignCharacter.values().length / (float)buttonsPerRow);
+		int y = minMargin + (height - minMargin - minMargin - buttonHeight - ((rows - 1) * (buttonHeight + space))) / 2;
 		
 		for (LargeSignCharacter character : LargeSignCharacter.values()) {
 			ButtonWidget button = ButtonWidget.builder(Text.literal(character.getDescription()), a -> {
