@@ -73,13 +73,13 @@ public class LargeSignBlock extends HorizontalFacingBlock implements Waterloggab
 		Direction dir = state.get(FACING);
 		switch(dir) {
 			case NORTH:
-				return VoxelShapes.cuboid(0f, 0f, 0f, 1f, 1f, 0.125f);
+				return VoxelShapes.cuboid(0f, 0f, 0f, 1f, 1f, 0.0625f);
 			case SOUTH:
-				return VoxelShapes.cuboid(0f, 0f, 0.875f, 1f, 1f, 1f);
+				return VoxelShapes.cuboid(0f, 0f, 0.9375f, 1f, 1f, 1f);
 			case EAST:
-				return VoxelShapes.cuboid(0.875f, 0f, 0f, 1f, 1f, 1f);
+				return VoxelShapes.cuboid(0.9375f, 0f, 0f, 1f, 1f, 1f);
 			case WEST:
-				return VoxelShapes.cuboid(0f, 0f, 0f, 0.125f, 1f, 1f);
+				return VoxelShapes.cuboid(0f, 0f, 0f, 0.0625f, 1f, 1f);
 			default:
 				return VoxelShapes.fullCube();
 		}
