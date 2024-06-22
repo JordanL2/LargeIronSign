@@ -79,7 +79,7 @@ public class LargeSignDataGenerator implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator generator) {
         FabricDataGenerator.Pack fabricDataGenerator = generator.createPack();
         
-        fabricDataGenerator.addProvider(LargeSignModelGenerator::new);
+        //fabricDataGenerator.addProvider(LargeSignModelGenerator::new);
     }
  
 }
