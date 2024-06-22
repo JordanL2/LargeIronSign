@@ -27,6 +27,7 @@ public class LargeSignDataGenerator implements DataGeneratorEntrypoint {
 	 
 		@Override
 		public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
+			blockStateModelGenerator.excludeFromSimpleItemModelGeneration(LargeSignBlock.LARGE_SIGN_BLOCK);
 			MultipartBlockStateSupplier multiPartBlockStateSupplier = MultipartBlockStateSupplier.create(LargeSignBlock.LARGE_SIGN_BLOCK);
 			
 			for (LargeSignCharacter character : LargeSignCharacter.values()) {
