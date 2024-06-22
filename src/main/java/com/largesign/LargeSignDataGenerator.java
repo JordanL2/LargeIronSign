@@ -6,22 +6,14 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.BlockStateVariant;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Model;
-import net.minecraft.data.client.ModelIds;
-import net.minecraft.data.client.Models;
 import net.minecraft.data.client.MultipartBlockStateSupplier;
-import net.minecraft.data.client.TextureKey;
 import net.minecraft.data.client.TextureMap;
-import net.minecraft.data.client.TexturedModel;
 import net.minecraft.data.client.VariantSettings;
 import net.minecraft.data.client.When;
-import net.minecraft.item.BlockItem;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 
@@ -38,7 +30,7 @@ public class LargeSignDataGenerator implements DataGeneratorEntrypoint {
 			MultipartBlockStateSupplier multiPartBlockStateSupplier = MultipartBlockStateSupplier.create(LargeSignBlock.LARGE_SIGN_BLOCK);
 			
 			for (LargeSignCharacter character : LargeSignCharacter.values()) {
-				multiPartBlockStateSupplier = multiPartBlockStateSupplier
+				multiPartBlockStateSupplier
 					.with(When.allOf(
 							When.create().set(LargeSignBlock.FACING, Direction.NORTH),
 							When.create().set(LargeSignBlock.CHAR, character)
@@ -50,7 +42,7 @@ public class LargeSignDataGenerator implements DataGeneratorEntrypoint {
 								 character.getPath())
 						  	);
 
-				multiPartBlockStateSupplier = multiPartBlockStateSupplier
+				multiPartBlockStateSupplier
 						.with(When.allOf(
 								When.create().set(LargeSignBlock.FACING, Direction.EAST),
 								When.create().set(LargeSignBlock.CHAR, character)
@@ -62,7 +54,7 @@ public class LargeSignDataGenerator implements DataGeneratorEntrypoint {
 									 character.getPath())
 							  	);
 
-				multiPartBlockStateSupplier = multiPartBlockStateSupplier
+				multiPartBlockStateSupplier
 						.with(When.allOf(
 								When.create().set(LargeSignBlock.FACING, Direction.SOUTH),
 								When.create().set(LargeSignBlock.CHAR, character)
@@ -74,7 +66,7 @@ public class LargeSignDataGenerator implements DataGeneratorEntrypoint {
 									 character.getPath())
 							  	);
 
-				multiPartBlockStateSupplier = multiPartBlockStateSupplier
+				multiPartBlockStateSupplier
 						.with(When.allOf(
 								When.create().set(LargeSignBlock.FACING, Direction.WEST),
 								When.create().set(LargeSignBlock.CHAR, character)
