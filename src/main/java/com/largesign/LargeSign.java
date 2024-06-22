@@ -3,13 +3,23 @@ package com.largesign;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
 
 public class LargeSign implements ModInitializer {
 	
 	public static final String MOD_ID = "largesign";
+	
+    public static final BlockEntityType<LargeSignBlockEntity> LARGE_SIGN_BLOCK_ENTITY = Registry.register(
+            Registries.BLOCK_ENTITY_TYPE,
+            new Identifier(MOD_ID, "large_sign_block_entity"),
+            BlockEntityType.Builder
+            	.create(LargeSignBlockEntity::new, LargeSignBlock.LARGE_SIGN_BLOCK)
+            	.build(null)
+        );
 	
 	@Override
 	public void onInitialize() {

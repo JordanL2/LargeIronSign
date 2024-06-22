@@ -5,10 +5,12 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.Waterloggable;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.data.client.TextureKey;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
@@ -34,7 +36,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
-public class LargeSignBlock extends HorizontalFacingBlock implements Waterloggable {
+public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntityProvider, Waterloggable {
 	
 	// BlockState properties
 	public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
@@ -122,4 +124,9 @@ public class LargeSignBlock extends HorizontalFacingBlock implements Waterloggab
  
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
+
+	@Override
+	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+		return new LargeSignBlockEntity(pos, state);
+	}
 }
