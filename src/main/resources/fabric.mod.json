@@ -16,13 +16,13 @@
 	"environment": "*",
 	"entrypoints": {
 		"fabric-datagen": [
-      		"com.jordanl2.LargeSignDataGenerator"
+      		"com.largesign.LargeSignDataGenerator"
     	],
 		"main": [
-			"com.jordanl2.LargeSign"
+			"com.largesign.LargeSign"
 		],
 		"client": [
-			"com.jordanl2.LargeSignClient"
+			"com.largesign.LargeSignClient"
 		]
 	},
 	"mixins": [

@@ -1,0 +1,6 @@
+{
+  "parent": "largesign:block/large_sign_parent",
+  "textures": {
+    "symbol": "largesign:block/large_sign_f"
+  }
+}
