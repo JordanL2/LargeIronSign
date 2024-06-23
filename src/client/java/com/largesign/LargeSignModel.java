@@ -121,7 +121,7 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 		LargeSignCharacter character = state.get(LargeSignBlock.CHAR);
 		
 		// Front
-		emitter.square(direction, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f);
+		emitter.square(direction, 0.0f, 0.0f, 1.0f, 1.0f, 0.9375f);
 		emitter.spriteBake(sprites[character.ordinal()], MutableQuadView.BAKE_LOCK_UV);
 		emitter.color(-1, -1, -1, -1);
 		emitter.emit();
