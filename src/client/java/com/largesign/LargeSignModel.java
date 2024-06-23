@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import org.joml.Vector3f;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.renderer.v1.Renderer;
@@ -17,6 +19,7 @@ import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.render.model.json.Transformation;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.render.model.Baker;
@@ -45,6 +48,8 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 	
 	private final static DirectionUtil directionUtil = new DirectionUtil();
 	
+	ModelTransformation transformation;
+	
 
 	// UnbakedModel methods
 
@@ -60,7 +65,23 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 	@Override
 	public BakedModel bake(Baker baker, Function<SpriteIdentifier, Sprite> textureGetter, 
 						   ModelBakeSettings rotationContainer, Identifier modelId) {
+		// Make model transformation
+		Transformation gui = new Transformation(
+				new Vector3f(ModelHelper.MODEL_TRANSFORM_BLOCK.gui.rotation),
+				new Vector3f(ModelHelper.MODEL_TRANSFORM_BLOCK.gui.translation),
+				new Vector3f(ModelHelper.MODEL_TRANSFORM_BLOCK.gui.scale));
+		transformation = new ModelTransformation(
+				ModelHelper.MODEL_TRANSFORM_BLOCK.thirdPersonLeftHand,
+				ModelHelper.MODEL_TRANSFORM_BLOCK.thirdPersonRightHand,
+				ModelHelper.MODEL_TRANSFORM_BLOCK.firstPersonLeftHand,
+				ModelHelper.MODEL_TRANSFORM_BLOCK.firstPersonRightHand,
+				ModelHelper.MODEL_TRANSFORM_BLOCK.head,
+				gui,
+				ModelHelper.MODEL_TRANSFORM_BLOCK.ground,
+				ModelHelper.MODEL_TRANSFORM_BLOCK.fixed);
+		transformation.gui.translation.add(0.2f, -0.1f, 0);
 
+		// Load sprites
 		for (LargeSignCharacter character : LargeSignCharacter.values()) {
 			SpriteIdentifier spriteId = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE,
 						character.getBlockIdentifier());
@@ -109,7 +130,7 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 
 	@Override
 	public ModelTransformation getTransformation() {
-		return ModelHelper.MODEL_TRANSFORM_BLOCK;
+		return transformation;
 	}
 
 	@Override
