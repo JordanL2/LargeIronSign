@@ -9,6 +9,7 @@ import org.joml.Vector3f;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.blockview.v2.FabricBlockView;
 import net.fabricmc.fabric.api.renderer.v1.Renderer;
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.fabricmc.fabric.api.renderer.v1.mesh.Mesh;
@@ -19,7 +20,6 @@ import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.render.model.json.Transformation;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.render.model.Baker;
@@ -27,6 +27,7 @@ import net.minecraft.client.render.model.ModelBakeSettings;
 import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.render.model.json.ModelOverrideList;
 import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.render.model.json.Transformation;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
@@ -149,8 +150,10 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 	@Override
 	public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
 		Direction direction = state.get(LargeSignBlock.FACING);
-		LargeSignBlockEntity blockEntity = (LargeSignBlockEntity) blockView.getBlockEntity(pos);
-		LargeSignCharacter character = blockEntity == null ? LargeSignCharacter.KEY_0 : blockEntity.character;
+		LargeSignBlockEntity.LargeSignBlockEntityState entityState = (LargeSignBlockEntity.LargeSignBlockEntityState) 
+				((FabricBlockView)blockView).getBlockEntityRenderData(pos);
+		System.out.println("JORDAN state: " + entityState.toString());
+		LargeSignCharacter character = entityState.character;
 		System.out.println("JORDAN rendering char " + character.getDescription() + " at " + pos.toShortString());
 		Mesh mesh = buildMesh(direction, character);
 		mesh.outputTo(context.getEmitter());

@@ -97,7 +97,8 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		if (hand == Hand.MAIN_HAND && !world.isClient() && player instanceof ServerPlayerEntity serverPlayer) {
 			LargeSignBlockEntity blockEntity = (LargeSignBlockEntity) world.getBlockEntity(pos);
-			System.out.println("JORDAN there is char " + blockEntity.character.getDescription() + " at " + pos.toShortString());
+			System.out.println("JORDAN state: " + blockEntity.state.toString());
+			System.out.println("JORDAN there is char " + blockEntity.state.character.getDescription() + " at " + pos.toShortString());
 			
 			PacketByteBuf buf = PacketByteBufs.create();
 			buf.writeBlockPos(pos);

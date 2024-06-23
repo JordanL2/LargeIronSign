@@ -7,7 +7,12 @@ import net.minecraft.util.math.BlockPos;
 
 public class LargeSignBlockEntity extends BlockEntity {
 	
-	public LargeSignCharacter character = LargeSignCharacter.SPACE;
+	public class LargeSignBlockEntityState {
+		public volatile LargeSignCharacter character = LargeSignCharacter.SPACE;
+	}
+
+	
+	public final LargeSignBlockEntityState state = new LargeSignBlockEntityState();
     
 	public LargeSignBlockEntity(BlockPos pos, BlockState state) {
         super(LargeSign.LARGE_SIGN_BLOCK_ENTITY, pos, state);
@@ -15,7 +20,7 @@ public class LargeSignBlockEntity extends BlockEntity {
 	 
     @Override
     public void writeNbt(NbtCompound nbt) {
-        nbt.putInt("character", character.ordinal());
+        nbt.putInt("character", state.character.ordinal());
  
         super.writeNbt(nbt);
     }
@@ -24,6 +29,11 @@ public class LargeSignBlockEntity extends BlockEntity {
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
  
-        character = LargeSignCharacter.values()[nbt.getInt("character")];
+        state.character = LargeSignCharacter.values()[nbt.getInt("character")];
     }
+    
+    @Override
+    public Object getRenderData() {
+		return state;
+	}
 }
