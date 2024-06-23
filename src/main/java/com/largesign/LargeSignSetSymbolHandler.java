@@ -15,17 +15,19 @@ public class LargeSignSetSymbolHandler implements ServerPlayNetworking.PlayChann
 	@Override
 	public void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
 			PacketByteBuf buf, PacketSender responseSender) {
-		BlockPos pos = buf.readBlockPos();
-		String characterName = buf.readString();
-		LargeSignCharacter character = LargeSignCharacter.valueOf(characterName);
-
-		World world = player.getWorld();
-		BlockState blockState = world.getBlockState(pos);
-		if (blockState.getBlock() instanceof LargeSignBlock) {
-			System.out.println("JORDAN setting block entity: " + world.asString() + " - " + pos.toShortString());
-			LargeSignBlockEntity blockEntity = (LargeSignBlockEntity) world.getBlockEntity(pos);
-			blockEntity.character = character;
-		}
+		server.execute(() -> {
+			BlockPos pos = buf.readBlockPos();
+			String characterName = buf.readString();
+			LargeSignCharacter character = LargeSignCharacter.valueOf(characterName);
+	
+			World world = player.getWorld();
+			BlockState blockState = world.getBlockState(pos);
+			if (blockState.getBlock() instanceof LargeSignBlock) {
+				System.out.println("JORDAN setting block entity: " + world.asString() + " - " + pos.toShortString() + " to: " + character.getDescription());
+				LargeSignBlockEntity blockEntity = (LargeSignBlockEntity) world.getBlockEntity(pos);
+				blockEntity.character = character;
+			}
+		});
 	}
 
 }
