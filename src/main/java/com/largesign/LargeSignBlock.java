@@ -57,6 +57,7 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 	// Network packets
 	public static final Identifier LARGE_SIGN_SCREEN_OPEN_PACKET_ID = new Identifier(LargeSign.MOD_ID, "large_sign_screen_open");
 	public static final Identifier LARGE_SIGN_SET_SYMBOL_PACKET_ID = new Identifier(LargeSign.MOD_ID, "large_sign_set_symbol");
+	public static final Identifier LARGE_SIGN_REFRESH_MODEL_PACKET_ID = new Identifier(LargeSign.MOD_ID, "large_sign_refresh_model");
 	
 	public LargeSignBlock(Settings settings) {
         super(settings);
@@ -97,7 +98,6 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		if (hand == Hand.MAIN_HAND && !world.isClient() && player instanceof ServerPlayerEntity serverPlayer) {
 			LargeSignBlockEntity blockEntity = (LargeSignBlockEntity) world.getBlockEntity(pos);
-			System.out.println("JORDAN state: " + blockEntity.toString());
 			System.out.println("JORDAN there is char " + blockEntity.character.getDescription() + " at " + pos.toShortString());
 			
 			PacketByteBuf buf = PacketByteBufs.create();

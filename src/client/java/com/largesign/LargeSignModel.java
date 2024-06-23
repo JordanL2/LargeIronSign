@@ -152,7 +152,6 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 		Direction direction = state.get(LargeSignBlock.FACING);
 		LargeSignBlockEntity entityState = (LargeSignBlockEntity) 
 				((FabricBlockView)blockView).getBlockEntityRenderData(pos);
-		System.out.println("JORDAN state: " + entityState.toString());
 		LargeSignCharacter character = entityState.character;
 		System.out.println("JORDAN rendering char " + character.getDescription() + " at " + pos.toShortString());
 		Mesh mesh = buildMesh(direction, character);

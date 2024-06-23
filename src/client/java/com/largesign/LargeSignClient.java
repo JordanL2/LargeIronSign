@@ -14,6 +14,9 @@ public class LargeSignClient implements ClientModInitializer {
 		ClientPlayNetworking.registerGlobalReceiver(
 				LargeSignBlock.LARGE_SIGN_SCREEN_OPEN_PACKET_ID, 
 				new LargeSignScreenOpenHandler());
+		ClientPlayNetworking.registerGlobalReceiver(
+				LargeSignBlock.LARGE_SIGN_REFRESH_MODEL_PACKET_ID, 
+				new LargeSignRefreshModelHandler());
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.largesign;
 
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Block;
@@ -29,6 +30,10 @@ public class LargeSignSetSymbolHandler implements ServerPlayNetworking.PlayChann
 				blockEntity.character = character;
 				blockEntity.markDirty();
 				world.updateListeners(pos, blockState, blockState, Block.NOTIFY_LISTENERS);
+				
+				PacketByteBuf sendBuf = PacketByteBufs.create();
+				sendBuf.writeBlockPos(pos);
+				ServerPlayNetworking.send(player, LargeSignBlock.LARGE_SIGN_REFRESH_MODEL_PACKET_ID, sendBuf);
 			}
 		});
 	}
