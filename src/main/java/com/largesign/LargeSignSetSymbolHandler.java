@@ -33,6 +33,7 @@ public class LargeSignSetSymbolHandler implements ServerPlayNetworking.PlayChann
 				
 				PacketByteBuf sendBuf = PacketByteBufs.create();
 				sendBuf.writeBlockPos(pos);
+				sendBuf.writeEnumConstant(character);
 				ServerPlayNetworking.send(player, LargeSignBlock.LARGE_SIGN_REFRESH_MODEL_PACKET_ID, sendBuf);
 			}
 		});
