@@ -24,7 +24,6 @@ import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.render.model.Baker;
@@ -168,19 +167,16 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 		Direction direction = state.get(LargeSignBlock.FACING);
 		LargeSignBlockEntity entityState = (LargeSignBlockEntity) 
 				((FabricBlockView)blockView).getBlockEntityRenderData(pos);
-		LargeSignCharacter character = entityState.character;
-		Mesh mesh = buildMesh(direction, character);
+		Mesh mesh = buildMesh(direction, entityState.character, entityState.foreground, entityState.background);
 		mesh.outputTo(context.getEmitter());
 	}
 	
-	private Mesh buildMesh(Direction direction, LargeSignCharacter character) {
+	private Mesh buildMesh(Direction direction, LargeSignCharacter character, int foreground, int background) {
 		Renderer renderer = RendererAccess.INSTANCE.getRenderer();
 		MeshBuilder builder = renderer.meshBuilder();
 		QuadEmitter emitter = builder.getEmitter();
 		
 		float depth = 0.001f;
-		int background = 0xff0000ff;
-		int font = 0xffff0000;
 		
 		// Front - Background
 		emitter.square(direction, 0.0f, 0.0f, 1.0f, 1.0f, 0.9375f);
@@ -192,7 +188,7 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 		emitter.square(direction, 0.0f, 0.0f, 1.0f, 1.0f, 0.9375f - depth);
 		emitter.spriteBake(sprites[character.ordinal()], MutableQuadView.BAKE_LOCK_UV);
 		emitter.material(cutoutMaterial);
-		emitter.color(font, font, font, font);
+		emitter.color(foreground, foreground, foreground, foreground);
 		emitter.emit();
 
 		// Back
@@ -236,7 +232,7 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 	 
     @Override
     public void emitItemQuads(ItemStack itemStack, Supplier<Random> randomSupplier, RenderContext context) {
-		Mesh mesh = buildMesh(Direction.NORTH, LargeSignCharacter.KEY_A);
+		Mesh mesh = buildMesh(Direction.NORTH, LargeSignCharacter.KEY_A, 0xff000000, 0xffffffff);
 		mesh.outputTo(context.getEmitter());
     }
     

@@ -17,6 +17,8 @@ import net.minecraft.util.math.BlockPos;
 public class LargeSignBlockEntity extends BlockEntity {
 	
 	public volatile LargeSignCharacter character = LargeSignCharacter.SPACE;
+	public volatile int foreground = 0xff000000;
+	public volatile int background = 0xffffffff;
     
 	public LargeSignBlockEntity(BlockPos pos, BlockState state) {
         super(LargeSign.LARGE_SIGN_BLOCK_ENTITY, pos, state);
