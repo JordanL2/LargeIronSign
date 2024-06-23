@@ -99,7 +99,7 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 		spriteBackground = textureGetter.apply(
 				new SpriteIdentifier(
 						PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, 
-						LargeSignCharacter.SPACE.getBlockIdentifier()));
+						new Identifier(LargeSign.MOD_ID, "block/large_sign_back")));
 		spriteEdge = textureGetter.apply(
 				new SpriteIdentifier(
 						PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, 
