@@ -5,7 +5,7 @@ import net.minecraft.util.math.Direction;
 
 public class DirectionUtil {
 	
-	private final Direction[] DIRECTIONS = new Direction[] {
+	public static final Direction[] DIRECTIONS = new Direction[] {
 			Direction.NORTH,
 			Direction.EAST,
 			Direction.SOUTH,

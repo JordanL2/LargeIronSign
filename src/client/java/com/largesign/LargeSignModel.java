@@ -34,6 +34,7 @@ import net.minecraft.world.BlockRenderView;
 public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedModel {
 	
 	private final Sprite[] sprites = new Sprite[LargeSignCharacter.values().length];
+	private Sprite spriteEdge;
 	
 	private final static DirectionUtil directionUtil = new DirectionUtil();
 	
@@ -58,6 +59,10 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 						character.getBlockIdentifier());
 			sprites[character.ordinal()] = textureGetter.apply(spriteId);
 		}
+		spriteEdge = textureGetter.apply(
+				new SpriteIdentifier(
+						SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, 
+						new Identifier(LargeSign.MOD_ID, "block/large_sign_edge")));
 		
 		return this;
 	}
@@ -129,6 +134,18 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 		// Back
 		emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R180), 0.0f, 0.0f, 1.0f, 1.0f, 0.0f);
 		emitter.spriteBake(sprites[LargeSignCharacter.SPACE.ordinal()], MutableQuadView.BAKE_LOCK_UV);
+		emitter.color(-1, -1, -1, -1);
+		emitter.emit();
+
+		// Left
+		emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R90), 0.0f, 0.0f, 0.0625f, 1.0f, 0.0f);
+		emitter.spriteBake(spriteEdge, MutableQuadView.BAKE_LOCK_UV);
+		emitter.color(-1, -1, -1, -1);
+		emitter.emit();
+
+		// Right
+		emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R270), 0.9375f, 0.0f, 1f, 1.0f, 0.0f);
+		emitter.spriteBake(spriteEdge, MutableQuadView.BAKE_LOCK_UV);
 		emitter.color(-1, -1, -1, -1);
 		emitter.emit();
 	}
