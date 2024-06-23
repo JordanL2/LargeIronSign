@@ -107,7 +107,7 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
     @Override
 	public BlockState getPlacementState(ItemPlacementContext ctx) {
 		return super.getPlacementState(ctx)
-				.with(Properties.HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing())
+				.with(Properties.HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite())
 				.with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).isOf(Fluids.WATER));
     }
 

@@ -22,6 +22,7 @@ import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.data.client.VariantSettings;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -33,6 +34,8 @@ import net.minecraft.world.BlockRenderView;
 public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedModel {
 	
 	private final Sprite[] sprites = new Sprite[LargeSignCharacter.values().length];
+	
+	private final static DirectionUtil directionUtil = new DirectionUtil();
 	
 
 	// UnbakedModel methods
@@ -114,10 +117,18 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 	public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
 		QuadEmitter emitter = context.getEmitter();
 		
+		Direction direction = state.get(LargeSignBlock.FACING);
 		LargeSignCharacter character = state.get(LargeSignBlock.CHAR);
 		
-		emitter.square(Direction.NORTH, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f);
+		// Front
+		emitter.square(direction, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f);
 		emitter.spriteBake(sprites[character.ordinal()], MutableQuadView.BAKE_LOCK_UV);
+		emitter.color(-1, -1, -1, -1);
+		emitter.emit();
+
+		// Back
+		emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R180), 0.0f, 0.0f, 1.0f, 1.0f, 0.0f);
+		emitter.spriteBake(sprites[LargeSignCharacter.SPACE.ordinal()], MutableQuadView.BAKE_LOCK_UV);
 		emitter.color(-1, -1, -1, -1);
 		emitter.emit();
 	}
