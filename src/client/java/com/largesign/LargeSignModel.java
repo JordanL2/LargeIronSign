@@ -150,7 +150,7 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 	@Override
 	public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
 		Direction direction = state.get(LargeSignBlock.FACING);
-		LargeSignBlockEntity.LargeSignBlockEntityState entityState = (LargeSignBlockEntity.LargeSignBlockEntityState) 
+		LargeSignBlockEntity entityState = (LargeSignBlockEntity) 
 				((FabricBlockView)blockView).getBlockEntityRenderData(pos);
 		System.out.println("JORDAN state: " + entityState.toString());
 		LargeSignCharacter character = entityState.character;
