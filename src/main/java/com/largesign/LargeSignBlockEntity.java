@@ -33,7 +33,9 @@ public class LargeSignBlockEntity extends BlockEntity {
 	 
     @Override
     public void writeNbt(NbtCompound nbt) {
-        nbt.putInt("character", character.ordinal());
+    	nbt.putInt("character", character.ordinal());
+    	nbt.putInt("foreground", foreground);
+        nbt.putInt("background", background);
  
         super.writeNbt(nbt);
     }
@@ -43,6 +45,8 @@ public class LargeSignBlockEntity extends BlockEntity {
         super.readNbt(nbt);
  
         character = LargeSignCharacter.values()[nbt.getInt("character")];
+        foreground = nbt.getInt("foreground");
+        background = nbt.getInt("background");
     }
     
     @Override
