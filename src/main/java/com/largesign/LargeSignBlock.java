@@ -65,7 +65,7 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 	public static final Identifier LARGE_SIGN_REFRESH_MODEL_PACKET_ID = new Identifier(LargeSign.MOD_ID, "large_sign_refresh_model");
 	
 	// Dyes
-	public static final Map<Item, Integer> FOREGROUND_DYES = Map.ofEntries(
+	public static final Map<Item, Integer> DYES = Map.ofEntries(
 			Map.entry(Items.BLACK_DYE, DyeColor.BLACK.getSignColor()),
 			Map.entry(Items.GRAY_DYE, DyeColor.GRAY.getSignColor()),
 			Map.entry(Items.LIGHT_GRAY_DYE, DyeColor.LIGHT_GRAY.getSignColor()),
@@ -121,11 +121,16 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 	@Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		if (hand == Hand.MAIN_HAND && !world.isClient() && player instanceof ServerPlayerEntity serverPlayer) {
-			Item item = player.getMainHandStack().getItem();
-			if (FOREGROUND_DYES.containsKey(item)) {
+			Item item1 = player.getMainHandStack().getItem();
+			Item item2 = player.getOffHandStack().getItem();
+			if (DYES.containsKey(item1) || DYES.containsKey(item2)) {
 				BlockEntity blockEntity = world.getBlockEntity(pos);
 				if (blockEntity != null && blockEntity instanceof LargeSignBlockEntity largeSignBlockEntity) {
-					largeSignBlockEntity.foreground = FOREGROUND_DYES.get(item) | 0xff000000;
+					if (DYES.containsKey(item1)) {
+						largeSignBlockEntity.foreground = DYES.get(item1) | 0xff000000;
+					} else {
+						largeSignBlockEntity.background = DYES.get(item2) | 0xff000000;
+					}
 					LargeSignBlockEntity.syncUpdateToClient(largeSignBlockEntity, pos, serverPlayer);
 				}
 				return ActionResult.SUCCESS;				
