@@ -25,7 +25,6 @@ public class LargeSignSetSymbolHandler implements ServerPlayNetworking.PlayChann
 			World world = player.getWorld();
 			BlockState blockState = world.getBlockState(pos);
 			if (blockState.getBlock() instanceof LargeSignBlock) {
-				System.out.println("JORDAN setting block entity: " + world.asString() + " - " + pos.toShortString() + " to: " + character.getDescription());
 				LargeSignBlockEntity blockEntity = (LargeSignBlockEntity) world.getBlockEntity(pos);
 				blockEntity.character = character;
 				blockEntity.markDirty();
