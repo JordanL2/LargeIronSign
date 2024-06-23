@@ -12,13 +12,14 @@ import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 
 public class LargeSignBlockEntity extends BlockEntity {
 	
 	public volatile LargeSignCharacter character = LargeSignCharacter.SPACE;
-	public volatile int foreground = 0xff000000;
-	public volatile int background = 0xffffffff;
+	public volatile int foreground = DyeColor.BLACK.getSignColor() | 0xff000000;
+	public volatile int background = DyeColor.WHITE.getSignColor() | 0xff000000;
     
 	public LargeSignBlockEntity(BlockPos pos, BlockState state) {
         super(LargeSign.LARGE_SIGN_BLOCK_ENTITY, pos, state);

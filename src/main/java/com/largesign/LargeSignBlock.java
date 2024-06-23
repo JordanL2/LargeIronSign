@@ -1,5 +1,7 @@
 package com.largesign;
 
+import java.util.Map;
+
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -26,6 +28,7 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
@@ -60,6 +63,25 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 	public static final Identifier LARGE_SIGN_SCREEN_OPEN_PACKET_ID = new Identifier(LargeSign.MOD_ID, "large_sign_screen_open");
 	public static final Identifier LARGE_SIGN_SET_SYMBOL_PACKET_ID = new Identifier(LargeSign.MOD_ID, "large_sign_set_symbol");
 	public static final Identifier LARGE_SIGN_REFRESH_MODEL_PACKET_ID = new Identifier(LargeSign.MOD_ID, "large_sign_refresh_model");
+	
+	// Dyes
+	public static final Map<Item, Integer> FOREGROUND_DYES = Map.ofEntries(
+			Map.entry(Items.BLACK_DYE, DyeColor.BLACK.getSignColor()),
+			Map.entry(Items.GRAY_DYE, DyeColor.GRAY.getSignColor()),
+			Map.entry(Items.LIGHT_GRAY_DYE, DyeColor.LIGHT_GRAY.getSignColor()),
+			Map.entry(Items.WHITE_DYE, DyeColor.WHITE.getSignColor()),
+			Map.entry(Items.RED_DYE, DyeColor.RED.getSignColor()),
+			Map.entry(Items.BROWN_DYE, DyeColor.BROWN.getSignColor()),
+			Map.entry(Items.ORANGE_DYE, DyeColor.ORANGE.getSignColor()),
+			Map.entry(Items.YELLOW_DYE, DyeColor.YELLOW.getSignColor()),
+			Map.entry(Items.LIME_DYE, DyeColor.LIME.getSignColor()),
+			Map.entry(Items.GREEN_DYE, DyeColor.GREEN.getSignColor()),
+			Map.entry(Items.CYAN_DYE, DyeColor.CYAN.getSignColor()),
+			Map.entry(Items.LIGHT_BLUE_DYE, DyeColor.LIGHT_BLUE.getSignColor()),
+			Map.entry(Items.BLUE_DYE, DyeColor.BLUE.getSignColor()),
+			Map.entry(Items.PURPLE_DYE, DyeColor.PURPLE.getSignColor()),
+			Map.entry(Items.MAGENTA_DYE, DyeColor.MAGENTA.getSignColor()),
+			Map.entry(Items.PINK_DYE, DyeColor.PINK.getSignColor()));
 	
 	public LargeSignBlock(Settings settings) {
         super(settings);
@@ -100,10 +122,10 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		if (hand == Hand.MAIN_HAND && !world.isClient() && player instanceof ServerPlayerEntity serverPlayer) {
 			Item item = player.getMainHandStack().getItem();
-			if (item.equals(Items.RED_DYE)) {
+			if (FOREGROUND_DYES.containsKey(item)) {
 				BlockEntity blockEntity = world.getBlockEntity(pos);
 				if (blockEntity != null && blockEntity instanceof LargeSignBlockEntity largeSignBlockEntity) {
-					largeSignBlockEntity.foreground = 0xffff0000;
+					largeSignBlockEntity.foreground = FOREGROUND_DYES.get(item) | 0xff000000;
 					LargeSignBlockEntity.syncUpdateToClient(largeSignBlockEntity, pos, serverPlayer);
 				}
 				return ActionResult.SUCCESS;				
