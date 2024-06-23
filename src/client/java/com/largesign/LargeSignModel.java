@@ -7,9 +7,14 @@ import java.util.function.Supplier;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.renderer.v1.Renderer;
+import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
+import net.fabricmc.fabric.api.renderer.v1.mesh.Mesh;
+import net.fabricmc.fabric.api.renderer.v1.mesh.MeshBuilder;
 import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
 import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
 import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
+import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.model.BakedModel;
@@ -89,7 +94,7 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 
 	@Override
 	public boolean isSideLit() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -104,12 +109,12 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 
 	@Override
 	public ModelTransformation getTransformation() {
-		return null;
+		return ModelHelper.MODEL_TRANSFORM_BLOCK;
 	}
 
 	@Override
 	public ModelOverrideList getOverrides() {
-		return null;
+		return ModelOverrideList.EMPTY;
 	}
 		
 	
@@ -122,10 +127,16 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 	
 	@Override
 	public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
-		QuadEmitter emitter = context.getEmitter();
-		
 		Direction direction = state.get(LargeSignBlock.FACING);
 		LargeSignCharacter character = state.get(LargeSignBlock.CHAR);
+		Mesh mesh = buildMesh(direction, character);
+		mesh.outputTo(context.getEmitter());
+	}
+	
+	private Mesh buildMesh(Direction direction, LargeSignCharacter character) {
+		Renderer renderer = RendererAccess.INSTANCE.getRenderer();
+		MeshBuilder builder = renderer.meshBuilder();
+		QuadEmitter emitter = builder.getEmitter();
 		
 		// Front
 		emitter.square(direction, 0.0f, 0.0f, 1.0f, 1.0f, 0.9375f);
@@ -167,11 +178,15 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 				(float)shape.getMax(Axis.X), (float)shape.getMax(Axis.Z), 0.0f);
 		emitter.spriteBake(spriteEdge, MutableQuadView.BAKE_LOCK_UV);
 		emitter.color(-1, -1, -1, -1);
-		emitter.emit();
+		emitter.emit();	
+		
+		return builder.build();
 	}
 	 
     @Override
-    public void emitItemQuads(ItemStack itemStack, Supplier<Random> supplier, RenderContext renderContext) {
+    public void emitItemQuads(ItemStack itemStack, Supplier<Random> randomSupplier, RenderContext context) {
+		Mesh mesh = buildMesh(Direction.NORTH, LargeSignCharacter.KEY_A);
+		mesh.outputTo(context.getEmitter());
     }
     
 }
