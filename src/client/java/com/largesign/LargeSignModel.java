@@ -29,10 +29,10 @@ import net.minecraft.client.render.model.json.ModelOverrideList;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.render.model.json.Transformation;
 import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.data.client.VariantSettings;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -84,13 +84,13 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 
 		// Load sprites
 		for (LargeSignCharacter character : LargeSignCharacter.values()) {
-			SpriteIdentifier spriteId = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE,
+			SpriteIdentifier spriteId = new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
 						character.getBlockIdentifier());
 			sprites[character.ordinal()] = textureGetter.apply(spriteId);
 		}
 		spriteEdge = textureGetter.apply(
 				new SpriteIdentifier(
-						SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, 
+						PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, 
 						new Identifier(LargeSign.MOD_ID, "block/large_sign_edge")));
 		
 		return this;

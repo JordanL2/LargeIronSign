@@ -3,7 +3,6 @@ package com.largesign;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
-import net.minecraft.client.util.ModelIdentifier;
 
 @Environment(EnvType.CLIENT)
 public class LargeSignModelLoadingPlugin implements ModelLoadingPlugin {
