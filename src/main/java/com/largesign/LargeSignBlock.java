@@ -63,7 +63,7 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 	public LargeSignBlock(Settings settings) {
         super(settings);
         setDefaultState(getDefaultState()
-        		.with(Properties.HORIZONTAL_FACING, Direction.NORTH)
+        		.with(FACING, Direction.NORTH)
         		.with(WATERLOGGED, false)
         		.with(CHAR, LargeSignCharacter.SPACE));
 	}

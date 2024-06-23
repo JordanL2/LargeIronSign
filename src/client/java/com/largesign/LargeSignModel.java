@@ -54,10 +54,9 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 			SpriteIdentifier spriteId = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE,
 						character.getBlockIdentifier());
 			sprites[character.ordinal()] = textureGetter.apply(spriteId);
-			System.out.println("JORDAN CREATING TEXTURE FOR " + character.name());
 		}
 		
-		return null;
+		return this;
 	}
 
 
@@ -114,14 +113,13 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 	@Override
 	public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
 		QuadEmitter emitter = context.getEmitter();
-		System.out.println("JORDAN Rendering....");
+		
+		LargeSignCharacter character = state.get(LargeSignBlock.CHAR);
 		
 		emitter.square(Direction.NORTH, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f);
-		emitter.spriteBake(sprites[LargeSignCharacter.KEY_A.ordinal()], MutableQuadView.BAKE_LOCK_UV);
+		emitter.spriteBake(sprites[character.ordinal()], MutableQuadView.BAKE_LOCK_UV);
 		emitter.color(-1, -1, -1, -1);
 		emitter.emit();
-		
-		//VanillaModelEncoder.emitBlockQuads((BakedModel) this, state, randomSupplier, context, context.getEmitter());
 	}
 	 
     @Override
