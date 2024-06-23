@@ -27,7 +27,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Direction.Axis;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockRenderView;
 
 @Environment(EnvType.CLIENT)
@@ -145,6 +147,24 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 
 		// Right
 		emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R270), 0.9375f, 0.0f, 1f, 1.0f, 0.0f);
+		emitter.spriteBake(spriteEdge, MutableQuadView.BAKE_LOCK_UV);
+		emitter.color(-1, -1, -1, -1);
+		emitter.emit();
+		
+		VoxelShape shape = LargeSignBlock.getOutlineShape(direction);
+		
+		// Up
+		emitter.square(Direction.UP, 
+				(float)shape.getMin(Axis.X), 1f - (float)shape.getMax(Axis.Z), 
+				(float)shape.getMax(Axis.X), 1f - (float)shape.getMin(Axis.Z), 0.0f);
+		emitter.spriteBake(spriteEdge, MutableQuadView.BAKE_LOCK_UV);
+		emitter.color(-1, -1, -1, -1);
+		emitter.emit();
+		
+		// Down
+		emitter.square(Direction.DOWN, 
+				(float)shape.getMin(Axis.X), (float)shape.getMin(Axis.Z), 
+				(float)shape.getMax(Axis.X), (float)shape.getMax(Axis.Z), 0.0f);
 		emitter.spriteBake(spriteEdge, MutableQuadView.BAKE_LOCK_UV);
 		emitter.color(-1, -1, -1, -1);
 		emitter.emit();

@@ -79,7 +79,11 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 	@Override
     public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
 		Direction dir = state.get(FACING);
-		switch(dir) {
+		return LargeSignBlock.getOutlineShape(dir);
+    }
+	
+	public static VoxelShape getOutlineShape(Direction dir) {
+		switch (dir) {
 			case NORTH:
 				return VoxelShapes.cuboid(0f, 0f, 0.9375f, 1f, 1f, 1f);
 			case SOUTH:
@@ -91,7 +95,7 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 			default:
 				return VoxelShapes.fullCube();
 		}
-    }
+	}
 
 	@Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
