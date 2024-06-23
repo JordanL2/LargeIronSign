@@ -149,7 +149,8 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 	@Override
 	public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
 		Direction direction = state.get(LargeSignBlock.FACING);
-		LargeSignCharacter character = state.get(LargeSignBlock.CHAR);
+		LargeSignBlockEntity blockEntity = (LargeSignBlockEntity) blockView.getBlockEntity(pos);
+		LargeSignCharacter character = blockEntity == null ? LargeSignCharacter.KEY_0 : blockEntity.character;
 		Mesh mesh = buildMesh(direction, character);
 		mesh.outputTo(context.getEmitter());
 	}

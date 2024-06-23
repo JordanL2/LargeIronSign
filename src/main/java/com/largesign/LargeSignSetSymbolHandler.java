@@ -7,7 +7,6 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -16,23 +15,16 @@ public class LargeSignSetSymbolHandler implements ServerPlayNetworking.PlayChann
 	@Override
 	public void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
 			PacketByteBuf buf, PacketSender responseSender) {
-		Identifier worldValue = buf.readIdentifier();
-		World world = null;
-		for (World thisWorld : server.getWorlds()) {
-			if (thisWorld.getRegistryKey().getValue().equals(worldValue)) {
-				world = thisWorld;
-				break;
-			}
-		}
-		
 		BlockPos pos = buf.readBlockPos();
-				
 		String characterName = buf.readString();
 		LargeSignCharacter character = LargeSignCharacter.valueOf(characterName);
 
+		World world = player.getWorld();
 		BlockState blockState = world.getBlockState(pos);
 		if (blockState.getBlock() instanceof LargeSignBlock) {
-			world.setBlockState(pos, blockState.with(LargeSignBlock.CHAR, character));
+			System.out.println("JORDAN setting block entity: " + world.asString() + " - " + pos.toShortString());
+			LargeSignBlockEntity blockEntity = (LargeSignBlockEntity) world.getBlockEntity(pos);
+			blockEntity.character = character;
 		}
 	}
 

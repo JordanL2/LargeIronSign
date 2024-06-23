@@ -87,6 +87,3 @@ publishing {
 	}
 }
 
-fabricApi {
-    configureDataGeneration()
-}

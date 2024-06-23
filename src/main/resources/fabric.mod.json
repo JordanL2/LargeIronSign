@@ -15,9 +15,6 @@
 	"icon": "assets/largesign/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"fabric-datagen": [
-      		"com.largesign.LargeSignDataGenerator"
-    	],
 		"main": [
 			"com.largesign.LargeSign"
 		],

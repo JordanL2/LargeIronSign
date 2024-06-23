@@ -22,7 +22,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -41,7 +40,6 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 	// BlockState properties
 	public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
-	public static final EnumProperty<LargeSignCharacter> CHAR = EnumProperty.of("char", LargeSignCharacter.class);
 	
 	// Block ID, block and item singletons
 	public static final Identifier ID = new Identifier(LargeSign.MOD_ID, "large_sign");
@@ -64,16 +62,14 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
         super(settings);
         setDefaultState(getDefaultState()
         		.with(FACING, Direction.NORTH)
-        		.with(WATERLOGGED, false)
-        		.with(CHAR, LargeSignCharacter.SPACE));
+        		.with(WATERLOGGED, false));
 	}
 	
 	@Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		builder.add(
 				FACING,
-				WATERLOGGED,
-				CHAR);
+				WATERLOGGED);
     }
 	
 	@Override
@@ -100,8 +96,16 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 	@Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		if (hand == Hand.MAIN_HAND && !world.isClient() && player instanceof ServerPlayerEntity serverPlayer) {
+			System.out.println("JORDAN onUse : " + world.asString() + " - " + pos.toShortString());
+			System.out.println("JORDAN getting block entity...");
+			LargeSignBlockEntity blockEntity = (LargeSignBlockEntity) world.getBlockEntity(pos);
+			if (blockEntity == null) {
+				System.out.println("JORDAN block entity is null");
+			} else {
+				System.out.println("JORDAN block entity is NOT null");
+				System.out.println("JORDAN block entity char: " + blockEntity.character.getDescription());
+			}
 			PacketByteBuf buf = PacketByteBufs.create();
-			buf.writeIdentifier(world.getRegistryKey().getValue());
 			buf.writeBlockPos(pos);
 			ServerPlayNetworking.send(serverPlayer, LARGE_SIGN_SCREEN_OPEN_PACKET_ID, buf);
 		}

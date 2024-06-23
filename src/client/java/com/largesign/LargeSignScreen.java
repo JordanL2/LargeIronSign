@@ -13,18 +13,15 @@ import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 @Environment(EnvType.CLIENT)
 public class LargeSignScreen extends Screen {
 
-	private Identifier worldValue;
 	private BlockPos pos;
 
-	protected LargeSignScreen(Identifier worldValue, BlockPos pos) {
+	protected LargeSignScreen(BlockPos pos) {
 		super(Text.literal("Change Sign Symbol"));
-		this.worldValue = worldValue;
 		this.pos = pos;
 	}
 
@@ -70,7 +67,6 @@ public class LargeSignScreen extends Screen {
 				"Setting block " + pos.getX() + "," + pos.getY() + "," + pos.getZ()
 				+ " to " + character.getDescription());
 		PacketByteBuf buf = PacketByteBufs.create();
-		buf.writeIdentifier(worldValue);
 		buf.writeBlockPos(pos);
 		buf.writeString(character.name());
 		ClientPlayNetworking.send(LargeSignBlock.LARGE_SIGN_SET_SYMBOL_PACKET_ID, buf);
