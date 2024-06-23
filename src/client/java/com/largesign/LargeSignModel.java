@@ -2,6 +2,7 @@ package com.largesign;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -12,6 +13,9 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockview.v2.FabricBlockView;
 import net.fabricmc.fabric.api.renderer.v1.Renderer;
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
+import net.fabricmc.fabric.api.renderer.v1.material.BlendMode;
+import net.fabricmc.fabric.api.renderer.v1.material.MaterialFinder;
+import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
 import net.fabricmc.fabric.api.renderer.v1.mesh.Mesh;
 import net.fabricmc.fabric.api.renderer.v1.mesh.MeshBuilder;
 import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
@@ -20,6 +24,7 @@ import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.render.model.Baker;
@@ -45,6 +50,7 @@ import net.minecraft.world.BlockRenderView;
 public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedModel {
 	
 	private final Sprite[] sprites = new Sprite[LargeSignCharacter.values().length];
+	private Sprite spriteBackground;
 	private Sprite spriteEdge;
 	
 	private final static DirectionUtil directionUtil = new DirectionUtil();
@@ -86,8 +92,13 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 		for (LargeSignCharacter character : LargeSignCharacter.values()) {
 			SpriteIdentifier spriteId = new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
 						character.getBlockIdentifier());
+			//spriteId.getRenderLayer(RenderLayer.getCutout());
 			sprites[character.ordinal()] = textureGetter.apply(spriteId);
 		}
+		spriteBackground = textureGetter.apply(
+				new SpriteIdentifier(
+						PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, 
+						LargeSignCharacter.SPACE.getBlockIdentifier()));
 		spriteEdge = textureGetter.apply(
 				new SpriteIdentifier(
 						PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, 
@@ -162,15 +173,29 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 		MeshBuilder builder = renderer.meshBuilder();
 		QuadEmitter emitter = builder.getEmitter();
 		
-		// Front
+		MaterialFinder finder = Objects.requireNonNull(RendererAccess.INSTANCE.getRenderer()).materialFinder();
+		RenderMaterial renderMaterial = finder.blendMode(BlendMode.CUTOUT).find();
+		
+		float depth = 0.01f;
+		int background = 0xff0000ff;
+		int font = 0xffff0000;
+		
+		// Front - Background
 		emitter.square(direction, 0.0f, 0.0f, 1.0f, 1.0f, 0.9375f);
+		emitter.spriteBake(spriteBackground, MutableQuadView.BAKE_LOCK_UV);
+		emitter.color(background, background, background, background);
+		emitter.emit();
+		
+		// Front - Text
+		emitter.square(direction, 0.0f, 0.0f, 1.0f, 1.0f, 0.9375f - depth);
 		emitter.spriteBake(sprites[character.ordinal()], MutableQuadView.BAKE_LOCK_UV);
-		emitter.color(-1, -1, -1, -1);
+		emitter.material(renderMaterial);
+		emitter.color(font, font, font, font);
 		emitter.emit();
 
 		// Back
 		emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R180), 0.0f, 0.0f, 1.0f, 1.0f, 0.0f);
-		emitter.spriteBake(sprites[LargeSignCharacter.SPACE.ordinal()], MutableQuadView.BAKE_LOCK_UV);
+		emitter.spriteBake(spriteBackground, MutableQuadView.BAKE_LOCK_UV);
 		emitter.color(-1, -1, -1, -1);
 		emitter.emit();
 

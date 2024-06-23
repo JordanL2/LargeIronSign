@@ -20,15 +20,15 @@ public class LargeSignRefreshModelHandler implements ClientPlayNetworking.PlayCh
         client.execute(() -> {
         	ClientWorld world = client.world;
         	
-        	// Ensure block entity is updated before triggering re-render
         	BlockEntity blockEntity = world.getBlockEntity(pos);
         	if (blockEntity != null && blockEntity instanceof LargeSignBlockEntity largeSignBlockEntity) {
+        		// Update block entity
         		largeSignBlockEntity.character = character;
+
+        		// Trigger re-render
+            	BlockState blockState = world.getBlockState(pos);
+            	world.updateListeners(pos, blockState, blockState, Block.NOTIFY_LISTENERS);
         	}
-			
-        	// Trigger re-render
-        	BlockState blockState = world.getBlockState(pos);
-        	world.updateListeners(pos, blockState, blockState, Block.NOTIFY_LISTENERS);
         });
     }
 
