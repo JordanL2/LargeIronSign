@@ -16,7 +16,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
@@ -97,6 +99,16 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 	@Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		if (hand == Hand.MAIN_HAND && !world.isClient() && player instanceof ServerPlayerEntity serverPlayer) {
+			Item item = player.getMainHandStack().getItem();
+			if (item.equals(Items.RED_DYE)) {
+				BlockEntity blockEntity = world.getBlockEntity(pos);
+				if (blockEntity != null && blockEntity instanceof LargeSignBlockEntity largeSignBlockEntity) {
+					largeSignBlockEntity.foreground = 0xffff0000;
+					LargeSignBlockEntity.syncUpdateToClient(largeSignBlockEntity, pos, serverPlayer);
+				}
+				return ActionResult.SUCCESS;				
+			}
+			
 			PacketByteBuf buf = PacketByteBufs.create();
 			buf.writeBlockPos(pos);
 			ServerPlayNetworking.send(serverPlayer, LARGE_SIGN_SCREEN_OPEN_PACKET_ID, buf);

@@ -17,6 +17,8 @@ public class LargeSignRefreshModelHandler implements ClientPlayNetworking.PlayCh
     public void receive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
         BlockPos pos = buf.readBlockPos();
         LargeSignCharacter character = buf.readEnumConstant(LargeSignCharacter.class);
+        int foreground = buf.readInt();
+        int background = buf.readInt();
         client.execute(() -> {
         	ClientWorld world = client.world;
         	
@@ -24,6 +26,8 @@ public class LargeSignRefreshModelHandler implements ClientPlayNetworking.PlayCh
         	if (blockEntity != null && blockEntity instanceof LargeSignBlockEntity largeSignBlockEntity) {
         		// Update block entity
         		largeSignBlockEntity.character = character;
+        		largeSignBlockEntity.foreground = foreground;
+        		largeSignBlockEntity.background = background;
 
         		// Trigger re-render
             	BlockState blockState = world.getBlockState(pos);

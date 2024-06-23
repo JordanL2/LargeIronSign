@@ -28,6 +28,8 @@ public class LargeSignBlockEntity extends BlockEntity {
 		PacketByteBuf sendBuf = PacketByteBufs.create();
 		sendBuf.writeBlockPos(pos);
 		sendBuf.writeEnumConstant(blockEntity.character);
+		sendBuf.writeInt(blockEntity.foreground);
+		sendBuf.writeInt(blockEntity.background);
 		ServerPlayNetworking.send(player, LargeSignBlock.LARGE_SIGN_REFRESH_MODEL_PACKET_ID, sendBuf);
 	}
 	 
