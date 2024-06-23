@@ -99,7 +99,7 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 
 	@Override
 	public Sprite getParticleSprite() {
-		return null;
+		return sprites[LargeSignCharacter.SPACE.ordinal()];
 	}
 
 	@Override
