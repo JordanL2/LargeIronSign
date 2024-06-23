@@ -2,6 +2,7 @@ package com.largesign;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
@@ -27,6 +28,7 @@ public class LargeSignSetSymbolHandler implements ServerPlayNetworking.PlayChann
 				LargeSignBlockEntity blockEntity = (LargeSignBlockEntity) world.getBlockEntity(pos);
 				blockEntity.character = character;
 				blockEntity.markDirty();
+				world.updateListeners(pos, blockState, blockState, Block.NOTIFY_LISTENERS);
 			}
 		});
 	}
