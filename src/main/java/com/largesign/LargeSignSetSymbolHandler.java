@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
@@ -25,15 +26,20 @@ public class LargeSignSetSymbolHandler implements ServerPlayNetworking.PlayChann
 			World world = player.getWorld();
 			BlockState blockState = world.getBlockState(pos);
 			if (blockState.getBlock() instanceof LargeSignBlock) {
-				LargeSignBlockEntity blockEntity = (LargeSignBlockEntity) world.getBlockEntity(pos);
-				blockEntity.character = character;
-				blockEntity.markDirty();
-				world.updateListeners(pos, blockState, blockState, Block.NOTIFY_LISTENERS);
-				
-				PacketByteBuf sendBuf = PacketByteBufs.create();
-				sendBuf.writeBlockPos(pos);
-				sendBuf.writeEnumConstant(character);
-				ServerPlayNetworking.send(player, LargeSignBlock.LARGE_SIGN_REFRESH_MODEL_PACKET_ID, sendBuf);
+
+	        	BlockEntity blockEntity = world.getBlockEntity(pos);
+	        	if (blockEntity != null && blockEntity instanceof LargeSignBlockEntity largeSignBlockEntity) {
+	        		largeSignBlockEntity.character = character;
+	        		largeSignBlockEntity.markDirty();
+
+					world.updateListeners(pos, blockState, blockState, Block.NOTIFY_LISTENERS);
+					
+					// Trigger the client to update and refresh the block
+					PacketByteBuf sendBuf = PacketByteBufs.create();
+					sendBuf.writeBlockPos(pos);
+					sendBuf.writeEnumConstant(character);
+					ServerPlayNetworking.send(player, LargeSignBlock.LARGE_SIGN_REFRESH_MODEL_PACKET_ID, sendBuf);
+	        	}
 			}
 		});
 	}
