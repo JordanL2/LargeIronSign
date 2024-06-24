@@ -128,7 +128,8 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 				if (blockEntity != null && blockEntity instanceof LargeSignBlockEntity largeSignBlockEntity) {
 					if (DYES.containsKey(item1)) {
 						largeSignBlockEntity.foreground = DYES.get(item1) | 0xff000000;
-					} else {
+					}
+					if (DYES.containsKey(item2)) {
 						largeSignBlockEntity.background = DYES.get(item2) | 0xff000000;
 					}
 					LargeSignBlockEntity.syncUpdateToClient(largeSignBlockEntity, pos, serverPlayer);
