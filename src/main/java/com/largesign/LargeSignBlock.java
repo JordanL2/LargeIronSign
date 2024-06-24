@@ -120,9 +120,10 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 
 	@Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+		Item item1 = player.getMainHandStack().getItem();
+		Item item2 = player.getOffHandStack().getItem();
 		if (hand == Hand.MAIN_HAND && !world.isClient() && player instanceof ServerPlayerEntity serverPlayer) {
-			Item item1 = player.getMainHandStack().getItem();
-			Item item2 = player.getOffHandStack().getItem();
+			// If holding dye, apply foreground / background colour on sign
 			if (DYES.containsKey(item1) || DYES.containsKey(item2)) {
 				BlockEntity blockEntity = world.getBlockEntity(pos);
 				if (blockEntity != null && blockEntity instanceof LargeSignBlockEntity largeSignBlockEntity) {
@@ -137,10 +138,25 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 				return ActionResult.SUCCESS;				
 			}
 			
+			// Otherwise, open sign edit screen
 			PacketByteBuf buf = PacketByteBufs.create();
 			buf.writeBlockPos(pos);
 			ServerPlayNetworking.send(serverPlayer, LARGE_SIGN_SCREEN_OPEN_PACKET_ID, buf);
+			return ActionResult.SUCCESS;
 		}
+		
+		// If holding dye, ensure animation plays for correct hand
+		if (world.isClient()) {
+			if (DYES.containsKey(item1) || DYES.containsKey(item2)) {
+				if (hand == Hand.MAIN_HAND && DYES.containsKey(item1)) {
+					return ActionResult.SUCCESS;
+				} else if (hand == Hand.OFF_HAND && DYES.containsKey(item2)) {
+					return ActionResult.SUCCESS;
+				}
+				return ActionResult.PASS;
+			}
+		}
+		
 		return ActionResult.SUCCESS;
 	}
 	
