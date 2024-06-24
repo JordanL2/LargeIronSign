@@ -64,11 +64,11 @@ public enum LargeSignCharacter implements StringIdentifiable {
     }
     
     public Identifier getIdentifier() {
-    	return new Identifier(LargeSign.MOD_ID, "large_sign_" + this.asString());
+    	return new Identifier(LargeSign.MOD_ID, LargeSignBlock.PATH + this.getSuffix());
     }
     
-    public Identifier getBlockIdentifier() {
-    	return new Identifier(LargeSign.MOD_ID, "block/large_sign_" + this.asString());
+    public Identifier getBlockTextureIdentifier() {
+    	return new Identifier(LargeSign.MOD_ID, LargeSignBlock.BLOCK_PATH + this.getSuffix());
     }
     
     public String getSuffix() {

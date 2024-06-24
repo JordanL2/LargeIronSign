@@ -91,7 +91,7 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 		// Load sprites
 		for (LargeSignCharacter character : LargeSignCharacter.values()) {
 			SpriteIdentifier spriteId = new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
-						character.getBlockIdentifier());
+						character.getBlockTextureIdentifier());
 			//spriteId.getRenderLayer(RenderLayer.getCutout());
 			sprites[character.ordinal()] = textureGetter.apply(spriteId);
 		}

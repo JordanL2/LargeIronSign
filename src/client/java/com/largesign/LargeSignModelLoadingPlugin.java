@@ -15,30 +15,16 @@ public class LargeSignModelLoadingPlugin implements ModelLoadingPlugin {
 	
     @Override
     public void onInitializeModelLoader(Context pluginContext) {
-    
     	pluginContext.resolveModel().register(new ModelResolver() {
 			@Override
 			public @Nullable UnbakedModel resolveModel(Context context) {
-				//System.out.println("JORDAN resolving: " + context.id());
-	            if (context.id().getNamespace().equals(LargeSignBlock.ID.getNamespace())
-	            		&& context.id().getPath().equals("item/" + LargeSignBlock.ID.getPath())) {
-	            	//System.out.println("JORDAN resolve: " + context.id());
+	            if (context.id().getNamespace().equals(LargeSign.MOD_ID)
+	            		&& (context.id().getPath().equals(LargeSignBlock.BLOCK_PATH)
+	            		    || context.id().getPath().equals(LargeSignBlock.ITEM_PATH))) {
 	                return LARGE_SIGN_MODEL;
 	            }
 	            return null;
 			}
     	});
-        
-    	pluginContext.modifyModelOnLoad().register((original, context) -> {
-            if (context.id().getNamespace().equals(LargeSignBlock.ID.getNamespace())
-            		&& (context.id().getPath().equals(LargeSignBlock.ID.getPath())
-            				)) {
-            		 //|| context.id().getPath().equals(LargeSignBlock.ID.getPath()))) {
-            	//System.out.println("JORDAN onload: " + context.id());
-                return LARGE_SIGN_MODEL;
-            } else {
-            	return original;
-            }
-        });
     }
 }

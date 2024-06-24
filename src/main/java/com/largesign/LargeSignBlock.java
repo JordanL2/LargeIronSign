@@ -48,7 +48,10 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 	
 	// Block ID, block and item singletons
 	public static final String PATH = "large_sign";
+	public static final String BLOCK_PATH = "block/" + PATH;
+	public static final String ITEM_PATH = "item/" + PATH;
 	public static final Identifier ID = new Identifier(LargeSign.MOD_ID, PATH);
+	
 	public static final LargeSignBlock LARGE_SIGN_BLOCK = new LargeSignBlock(FabricBlockSettings.create()
 			.requiresTool()
 			.strength(1.5f, 6.0f));
