@@ -203,23 +203,44 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 
 		// Left
 		emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R90), 0.0f, 0.0f, 0.0625f, 1.0f, 0.0f);
-		emitter.spriteBake(spriteEdge, MutableQuadView.BAKE_LOCK_UV);
+		emitter.spriteBake(spriteEdge, MutableQuadView.BAKE_LOCK_UV | MutableQuadView.BAKE_ROTATE_270);
 		emitter.color(background, background, background, background);
 		emitter.emit();
 
 		// Right
 		emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R270), 0.9375f, 0.0f, 1f, 1.0f, 0.0f);
-		emitter.spriteBake(spriteEdge, MutableQuadView.BAKE_LOCK_UV);
+		emitter.spriteBake(spriteEdge, MutableQuadView.BAKE_LOCK_UV | MutableQuadView.BAKE_ROTATE_90);
 		emitter.color(background, background, background, background);
 		emitter.emit();
 		
 		VoxelShape shape = LargeSignBlock.getOutlineShape(direction);
 		
+		int upRotateFlag = 0;
+		int downRotateFlag = 0;
+		switch (direction) {
+			case NORTH:
+				upRotateFlag |= MutableQuadView.BAKE_ROTATE_180;
+				break;
+			case EAST:
+				upRotateFlag |= MutableQuadView.BAKE_ROTATE_270;
+				downRotateFlag |= MutableQuadView.BAKE_ROTATE_270;
+				break;
+			case SOUTH:
+				downRotateFlag |= MutableQuadView.BAKE_ROTATE_180;
+				break;
+			case WEST:
+				upRotateFlag |= MutableQuadView.BAKE_ROTATE_90;
+				downRotateFlag |= MutableQuadView.BAKE_ROTATE_90;
+				break;
+			default:
+				break;
+		}
+		
 		// Up
 		emitter.square(Direction.UP, 
 				(float)shape.getMin(Axis.X), 1f - (float)shape.getMax(Axis.Z), 
 				(float)shape.getMax(Axis.X), 1f - (float)shape.getMin(Axis.Z), 0.0f);
-		emitter.spriteBake(spriteEdge, MutableQuadView.BAKE_LOCK_UV);
+		emitter.spriteBake(spriteEdge, MutableQuadView.BAKE_LOCK_UV | upRotateFlag);
 		emitter.color(background, background, background, background);
 		emitter.emit();
 		
@@ -227,7 +248,7 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 		emitter.square(Direction.DOWN, 
 				(float)shape.getMin(Axis.X), (float)shape.getMin(Axis.Z), 
 				(float)shape.getMax(Axis.X), (float)shape.getMax(Axis.Z), 0.0f);
-		emitter.spriteBake(spriteEdge, MutableQuadView.BAKE_LOCK_UV);
+		emitter.spriteBake(spriteEdge, MutableQuadView.BAKE_LOCK_UV | downRotateFlag);
 		emitter.color(background, background, background, background);
 		emitter.emit();	
 		
