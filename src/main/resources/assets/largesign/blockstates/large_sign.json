@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "": { "model": "largesign:block/large_sign" }
+    }
+}
