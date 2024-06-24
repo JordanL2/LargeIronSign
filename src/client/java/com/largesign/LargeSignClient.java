@@ -8,7 +8,6 @@ public class LargeSignClient implements ClientModInitializer {
 	
 	@Override
 	public void onInitializeClient() {
-		//System.out.println("JORDAN REGISTERING MODEL");
 		ModelLoadingPlugin.register(new LargeSignModelLoadingPlugin());
 		
 		ClientPlayNetworking.registerGlobalReceiver(
