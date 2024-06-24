@@ -49,7 +49,8 @@ import net.minecraft.world.BlockRenderView;
 public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedModel {
 	
 	private final Sprite[] sprites = new Sprite[LargeSignCharacter.values().length];
-	private Sprite spriteBackground;
+	private Sprite spriteFront;
+	private Sprite spriteBack;
 	private Sprite spriteEdge;
 	
 	private final static DirectionUtil directionUtil = new DirectionUtil();
@@ -92,17 +93,20 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 		for (LargeSignCharacter character : LargeSignCharacter.values()) {
 			SpriteIdentifier spriteId = new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
 						character.getBlockTextureIdentifier());
-			//spriteId.getRenderLayer(RenderLayer.getCutout());
 			sprites[character.ordinal()] = textureGetter.apply(spriteId);
 		}
-		spriteBackground = textureGetter.apply(
+		spriteFront = textureGetter.apply(
 				new SpriteIdentifier(
 						PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, 
-						new Identifier(LargeSign.MOD_ID, "block/large_sign_back")));
+						LargeSignBlock.FRONT_TEXTURE));
+		spriteBack = textureGetter.apply(
+				new SpriteIdentifier(
+						PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, 
+						LargeSignBlock.BACK_TEXTURE));
 		spriteEdge = textureGetter.apply(
 				new SpriteIdentifier(
 						PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, 
-						new Identifier(LargeSign.MOD_ID, "block/large_sign_edge")));
+						LargeSignBlock.EDGE_TEXTURE));
 
 		// Find cutout material
 		MaterialFinder finder = Objects.requireNonNull(RendererAccess.INSTANCE.getRenderer()).materialFinder();
@@ -180,7 +184,7 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 		
 		// Front - Background
 		emitter.square(direction, 0.0f, 0.0f, 1.0f, 1.0f, 0.9375f);
-		emitter.spriteBake(spriteBackground, MutableQuadView.BAKE_LOCK_UV);
+		emitter.spriteBake(spriteFront, MutableQuadView.BAKE_LOCK_UV);
 		emitter.color(background, background, background, background);
 		emitter.emit();
 		
@@ -193,7 +197,7 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 
 		// Back
 		emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R180), 0.0f, 0.0f, 1.0f, 1.0f, 0.0f);
-		emitter.spriteBake(spriteBackground, MutableQuadView.BAKE_LOCK_UV);
+		emitter.spriteBake(spriteBack, MutableQuadView.BAKE_LOCK_UV);
 		emitter.color(background, background, background, background);
 		emitter.emit();
 

@@ -46,12 +46,13 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 	public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 	
-	// Block ID, block and item singletons
+	// IDs
 	public static final String PATH = "large_sign";
 	public static final String BLOCK_PATH = "block/" + PATH;
 	public static final String ITEM_PATH = "item/" + PATH;
 	public static final Identifier ID = new Identifier(LargeSign.MOD_ID, PATH);
 	
+	// Block and Item singletons
 	public static final LargeSignBlock LARGE_SIGN_BLOCK = new LargeSignBlock(FabricBlockSettings.create()
 			.requiresTool()
 			.strength(1.5f, 6.0f));
@@ -60,8 +61,9 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 			new FabricItemSettings());
 	
 	// Textures
-	public static final TextureKey EDGE = TextureKey.of("edge");
-	public static final TextureKey SYMBOL = TextureKey.of("symbol");
+	public static final Identifier EDGE_TEXTURE = new Identifier(LargeSign.MOD_ID, "block/large_sign_edge");
+	public static final Identifier BACK_TEXTURE = new Identifier(LargeSign.MOD_ID, "block/large_sign_back");
+	public static final Identifier FRONT_TEXTURE = new Identifier(LargeSign.MOD_ID, "block/large_sign_front");
 	
 	// Network packets
 	public static final Identifier LARGE_SIGN_SCREEN_OPEN_PACKET_ID = new Identifier(LargeSign.MOD_ID, "large_sign_screen_open");
