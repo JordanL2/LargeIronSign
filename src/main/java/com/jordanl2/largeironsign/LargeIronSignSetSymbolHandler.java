@@ -25,11 +25,11 @@ public class LargeIronSignSetSymbolHandler implements ServerPlayNetworking.PlayC
 			BlockState blockState = world.getBlockState(pos);
 			if (blockState.getBlock() instanceof LargeIronSignBlock) {
 	        	BlockEntity blockEntity = world.getBlockEntity(pos);
-	        	if (blockEntity != null && blockEntity instanceof LargeIronSignBlockEntity largeSignBlockEntity) {
-	        		largeSignBlockEntity.character = character;
-	        		largeSignBlockEntity.markDirty();
+	        	if (blockEntity != null && blockEntity instanceof LargeIronSignBlockEntity largeIronSignBlockEntity) {
+	        		largeIronSignBlockEntity.character = character;
+	        		largeIronSignBlockEntity.markDirty();
 					// Trigger the client to update and refresh the block
-	        		LargeIronSignBlockEntity.syncUpdateToClient(largeSignBlockEntity, pos, player);
+	        		LargeIronSignBlockEntity.syncUpdateToClient(largeIronSignBlockEntity, pos, player);
 	        	}
 			}
 		});

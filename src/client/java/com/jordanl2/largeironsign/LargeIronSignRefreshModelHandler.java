@@ -23,11 +23,11 @@ public class LargeIronSignRefreshModelHandler implements ClientPlayNetworking.Pl
         	ClientWorld world = client.world;
         	
         	BlockEntity blockEntity = world.getBlockEntity(pos);
-        	if (blockEntity != null && blockEntity instanceof LargeIronSignBlockEntity largeSignBlockEntity) {
+        	if (blockEntity != null && blockEntity instanceof LargeIronSignBlockEntity largeIronSignBlockEntity) {
         		// Update block entity
-        		largeSignBlockEntity.character = character;
-        		largeSignBlockEntity.foreground = foreground;
-        		largeSignBlockEntity.background = background;
+        		largeIronSignBlockEntity.character = character;
+        		largeIronSignBlockEntity.foreground = foreground;
+        		largeIronSignBlockEntity.background = background;
 
         		// Trigger re-render
             	BlockState blockState = world.getBlockState(pos);
