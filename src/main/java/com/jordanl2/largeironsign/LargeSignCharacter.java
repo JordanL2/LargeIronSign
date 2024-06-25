@@ -1,4 +1,4 @@
-package com.largesign;
+package com.jordanl2.largeironsign;
 
 import net.minecraft.util.Identifier;
 import net.minecraft.util.StringIdentifiable;

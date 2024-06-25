@@ -16,10 +16,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.largesign.LargeSign"
+			"com.jordanl2.largeironsign.LargeSign"
 		],
 		"client": [
-			"com.largesign.LargeSignClient"
+			"com.jordanl2.largeironsign.LargeSignClient"
 		]
 	},
 	"mixins": [

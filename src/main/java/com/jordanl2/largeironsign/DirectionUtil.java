@@ -1,4 +1,4 @@
-package com.largesign;
+package com.jordanl2.largeironsign;
 
 import net.minecraft.data.client.VariantSettings.Rotation;
 import net.minecraft.util.math.Direction;

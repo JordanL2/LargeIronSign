@@ -1,4 +1,4 @@
-package com.largesign;
+package com.jordanl2.largeironsign;
 
 import java.util.Collection;
 import java.util.List;

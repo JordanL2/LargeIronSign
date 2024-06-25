@@ -1,4 +1,4 @@
-package com.largesign;
+package com.jordanl2.largeironsign;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
