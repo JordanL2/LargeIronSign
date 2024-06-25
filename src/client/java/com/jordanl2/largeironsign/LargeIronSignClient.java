@@ -8,13 +8,15 @@ public class LargeIronSignClient implements ClientModInitializer {
 	
 	@Override
 	public void onInitializeClient() {
+		// Custom model loader
 		ModelLoadingPlugin.register(new LargeIronSignModelLoadingPlugin());
 		
+		// Network
 		ClientPlayNetworking.registerGlobalReceiver(
-				LargeIronSignBlock.LARGE_SIGN_SCREEN_OPEN_PACKET_ID, 
+				LargeIronSignBlock.LARGE_IRON_SIGN_SCREEN_OPEN_PACKET_ID, 
 				new LargeIronSignScreenOpenHandler());
 		ClientPlayNetworking.registerGlobalReceiver(
-				LargeIronSignBlock.LARGE_SIGN_REFRESH_MODEL_PACKET_ID, 
+				LargeIronSignBlock.LARGE_IRON_SIGN_REFRESH_MODEL_PACKET_ID, 
 				new LargeIronSignRefreshModelHandler());
 	}
 	

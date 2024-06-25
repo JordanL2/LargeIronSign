@@ -21,11 +21,11 @@ public class LargeIronSignBlockEntity extends BlockEntity {
 	public static final Identifier ID = new Identifier(LargeIronSign.MOD_ID, LargeIronSignBlock.PATH + "_block_entity");
 	
 	public volatile LargeIronSignCharacter character = LargeIronSignCharacter.SPACE;
-	public volatile int foreground = DyeColor.BLACK.getSignColor() | 0xff000000;
-	public volatile int background = DyeColor.WHITE.getSignColor() | 0xff000000;
+	public volatile int foreground = LargeIronSignBlock.DEFAULT_COLOUR_FOREGROUND;
+	public volatile int background = LargeIronSignBlock.DEFAULT_COLOUR_BACKGROUND;
     
 	public LargeIronSignBlockEntity(BlockPos pos, BlockState state) {
-        super(LargeIronSign.LARGE_SIGN_BLOCK_ENTITY, pos, state);
+        super(LargeIronSign.LARGE_IRON_SIGN_BLOCK_ENTITY, pos, state);
     }
 	
 	public static void syncUpdateToClient(LargeIronSignBlockEntity blockEntity, BlockPos pos, ServerPlayerEntity player) {
@@ -34,7 +34,7 @@ public class LargeIronSignBlockEntity extends BlockEntity {
 		sendBuf.writeEnumConstant(blockEntity.character);
 		sendBuf.writeInt(blockEntity.foreground);
 		sendBuf.writeInt(blockEntity.background);
-		ServerPlayNetworking.send(player, LargeIronSignBlock.LARGE_SIGN_REFRESH_MODEL_PACKET_ID, sendBuf);
+		ServerPlayNetworking.send(player, LargeIronSignBlock.LARGE_IRON_SIGN_REFRESH_MODEL_PACKET_ID, sendBuf);
 	}
 	 
     @Override

@@ -53,11 +53,11 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 	public static final Identifier ID = new Identifier(LargeIronSign.MOD_ID, PATH);
 	
 	// Block and Item singletons
-	public static final LargeIronSignBlock LARGE_SIGN_BLOCK = new LargeIronSignBlock(FabricBlockSettings.create()
+	public static final LargeIronSignBlock LARGE_IRON_SIGN_BLOCK = new LargeIronSignBlock(FabricBlockSettings.create()
 			.requiresTool()
 			.strength(1.5f, 6.0f));
-	public static final BlockItem LARGE_SIGN_BLOCK_ITEM = new BlockItem(
-			LargeIronSignBlock.LARGE_SIGN_BLOCK, 
+	public static final BlockItem LARGE_IRON_SIGN_BLOCK_ITEM = new BlockItem(
+			LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK, 
 			new FabricItemSettings());
 	
 	// Textures
@@ -66,28 +66,30 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 	public static final Identifier FRONT_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_front");
 	
 	// Network packets
-	public static final Identifier LARGE_SIGN_SCREEN_OPEN_PACKET_ID = new Identifier(LargeIronSign.MOD_ID, PATH + "_screen_open");
-	public static final Identifier LARGE_SIGN_SET_SYMBOL_PACKET_ID = new Identifier(LargeIronSign.MOD_ID, PATH + "_set_symbol");
-	public static final Identifier LARGE_SIGN_REFRESH_MODEL_PACKET_ID = new Identifier(LargeIronSign.MOD_ID, PATH + "_refresh_model");
+	public static final Identifier LARGE_IRON_SIGN_SCREEN_OPEN_PACKET_ID = new Identifier(LargeIronSign.MOD_ID, PATH + "_screen_open");
+	public static final Identifier LARGE_IRON_SIGN_SET_SYMBOL_PACKET_ID = new Identifier(LargeIronSign.MOD_ID, PATH + "_set_symbol");
+	public static final Identifier LARGE_IRON_SIGN_REFRESH_MODEL_PACKET_ID = new Identifier(LargeIronSign.MOD_ID, PATH + "_refresh_model");
 	
 	// Dyes
+	public static final int DEFAULT_COLOUR_FOREGROUND = DyeColor.BLACK.getSignColor() | 0xff000000;
+	public static final int DEFAULT_COLOUR_BACKGROUND = DyeColor.WHITE.getSignColor() | 0xff000000;
 	public static final Map<Item, Integer> DYES = Map.ofEntries(
-			Map.entry(Items.BLACK_DYE, DyeColor.BLACK.getSignColor()),
-			Map.entry(Items.GRAY_DYE, DyeColor.GRAY.getSignColor()),
-			Map.entry(Items.LIGHT_GRAY_DYE, DyeColor.LIGHT_GRAY.getSignColor()),
-			Map.entry(Items.WHITE_DYE, DyeColor.WHITE.getSignColor()),
-			Map.entry(Items.RED_DYE, DyeColor.RED.getSignColor()),
-			Map.entry(Items.BROWN_DYE, DyeColor.BROWN.getSignColor()),
-			Map.entry(Items.ORANGE_DYE, DyeColor.ORANGE.getSignColor()),
-			Map.entry(Items.YELLOW_DYE, DyeColor.YELLOW.getSignColor()),
-			Map.entry(Items.LIME_DYE, DyeColor.LIME.getSignColor()),
-			Map.entry(Items.GREEN_DYE, DyeColor.GREEN.getSignColor()),
-			Map.entry(Items.CYAN_DYE, DyeColor.CYAN.getSignColor()),
-			Map.entry(Items.LIGHT_BLUE_DYE, DyeColor.LIGHT_BLUE.getSignColor()),
-			Map.entry(Items.BLUE_DYE, DyeColor.BLUE.getSignColor()),
-			Map.entry(Items.PURPLE_DYE, DyeColor.PURPLE.getSignColor()),
-			Map.entry(Items.MAGENTA_DYE, DyeColor.MAGENTA.getSignColor()),
-			Map.entry(Items.PINK_DYE, DyeColor.PINK.getSignColor()));
+			Map.entry(Items.BLACK_DYE,      DyeColor.BLACK.getSignColor()      | 0xff000000),
+			Map.entry(Items.GRAY_DYE,       DyeColor.GRAY.getSignColor()       | 0xff000000),
+			Map.entry(Items.LIGHT_GRAY_DYE, DyeColor.LIGHT_GRAY.getSignColor() | 0xff000000),
+			Map.entry(Items.WHITE_DYE,      DyeColor.WHITE.getSignColor()      | 0xff000000),
+			Map.entry(Items.RED_DYE,        DyeColor.RED.getSignColor()        | 0xff000000),
+			Map.entry(Items.BROWN_DYE,      DyeColor.BROWN.getSignColor()      | 0xff000000),
+			Map.entry(Items.ORANGE_DYE,     DyeColor.ORANGE.getSignColor()     | 0xff000000),
+			Map.entry(Items.YELLOW_DYE,     DyeColor.YELLOW.getSignColor()     | 0xff000000),
+			Map.entry(Items.LIME_DYE,       DyeColor.LIME.getSignColor()       | 0xff000000),
+			Map.entry(Items.GREEN_DYE,      DyeColor.GREEN.getSignColor()      | 0xff000000),
+			Map.entry(Items.CYAN_DYE,       DyeColor.CYAN.getSignColor()       | 0xff000000),
+			Map.entry(Items.LIGHT_BLUE_DYE, DyeColor.LIGHT_BLUE.getSignColor() | 0xff000000),
+			Map.entry(Items.BLUE_DYE,       DyeColor.BLUE.getSignColor()       | 0xff000000),
+			Map.entry(Items.PURPLE_DYE,     DyeColor.PURPLE.getSignColor()     | 0xff000000),
+			Map.entry(Items.MAGENTA_DYE,    DyeColor.MAGENTA.getSignColor()    | 0xff000000),
+			Map.entry(Items.PINK_DYE,       DyeColor.PINK.getSignColor()       | 0xff000000));
 	
 	public LargeIronSignBlock(Settings settings) {
         super(settings);
@@ -134,10 +136,10 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 				BlockEntity blockEntity = world.getBlockEntity(pos);
 				if (blockEntity != null && blockEntity instanceof LargeIronSignBlockEntity largeIronSignBlockEntity) {
 					if (DYES.containsKey(item1)) {
-						largeIronSignBlockEntity.foreground = DYES.get(item1) | 0xff000000;
+						largeIronSignBlockEntity.foreground = DYES.get(item1);
 					}
 					if (DYES.containsKey(item2)) {
-						largeIronSignBlockEntity.background = DYES.get(item2) | 0xff000000;
+						largeIronSignBlockEntity.background = DYES.get(item2);
 					}
 					LargeIronSignBlockEntity.syncUpdateToClient(largeIronSignBlockEntity, pos, serverPlayer);
 				}
@@ -147,7 +149,7 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 			// Otherwise, open sign edit screen
 			PacketByteBuf buf = PacketByteBufs.create();
 			buf.writeBlockPos(pos);
-			ServerPlayNetworking.send(serverPlayer, LARGE_SIGN_SCREEN_OPEN_PACKET_ID, buf);
+			ServerPlayNetworking.send(serverPlayer, LARGE_IRON_SIGN_SCREEN_OPEN_PACKET_ID, buf);
 			return ActionResult.SUCCESS;
 		}
 		

@@ -69,7 +69,7 @@ public class LargeIronSignScreen extends Screen {
 		PacketByteBuf buf = PacketByteBufs.create();
 		buf.writeBlockPos(pos);
 		buf.writeString(character.name());
-		ClientPlayNetworking.send(LargeIronSignBlock.LARGE_SIGN_SET_SYMBOL_PACKET_ID, buf);
+		ClientPlayNetworking.send(LargeIronSignBlock.LARGE_IRON_SIGN_SET_SYMBOL_PACKET_ID, buf);
 		this.close();
 	}
 

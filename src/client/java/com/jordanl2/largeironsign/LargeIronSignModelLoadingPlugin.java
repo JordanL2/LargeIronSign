@@ -11,7 +11,7 @@ import net.minecraft.client.render.model.UnbakedModel;
 @Environment(EnvType.CLIENT)
 public class LargeIronSignModelLoadingPlugin implements ModelLoadingPlugin {
 	
-	public static final LargeIronSignModel LARGE_SIGN_MODEL = new LargeIronSignModel();
+	public static final LargeIronSignModel LARGE_IRON_SIGN_MODEL = new LargeIronSignModel();
 	
     @Override
     public void onInitializeModelLoader(Context pluginContext) {
@@ -21,7 +21,7 @@ public class LargeIronSignModelLoadingPlugin implements ModelLoadingPlugin {
 	            if (context.id().getNamespace().equals(LargeIronSign.MOD_ID)
 	            		&& (context.id().getPath().equals(LargeIronSignBlock.BLOCK_PATH)
 	            		    || context.id().getPath().equals(LargeIronSignBlock.ITEM_PATH))) {
-	                return LARGE_SIGN_MODEL;
+	                return LARGE_IRON_SIGN_MODEL;
 	            }
 	            return null;
 			}

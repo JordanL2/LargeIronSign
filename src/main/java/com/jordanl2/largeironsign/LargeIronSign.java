@@ -14,31 +14,32 @@ public class LargeIronSign implements ModInitializer {
 	
 	public static final String MOD_ID = "largeironsign";
 	
-    public static final BlockEntityType<LargeIronSignBlockEntity> LARGE_SIGN_BLOCK_ENTITY = Registry.register(
+	// Block entities
+    public static final BlockEntityType<LargeIronSignBlockEntity> LARGE_IRON_SIGN_BLOCK_ENTITY = Registry.register(
             Registries.BLOCK_ENTITY_TYPE,
             LargeIronSignBlockEntity.ID,
             FabricBlockEntityTypeBuilder.create(
             		LargeIronSignBlockEntity::new,
-            		LargeIronSignBlock.LARGE_SIGN_BLOCK).build());
+            		LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK).build());
 	
 	@Override
 	public void onInitialize() {
 		// Blocks
 		Registry.register(Registries.BLOCK, 
 				LargeIronSignBlock.ID, 
-				LargeIronSignBlock.LARGE_SIGN_BLOCK);
+				LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK);
 		
 		// Items
 		Registry.register(Registries.ITEM, 
 				LargeIronSignBlock.ID, 
-				LargeIronSignBlock.LARGE_SIGN_BLOCK_ITEM);
+				LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK_ITEM);
 	    ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(content -> {
-	    	content.add(LargeIronSignBlock.LARGE_SIGN_BLOCK_ITEM);
+	    	content.add(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK_ITEM);
 	    });
 	    
 	    // Network
 		ServerPlayNetworking.registerGlobalReceiver(
-				LargeIronSignBlock.LARGE_SIGN_SET_SYMBOL_PACKET_ID,
+				LargeIronSignBlock.LARGE_IRON_SIGN_SET_SYMBOL_PACKET_ID,
 				new LargeIronSignSetSymbolHandler());
 	}
 }

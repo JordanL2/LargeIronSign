@@ -257,7 +257,11 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 	 
     @Override
     public void emitItemQuads(ItemStack itemStack, Supplier<Random> randomSupplier, RenderContext context) {
-		Mesh mesh = buildMesh(Direction.NORTH, LargeIronSignCharacter.KEY_A, 0xff000000, 0xffffffff);
+		Mesh mesh = buildMesh(
+				Direction.NORTH, 
+				LargeIronSignCharacter.KEY_A, 
+				LargeIronSignBlock.DEFAULT_COLOUR_FOREGROUND, 
+				LargeIronSignBlock.DEFAULT_COLOUR_BACKGROUND);
 		mesh.outputTo(context.getEmitter());
     }
     
