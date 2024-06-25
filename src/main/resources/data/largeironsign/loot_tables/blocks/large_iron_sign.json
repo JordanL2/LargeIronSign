@@ -6,7 +6,7 @@
           "entries": [
             {
               "type": "minecraft:item",
-              "name": "largesign:large_sign"
+              "name": "largeironsign:large_iron_sign"
             }
           ],
           "conditions": [

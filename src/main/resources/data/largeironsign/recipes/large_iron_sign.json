@@ -4,5 +4,5 @@
     "ingredient": {
         "item": "minecraft:iron_block"
     },
-    "result": "largesign:large_sign"
+    "result": "largeironsign:large_iron_sign"
 }

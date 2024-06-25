@@ -47,7 +47,7 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 	
 	// IDs
-	public static final String PATH = "large_sign";
+	public static final String PATH = "large_iron_sign";
 	public static final String BLOCK_PATH = "block/" + PATH;
 	public static final String ITEM_PATH = "item/" + PATH;
 	public static final Identifier ID = new Identifier(LargeSign.MOD_ID, PATH);

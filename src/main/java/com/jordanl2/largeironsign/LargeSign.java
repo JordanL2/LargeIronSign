@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 
 public class LargeSign implements ModInitializer {
 	
-	public static final String MOD_ID = "largesign";
+	public static final String MOD_ID = "largeironsign";
 	
     public static final BlockEntityType<LargeSignBlockEntity> LARGE_SIGN_BLOCK_ENTITY = Registry.register(
             Registries.BLOCK_ENTITY_TYPE,

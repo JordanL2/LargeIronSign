@@ -22,7 +22,7 @@ loom {
     splitEnvironmentSourceSets()
 
 	mods {
-		"largesign" {
+		"largeironsign" {
 			sourceSet sourceSets.main
 			sourceSet sourceSets.client
 		}

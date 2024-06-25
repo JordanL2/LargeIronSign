@@ -6,7 +6,7 @@ import math
 # font file from: https://www.dafont.com/vcr-osd-mono.font
 font_path = ""
 font_name = "VCR_OSD_MONO_1.001.ttf"
-out_path = font_path + "src/main/resources/assets/largesign/textures/block/"
+out_path = font_path + "src/main/resources/assets/largeironsign/textures/block/"
 
 font_size = 21 # px
 font_color = "#000000" # HEX Black
@@ -36,6 +36,6 @@ for character in desired_characters:
 
     # Save the character as png
     try:
-        img.save(out_path + "large_sign_" + str(character).lower() + ".png")
+        img.save(out_path + "large_iron_sign_" + str(character).lower() + ".png")
     except:
         print(f"[-] Couldn't Save:\t{character}")
