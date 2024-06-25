@@ -3,7 +3,7 @@ package com.jordanl2.largeironsign;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.StringIdentifiable;
 
-public enum LargeSignCharacter implements StringIdentifiable {
+public enum LargeIronSignCharacter implements StringIdentifiable {
 	SPACE("space", "Space"),
 	KEY_A("a", "A"),
 	KEY_B("b", "B"),
@@ -45,7 +45,7 @@ public enum LargeSignCharacter implements StringIdentifiable {
 	private final String name;
 	private final String description;
 	
-	private LargeSignCharacter(String name, String description) {
+	private LargeIronSignCharacter(String name, String description) {
 		this.name = name;
 		this.description = description;
 	}
@@ -64,11 +64,11 @@ public enum LargeSignCharacter implements StringIdentifiable {
     }
     
     public Identifier getIdentifier() {
-    	return new Identifier(LargeSign.MOD_ID, LargeSignBlock.PATH + this.getSuffix());
+    	return new Identifier(LargeIronSign.MOD_ID, LargeIronSignBlock.PATH + this.getSuffix());
     }
     
     public Identifier getBlockTextureIdentifier() {
-    	return new Identifier(LargeSign.MOD_ID, LargeSignBlock.BLOCK_PATH + this.getSuffix());
+    	return new Identifier(LargeIronSign.MOD_ID, LargeIronSignBlock.BLOCK_PATH + this.getSuffix());
     }
     
     public String getSuffix() {
@@ -76,6 +76,6 @@ public enum LargeSignCharacter implements StringIdentifiable {
     }
     
     public Identifier getPath() {
-    	return new Identifier(LargeSign.MOD_ID, "block/" + LargeSignBlock.PATH + "_" + this.asString());
+    	return new Identifier(LargeIronSign.MOD_ID, "block/" + LargeIronSignBlock.PATH + "_" + this.asString());
     }
 }

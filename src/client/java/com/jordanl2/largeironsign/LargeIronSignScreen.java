@@ -16,11 +16,11 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 
 @Environment(EnvType.CLIENT)
-public class LargeSignScreen extends Screen {
+public class LargeIronSignScreen extends Screen {
 
 	private BlockPos pos;
 
-	protected LargeSignScreen(BlockPos pos) {
+	protected LargeIronSignScreen(BlockPos pos) {
 		super(Text.literal("Change Sign Symbol"));
 		this.pos = pos;
 	}
@@ -41,10 +41,10 @@ public class LargeSignScreen extends Screen {
 		int x = margin;
 		
 		int buttonsPerRow = ((width - minMargin - minMargin - buttonWidth) / (buttonWidth + space)) + 1;
-		int rows = (int) Math.ceil((float)LargeSignCharacter.values().length / (float)buttonsPerRow);
+		int rows = (int) Math.ceil((float)LargeIronSignCharacter.values().length / (float)buttonsPerRow);
 		int y = minMargin + (height - minMargin - minMargin - buttonHeight - ((rows - 1) * (buttonHeight + space))) / 2;
 		
-		for (LargeSignCharacter character : LargeSignCharacter.values()) {
+		for (LargeIronSignCharacter character : LargeIronSignCharacter.values()) {
 			ButtonWidget button = ButtonWidget.builder(Text.literal(character.getDescription()), a -> {
 				setBlockChar(character);
 			})
@@ -62,14 +62,14 @@ public class LargeSignScreen extends Screen {
 		}
 	}
 
-	private void setBlockChar(LargeSignCharacter character) {
+	private void setBlockChar(LargeIronSignCharacter character) {
 		System.out.println(
 				"Setting block " + pos.getX() + "," + pos.getY() + "," + pos.getZ()
 				+ " to " + character.getDescription());
 		PacketByteBuf buf = PacketByteBufs.create();
 		buf.writeBlockPos(pos);
 		buf.writeString(character.name());
-		ClientPlayNetworking.send(LargeSignBlock.LARGE_SIGN_SET_SYMBOL_PACKET_ID, buf);
+		ClientPlayNetworking.send(LargeIronSignBlock.LARGE_SIGN_SET_SYMBOL_PACKET_ID, buf);
 		this.close();
 	}
 

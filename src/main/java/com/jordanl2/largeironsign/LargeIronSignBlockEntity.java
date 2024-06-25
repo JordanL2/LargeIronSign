@@ -16,25 +16,25 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
-public class LargeSignBlockEntity extends BlockEntity {
+public class LargeIronSignBlockEntity extends BlockEntity {
 	
-	public static final Identifier ID = new Identifier(LargeSign.MOD_ID, LargeSignBlock.PATH + "_block_entity");
+	public static final Identifier ID = new Identifier(LargeIronSign.MOD_ID, LargeIronSignBlock.PATH + "_block_entity");
 	
-	public volatile LargeSignCharacter character = LargeSignCharacter.SPACE;
+	public volatile LargeIronSignCharacter character = LargeIronSignCharacter.SPACE;
 	public volatile int foreground = DyeColor.BLACK.getSignColor() | 0xff000000;
 	public volatile int background = DyeColor.WHITE.getSignColor() | 0xff000000;
     
-	public LargeSignBlockEntity(BlockPos pos, BlockState state) {
-        super(LargeSign.LARGE_SIGN_BLOCK_ENTITY, pos, state);
+	public LargeIronSignBlockEntity(BlockPos pos, BlockState state) {
+        super(LargeIronSign.LARGE_SIGN_BLOCK_ENTITY, pos, state);
     }
 	
-	public static void syncUpdateToClient(LargeSignBlockEntity blockEntity, BlockPos pos, ServerPlayerEntity player) {
+	public static void syncUpdateToClient(LargeIronSignBlockEntity blockEntity, BlockPos pos, ServerPlayerEntity player) {
 		PacketByteBuf sendBuf = PacketByteBufs.create();
 		sendBuf.writeBlockPos(pos);
 		sendBuf.writeEnumConstant(blockEntity.character);
 		sendBuf.writeInt(blockEntity.foreground);
 		sendBuf.writeInt(blockEntity.background);
-		ServerPlayNetworking.send(player, LargeSignBlock.LARGE_SIGN_REFRESH_MODEL_PACKET_ID, sendBuf);
+		ServerPlayNetworking.send(player, LargeIronSignBlock.LARGE_SIGN_REFRESH_MODEL_PACKET_ID, sendBuf);
 	}
 	 
     @Override
@@ -50,7 +50,7 @@ public class LargeSignBlockEntity extends BlockEntity {
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
  
-        character = LargeSignCharacter.values()[nbt.getInt("character")];
+        character = LargeIronSignCharacter.values()[nbt.getInt("character")];
         foreground = nbt.getInt("foreground");
         background = nbt.getInt("background");
     }

@@ -40,7 +40,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
-public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntityProvider, Waterloggable {
+public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEntityProvider, Waterloggable {
 	
 	// BlockState properties
 	public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
@@ -50,25 +50,25 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 	public static final String PATH = "large_iron_sign";
 	public static final String BLOCK_PATH = "block/" + PATH;
 	public static final String ITEM_PATH = "item/" + PATH;
-	public static final Identifier ID = new Identifier(LargeSign.MOD_ID, PATH);
+	public static final Identifier ID = new Identifier(LargeIronSign.MOD_ID, PATH);
 	
 	// Block and Item singletons
-	public static final LargeSignBlock LARGE_SIGN_BLOCK = new LargeSignBlock(FabricBlockSettings.create()
+	public static final LargeIronSignBlock LARGE_SIGN_BLOCK = new LargeIronSignBlock(FabricBlockSettings.create()
 			.requiresTool()
 			.strength(1.5f, 6.0f));
 	public static final BlockItem LARGE_SIGN_BLOCK_ITEM = new BlockItem(
-			LargeSignBlock.LARGE_SIGN_BLOCK, 
+			LargeIronSignBlock.LARGE_SIGN_BLOCK, 
 			new FabricItemSettings());
 	
 	// Textures
-	public static final Identifier EDGE_TEXTURE = new Identifier(LargeSign.MOD_ID, "block/" + PATH + "_edge");
-	public static final Identifier BACK_TEXTURE = new Identifier(LargeSign.MOD_ID, "block/" + PATH + "_back");
-	public static final Identifier FRONT_TEXTURE = new Identifier(LargeSign.MOD_ID, "block/" + PATH + "_front");
+	public static final Identifier EDGE_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_edge");
+	public static final Identifier BACK_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_back");
+	public static final Identifier FRONT_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_front");
 	
 	// Network packets
-	public static final Identifier LARGE_SIGN_SCREEN_OPEN_PACKET_ID = new Identifier(LargeSign.MOD_ID, PATH + "_screen_open");
-	public static final Identifier LARGE_SIGN_SET_SYMBOL_PACKET_ID = new Identifier(LargeSign.MOD_ID, PATH + "_set_symbol");
-	public static final Identifier LARGE_SIGN_REFRESH_MODEL_PACKET_ID = new Identifier(LargeSign.MOD_ID, PATH + "_refresh_model");
+	public static final Identifier LARGE_SIGN_SCREEN_OPEN_PACKET_ID = new Identifier(LargeIronSign.MOD_ID, PATH + "_screen_open");
+	public static final Identifier LARGE_SIGN_SET_SYMBOL_PACKET_ID = new Identifier(LargeIronSign.MOD_ID, PATH + "_set_symbol");
+	public static final Identifier LARGE_SIGN_REFRESH_MODEL_PACKET_ID = new Identifier(LargeIronSign.MOD_ID, PATH + "_refresh_model");
 	
 	// Dyes
 	public static final Map<Item, Integer> DYES = Map.ofEntries(
@@ -89,7 +89,7 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 			Map.entry(Items.MAGENTA_DYE, DyeColor.MAGENTA.getSignColor()),
 			Map.entry(Items.PINK_DYE, DyeColor.PINK.getSignColor()));
 	
-	public LargeSignBlock(Settings settings) {
+	public LargeIronSignBlock(Settings settings) {
         super(settings);
         setDefaultState(getDefaultState()
         		.with(FACING, Direction.NORTH)
@@ -106,7 +106,7 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 	@Override
     public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
 		Direction dir = state.get(FACING);
-		return LargeSignBlock.getOutlineShape(dir);
+		return LargeIronSignBlock.getOutlineShape(dir);
     }
 	
 	public static VoxelShape getOutlineShape(Direction dir) {
@@ -132,14 +132,14 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 			// If holding dye, apply foreground / background colour on sign
 			if (DYES.containsKey(item1) || DYES.containsKey(item2)) {
 				BlockEntity blockEntity = world.getBlockEntity(pos);
-				if (blockEntity != null && blockEntity instanceof LargeSignBlockEntity largeSignBlockEntity) {
+				if (blockEntity != null && blockEntity instanceof LargeIronSignBlockEntity largeSignBlockEntity) {
 					if (DYES.containsKey(item1)) {
 						largeSignBlockEntity.foreground = DYES.get(item1) | 0xff000000;
 					}
 					if (DYES.containsKey(item2)) {
 						largeSignBlockEntity.background = DYES.get(item2) | 0xff000000;
 					}
-					LargeSignBlockEntity.syncUpdateToClient(largeSignBlockEntity, pos, serverPlayer);
+					LargeIronSignBlockEntity.syncUpdateToClient(largeSignBlockEntity, pos, serverPlayer);
 				}
 				return ActionResult.SUCCESS;				
 			}
@@ -189,6 +189,6 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 
 	@Override
 	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-		return new LargeSignBlockEntity(pos, state);
+		return new LargeIronSignBlockEntity(pos, state);
 	}
 }

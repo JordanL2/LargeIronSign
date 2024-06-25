@@ -11,25 +11,25 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class LargeSignSetSymbolHandler implements ServerPlayNetworking.PlayChannelHandler {
+public class LargeIronSignSetSymbolHandler implements ServerPlayNetworking.PlayChannelHandler {
 
 	@Override
 	public void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
 			PacketByteBuf buf, PacketSender responseSender) {
 		BlockPos pos = buf.readBlockPos();
 		String characterName = buf.readString();
-		LargeSignCharacter character = LargeSignCharacter.valueOf(characterName);
+		LargeIronSignCharacter character = LargeIronSignCharacter.valueOf(characterName);
 
 		server.execute(() -> {
 			World world = player.getWorld();
 			BlockState blockState = world.getBlockState(pos);
-			if (blockState.getBlock() instanceof LargeSignBlock) {
+			if (blockState.getBlock() instanceof LargeIronSignBlock) {
 	        	BlockEntity blockEntity = world.getBlockEntity(pos);
-	        	if (blockEntity != null && blockEntity instanceof LargeSignBlockEntity largeSignBlockEntity) {
+	        	if (blockEntity != null && blockEntity instanceof LargeIronSignBlockEntity largeSignBlockEntity) {
 	        		largeSignBlockEntity.character = character;
 	        		largeSignBlockEntity.markDirty();
 					// Trigger the client to update and refresh the block
-	        		LargeSignBlockEntity.syncUpdateToClient(largeSignBlockEntity, pos, player);
+	        		LargeIronSignBlockEntity.syncUpdateToClient(largeSignBlockEntity, pos, player);
 	        	}
 			}
 		});

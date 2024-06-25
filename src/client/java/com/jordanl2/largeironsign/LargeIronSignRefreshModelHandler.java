@@ -11,19 +11,19 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 
-public class LargeSignRefreshModelHandler implements ClientPlayNetworking.PlayChannelHandler {
+public class LargeIronSignRefreshModelHandler implements ClientPlayNetworking.PlayChannelHandler {
 
     @Override
     public void receive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
         BlockPos pos = buf.readBlockPos();
-        LargeSignCharacter character = buf.readEnumConstant(LargeSignCharacter.class);
+        LargeIronSignCharacter character = buf.readEnumConstant(LargeIronSignCharacter.class);
         int foreground = buf.readInt();
         int background = buf.readInt();
         client.execute(() -> {
         	ClientWorld world = client.world;
         	
         	BlockEntity blockEntity = world.getBlockEntity(pos);
-        	if (blockEntity != null && blockEntity instanceof LargeSignBlockEntity largeSignBlockEntity) {
+        	if (blockEntity != null && blockEntity instanceof LargeIronSignBlockEntity largeSignBlockEntity) {
         		// Update block entity
         		largeSignBlockEntity.character = character;
         		largeSignBlockEntity.foreground = foreground;

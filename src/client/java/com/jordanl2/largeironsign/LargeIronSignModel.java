@@ -46,9 +46,9 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockRenderView;
 
 @Environment(EnvType.CLIENT)
-public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedModel {
+public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBakedModel {
 	
-	private final Sprite[] sprites = new Sprite[LargeSignCharacter.values().length];
+	private final Sprite[] sprites = new Sprite[LargeIronSignCharacter.values().length];
 	private Sprite spriteFront;
 	private Sprite spriteBack;
 	private Sprite spriteEdge;
@@ -90,7 +90,7 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 		transformation.gui.translation.add(0.2f, -0.1f, 0);
 
 		// Load sprites
-		for (LargeSignCharacter character : LargeSignCharacter.values()) {
+		for (LargeIronSignCharacter character : LargeIronSignCharacter.values()) {
 			SpriteIdentifier spriteId = new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
 						character.getBlockTextureIdentifier());
 			sprites[character.ordinal()] = textureGetter.apply(spriteId);
@@ -98,15 +98,15 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 		spriteFront = textureGetter.apply(
 				new SpriteIdentifier(
 						PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, 
-						LargeSignBlock.FRONT_TEXTURE));
+						LargeIronSignBlock.FRONT_TEXTURE));
 		spriteBack = textureGetter.apply(
 				new SpriteIdentifier(
 						PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, 
-						LargeSignBlock.BACK_TEXTURE));
+						LargeIronSignBlock.BACK_TEXTURE));
 		spriteEdge = textureGetter.apply(
 				new SpriteIdentifier(
 						PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, 
-						LargeSignBlock.EDGE_TEXTURE));
+						LargeIronSignBlock.EDGE_TEXTURE));
 
 		// Find cutout material
 		MaterialFinder finder = Objects.requireNonNull(RendererAccess.INSTANCE.getRenderer()).materialFinder();
@@ -145,7 +145,7 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 
 	@Override
 	public Sprite getParticleSprite() {
-		return sprites[LargeSignCharacter.SPACE.ordinal()];
+		return sprites[LargeIronSignCharacter.SPACE.ordinal()];
 	}
 
 	@Override
@@ -168,14 +168,14 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 	
 	@Override
 	public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
-		Direction direction = state.get(LargeSignBlock.FACING);
-		LargeSignBlockEntity entityState = (LargeSignBlockEntity) 
+		Direction direction = state.get(LargeIronSignBlock.FACING);
+		LargeIronSignBlockEntity entityState = (LargeIronSignBlockEntity) 
 				((FabricBlockView)blockView).getBlockEntityRenderData(pos);
 		Mesh mesh = buildMesh(direction, entityState.character, entityState.foreground, entityState.background);
 		mesh.outputTo(context.getEmitter());
 	}
 	
-	private Mesh buildMesh(Direction direction, LargeSignCharacter character, int foreground, int background) {
+	private Mesh buildMesh(Direction direction, LargeIronSignCharacter character, int foreground, int background) {
 		Renderer renderer = RendererAccess.INSTANCE.getRenderer();
 		MeshBuilder builder = renderer.meshBuilder();
 		QuadEmitter emitter = builder.getEmitter();
@@ -213,7 +213,7 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 		emitter.color(-1, -1, -1, -1);
 		emitter.emit();
 		
-		VoxelShape shape = LargeSignBlock.getOutlineShape(direction);
+		VoxelShape shape = LargeIronSignBlock.getOutlineShape(direction);
 		
 		int upRotateFlag = 0;
 		int downRotateFlag = 0;
@@ -257,7 +257,7 @@ public class LargeSignModel implements UnbakedModel, BakedModel, FabricBakedMode
 	 
     @Override
     public void emitItemQuads(ItemStack itemStack, Supplier<Random> randomSupplier, RenderContext context) {
-		Mesh mesh = buildMesh(Direction.NORTH, LargeSignCharacter.KEY_A, 0xff000000, 0xffffffff);
+		Mesh mesh = buildMesh(Direction.NORTH, LargeIronSignCharacter.KEY_A, 0xff000000, 0xffffffff);
 		mesh.outputTo(context.getEmitter());
     }
     

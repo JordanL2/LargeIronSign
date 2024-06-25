@@ -10,35 +10,35 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
-public class LargeSign implements ModInitializer {
+public class LargeIronSign implements ModInitializer {
 	
 	public static final String MOD_ID = "largeironsign";
 	
-    public static final BlockEntityType<LargeSignBlockEntity> LARGE_SIGN_BLOCK_ENTITY = Registry.register(
+    public static final BlockEntityType<LargeIronSignBlockEntity> LARGE_SIGN_BLOCK_ENTITY = Registry.register(
             Registries.BLOCK_ENTITY_TYPE,
-            LargeSignBlockEntity.ID,
+            LargeIronSignBlockEntity.ID,
             FabricBlockEntityTypeBuilder.create(
-            		LargeSignBlockEntity::new,
-            		LargeSignBlock.LARGE_SIGN_BLOCK).build());
+            		LargeIronSignBlockEntity::new,
+            		LargeIronSignBlock.LARGE_SIGN_BLOCK).build());
 	
 	@Override
 	public void onInitialize() {
 		// Blocks
 		Registry.register(Registries.BLOCK, 
-				LargeSignBlock.ID, 
-				LargeSignBlock.LARGE_SIGN_BLOCK);
+				LargeIronSignBlock.ID, 
+				LargeIronSignBlock.LARGE_SIGN_BLOCK);
 		
 		// Items
 		Registry.register(Registries.ITEM, 
-				LargeSignBlock.ID, 
-				LargeSignBlock.LARGE_SIGN_BLOCK_ITEM);
+				LargeIronSignBlock.ID, 
+				LargeIronSignBlock.LARGE_SIGN_BLOCK_ITEM);
 	    ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(content -> {
-	    	content.add(LargeSignBlock.LARGE_SIGN_BLOCK_ITEM);
+	    	content.add(LargeIronSignBlock.LARGE_SIGN_BLOCK_ITEM);
 	    });
 	    
 	    // Network
 		ServerPlayNetworking.registerGlobalReceiver(
-				LargeSignBlock.LARGE_SIGN_SET_SYMBOL_PACKET_ID,
-				new LargeSignSetSymbolHandler());
+				LargeIronSignBlock.LARGE_SIGN_SET_SYMBOL_PACKET_ID,
+				new LargeIronSignSetSymbolHandler());
 	}
 }
