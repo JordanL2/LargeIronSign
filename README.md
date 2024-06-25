@@ -4,6 +4,16 @@ This is a mod for Minecraft that adds a sign that displays a single large charac
 
 ![All symbols](screenshots/allsymbols.png)
 
+## Dependencies
+
+|               | Minecraft 1.20.1 |
+| ------------- | ---------------- |
+| Java          | 17               |
+| Fabric Loader | 0.15.7           |
+| Fabric API    | 0.91.0+1.20.1    |
+
+## How to Use
+
 To make a sign, use an iron block in a stonecutter.
 
 ![How to make sign](screenshots/making.png)
