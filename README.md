@@ -6,11 +6,11 @@ This is a mod for Minecraft that adds a sign that displays a single large charac
 
 ## Dependencies
 
-|               | Minecraft 1.20.1 |
-| ------------- | ---------------- |
-| Java          | 17               |
-| Fabric Loader | 0.15.7           |
-| Fabric API    | 0.91.0+1.20.1    |
+| Minecraft     | 1.20.1        |
+| ------------- | ------------- |
+| Java          | 17            |
+| Fabric Loader | 0.15.7        |
+| Fabric API    | 0.91.0+1.20.1 |
 
 ## How to Use
 
