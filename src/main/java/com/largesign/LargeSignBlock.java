@@ -61,14 +61,14 @@ public class LargeSignBlock extends HorizontalFacingBlock implements BlockEntity
 			new FabricItemSettings());
 	
 	// Textures
-	public static final Identifier EDGE_TEXTURE = new Identifier(LargeSign.MOD_ID, "block/large_sign_edge");
-	public static final Identifier BACK_TEXTURE = new Identifier(LargeSign.MOD_ID, "block/large_sign_back");
-	public static final Identifier FRONT_TEXTURE = new Identifier(LargeSign.MOD_ID, "block/large_sign_front");
+	public static final Identifier EDGE_TEXTURE = new Identifier(LargeSign.MOD_ID, "block/" + PATH + "_edge");
+	public static final Identifier BACK_TEXTURE = new Identifier(LargeSign.MOD_ID, "block/" + PATH + "_back");
+	public static final Identifier FRONT_TEXTURE = new Identifier(LargeSign.MOD_ID, "block/" + PATH + "_front");
 	
 	// Network packets
-	public static final Identifier LARGE_SIGN_SCREEN_OPEN_PACKET_ID = new Identifier(LargeSign.MOD_ID, "large_sign_screen_open");
-	public static final Identifier LARGE_SIGN_SET_SYMBOL_PACKET_ID = new Identifier(LargeSign.MOD_ID, "large_sign_set_symbol");
-	public static final Identifier LARGE_SIGN_REFRESH_MODEL_PACKET_ID = new Identifier(LargeSign.MOD_ID, "large_sign_refresh_model");
+	public static final Identifier LARGE_SIGN_SCREEN_OPEN_PACKET_ID = new Identifier(LargeSign.MOD_ID, PATH + "_screen_open");
+	public static final Identifier LARGE_SIGN_SET_SYMBOL_PACKET_ID = new Identifier(LargeSign.MOD_ID, PATH + "_set_symbol");
+	public static final Identifier LARGE_SIGN_REFRESH_MODEL_PACKET_ID = new Identifier(LargeSign.MOD_ID, PATH + "_refresh_model");
 	
 	// Dyes
 	public static final Map<Item, Integer> DYES = Map.ofEntries(

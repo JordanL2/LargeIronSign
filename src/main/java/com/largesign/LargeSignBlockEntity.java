@@ -13,9 +13,12 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 public class LargeSignBlockEntity extends BlockEntity {
+	
+	public static final Identifier ID = new Identifier(LargeSign.MOD_ID, LargeSignBlock.PATH + "_block_entity");
 	
 	public volatile LargeSignCharacter character = LargeSignCharacter.SPACE;
 	public volatile int foreground = DyeColor.BLACK.getSignColor() | 0xff000000;

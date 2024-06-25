@@ -76,6 +76,6 @@ public enum LargeSignCharacter implements StringIdentifiable {
     }
     
     public Identifier getPath() {
-    	return new Identifier(LargeSign.MOD_ID, "block/large_sign_" + this.asString());
+    	return new Identifier(LargeSign.MOD_ID, "block/" + LargeSignBlock.PATH + "_" + this.asString());
     }
 }
