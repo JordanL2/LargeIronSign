@@ -1,6 +1,28 @@
 # Large Iron Sign
 
-Adds signs that display a single large character - any capital letter, a numerical digit, or blank / space.
+This is a mod for Minecraft that adds a sign that displays a single large character - any capital letter, a numerical digit, or blank / space.
+
+![All symbols](screenshots/allsymbols.png)
+
+To make a sign, use an iron block in a stonecutter.
+
+![How to make sign](screenshots/making.png)
+
+Place the sign, then right-click it to select the character it should display.
+
+![How to select character](screenshots/selection.png)
+
+The sign can be coloured, both the text and the background.
+
+![All colours](screenshots/colours.png)
+
+To change the text colour, hold a dye in your main hand and right-click the sign.
+
+To change the background colour, hold a dye in your off hand and right-click the sign.
+
+If you have a dye in both hands, you can set both the text and background colour at the same time.
+
+![How to dye the sign](screenshots/colouring.png)
 
 
 ## Credits
