@@ -4,7 +4,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.StringIdentifiable;
 
 public enum LargeIronSignCharacter implements StringIdentifiable {
-	SPACE("space", "Space"),
+	SPACE("space", " "),
 	KEY_A("a", "A"),
 	KEY_B("b", "B"),
 	KEY_C("c", "C"),
@@ -40,7 +40,42 @@ public enum LargeIronSignCharacter implements StringIdentifiable {
 	KEY_6("6", "6"),
 	KEY_7("7", "7"),
 	KEY_8("8", "8"),
-	KEY_9("9", "9");
+	KEY_9("9", "9"),
+
+	CHR_46("chr46", "."),
+	CHR_44("chr44", ","),
+	CHR_59("chr59", ";"),
+	CHR_58("chr58", ":"),
+	CHR_63("chr63", "?"),
+	CHR_33("chr33", "!"),
+	CHR_39("chr39", "'"),
+	CHR_34("chr34", "\""),
+
+	CHR_40("chr40", "("),
+	CHR_41("chr41", ")"),
+	CHR_91("chr91", "["),
+	CHR_93("chr93", "]"),
+	CHR_123("chr123", "{"),
+	CHR_125("chr125", "}"),
+
+	CHR_37("chr37", "%"),
+	CHR_42("chr42", "*"),
+	CHR_43("chr43", "+"),
+	CHR_45("chr45", "-"),
+	CHR_47("chr47", "/"),
+	CHR_92("chr92", "\\"),
+	CHR_61("chr61", "="),
+	CHR_60("chr60", "<"),
+	CHR_62("chr62", ">"),
+
+	CHR_35("chr35", "#"),
+	CHR_38("chr38", "&"),
+	CHR_64("chr64", "@"),
+	CHR_124("chr124", "|"),
+	CHR_126("chr126", "~"),
+	
+	CHR_36("chr36", "$"),
+	CHR_163("chr163", "£");
 	
 	private final String name;
 	private final String description;

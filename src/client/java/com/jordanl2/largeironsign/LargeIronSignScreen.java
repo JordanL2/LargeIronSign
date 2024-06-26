@@ -32,7 +32,7 @@ public class LargeIronSignScreen extends Screen {
 		super.init();
 		
 		buttons = new ArrayList<>();
-		int buttonWidth = 40;
+		int buttonWidth = 20;
 		int buttonHeight = 20;
 		int space = 10;
 		int minMargin = 40;
