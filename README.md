@@ -4,6 +4,9 @@ This is a mod for Minecraft that adds a sign that displays a single large charac
 
 ![All symbols](screenshots/allsymbols.png)
 
+![All colours](screenshots/colours.png)
+
+
 ## Dependencies
 
 | Minecraft     | 1.20.1        |
@@ -12,19 +15,16 @@ This is a mod for Minecraft that adds a sign that displays a single large charac
 | Fabric Loader | 0.15.7        |
 | Fabric API    | 0.91.0+1.20.1 |
 
+
 ## How to Use
 
-To make a sign, use an iron block in a stonecutter.
+To make signs, use an iron block in a stonecutter. This will produce 16 signs.
 
 ![How to make sign](screenshots/making.png)
 
-Place the sign, then right-click it to select the character it should display.
+Place the sign, then right-click it and select the character it should display.
 
 ![How to select character](screenshots/selection.png)
-
-The sign can be coloured, both the text and the background.
-
-![All colours](screenshots/colours.png)
 
 To change the text colour, hold a dye in your main hand and right-click the sign.
 
