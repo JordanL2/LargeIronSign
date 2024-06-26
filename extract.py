@@ -8,14 +8,14 @@ font_path = ""
 font_name = "VCR_OSD_MONO_1.001.ttf"
 out_path = font_path + "src/main/resources/assets/largeironsign/textures/block/"
 
-font_size = 21 # px
+font_size = 19 # px
 font_color = "#000000" # HEX Black
 
 # Create Font using PIL
 font = ImageFont.truetype(font_path+font_name, font_size)
 
 # Copy Desired Characters from Google Fonts Page and Paste into variable
-desired_characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+desired_characters = "!?.,\"'£$%/\\*-+=()[]{}<>@&:;#~|"
 
 # Loop through the characters needed and save to desired location
 for character in desired_characters:
@@ -32,10 +32,10 @@ for character in desired_characters:
     draw = ImageDraw.Draw(img)
 
     # Draw the character
-    draw.text((offset, -3), str(character), font=font, fill=font_color)
+    draw.text((offset, -1), str(character), font=font, fill=font_color)
 
     # Save the character as png
     try:
-        img.save(out_path + "large_iron_sign_" + str(character).lower() + ".png")
+        img.save(out_path + "large_iron_sign_chr" + str(ord(character)).lower() + ".png")
     except:
         print(f"[-] Couldn't Save:\t{character}")
