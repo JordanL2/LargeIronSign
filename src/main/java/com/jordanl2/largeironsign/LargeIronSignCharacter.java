@@ -47,7 +47,9 @@ public enum LargeIronSignCharacter implements StringIdentifiable {
 	CHR_59("chr59", ";"),
 	CHR_58("chr58", ":"),
 	CHR_63("chr63", "?"),
+	CHR_191("chr191", "¿"),
 	CHR_33("chr33", "!"),
+	CHR_161("chr161", "¡"),
 	CHR_39("chr39", "'"),
 	CHR_34("chr34", "\""),
 
@@ -73,9 +75,13 @@ public enum LargeIronSignCharacter implements StringIdentifiable {
 	CHR_64("chr64", "@"),
 	CHR_124("chr124", "|"),
 	CHR_126("chr126", "~"),
+	CHR_169("chr169", "©"),
+	CHR_174("chr174", "®"),
+	CHR_8482("chr8482", "™"),
 	
 	CHR_36("chr36", "$"),
-	CHR_163("chr163", "£");
+	CHR_163("chr163", "£"),
+	CHR_8364("chr8364", "€");
 	
 	private final String name;
 	private final String label;

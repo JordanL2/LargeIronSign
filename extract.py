@@ -15,7 +15,7 @@ font_color = "#000000" # HEX Black
 font = ImageFont.truetype(font_path+font_name, font_size)
 
 # Copy Desired Characters from Google Fonts Page and Paste into variable
-desired_characters = "!?.,\"'£$%/\\*-+=()[]{}<>@&:;#~|"
+desired_characters = "€©®™¿¡"
 
 # Loop through the characters needed and save to desired location
 for character in desired_characters:
@@ -25,7 +25,7 @@ for character in desired_characters:
     width = right - left
     height = bottom - top
     offset = math.floor((16 - width)/2)
-    print(left, top, right, bottom, width, height, offset)
+    print("'" + character + "'", ord(character), "-", left, top, right, bottom, width, height, offset)
 
     # Create PNG Image with that size
     img = Image.new(mode="RGBA", size=(16, 16), color="#FFFFFF")
