@@ -4,7 +4,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.StringIdentifiable;
 
 public enum LargeIronSignCharacter implements StringIdentifiable {
-	SPACE("space", " "),
+	SPACE("space", " ", "Space"),
 	KEY_A("a", "A"),
 	KEY_B("b", "B"),
 	KEY_C("c", "C"),
@@ -78,10 +78,18 @@ public enum LargeIronSignCharacter implements StringIdentifiable {
 	CHR_163("chr163", "£");
 	
 	private final String name;
+	private final String label;
 	private final String description;
 	
-	private LargeIronSignCharacter(String name, String description) {
+	private LargeIronSignCharacter(String name, String label) {
 		this.name = name;
+		this.label = label;
+		this.description = label;
+	}
+	
+	private LargeIronSignCharacter(String name, String label, String description) {
+		this.name = name;
+		this.label = label;
 		this.description = description;
 	}
 	
@@ -92,6 +100,10 @@ public enum LargeIronSignCharacter implements StringIdentifiable {
     @Override
     public String asString() {
         return this.name;
+    }
+    
+    public String getLabel() {
+    	return label;
     }
     
     public String getDescription() {

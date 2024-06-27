@@ -45,7 +45,7 @@ public class LargeIronSignScreen extends Screen {
 		int y = minMargin + (height - minMargin - minMargin - buttonHeight - ((rows - 1) * (buttonHeight + space))) / 2;
 		
 		for (LargeIronSignCharacter character : LargeIronSignCharacter.values()) {
-			ButtonWidget button = ButtonWidget.builder(Text.literal(character.getDescription()), a -> {
+			ButtonWidget button = ButtonWidget.builder(Text.literal(character.getLabel()), a -> {
 				setBlockChar(character);
 			})
 					.dimensions(x, y, buttonWidth, buttonHeight)
@@ -63,9 +63,6 @@ public class LargeIronSignScreen extends Screen {
 	}
 
 	private void setBlockChar(LargeIronSignCharacter character) {
-		System.out.println(
-				"Setting block " + pos.getX() + "," + pos.getY() + "," + pos.getZ()
-				+ " to " + character.getDescription());
 		PacketByteBuf buf = PacketByteBufs.create();
 		buf.writeBlockPos(pos);
 		buf.writeString(character.name());
