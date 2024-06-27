@@ -81,7 +81,12 @@ public enum LargeIronSignCharacter implements StringIdentifiable {
 	
 	CHR_36("chr36", "$"),
 	CHR_163("chr163", "£"),
-	CHR_8364("chr8364", "€");
+	CHR_8364("chr8364", "€"),
+
+	ARROW_UP("arrow_up", "↑"),
+	ARROW_RIGHT("arrow_right", "→"),
+	ARROW_DOWN("arrow_down", "↓"),
+	ARROW_LEFT("arrow_left", "←");
 	
 	private final String name;
 	private final String label;
