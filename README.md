@@ -1,8 +1,10 @@
 # Large Iron Sign
 
-This is a mod for Minecraft that adds a sign that displays a single large character - any capital letter, a numerical digit, or blank / space.
+This is a mod for Minecraft that adds a sign that displays a single large character. The character can be any capital letter, numeric digit, or one of 40 other symbols.
 
-![All symbols](screenshots/allsymbols.png)
+![All symbols](screenshots/alphanumeric.png)
+
+![All symbols](screenshots/othersymbols.png)
 
 ![All colours](screenshots/colours.png)
 
