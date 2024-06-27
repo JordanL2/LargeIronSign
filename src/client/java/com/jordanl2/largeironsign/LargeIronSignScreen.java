@@ -34,7 +34,7 @@ public class LargeIronSignScreen extends Screen {
 		buttons = new ArrayList<>();
 		int buttonWidth = 20;
 		int buttonHeight = 20;
-		int space = 10;
+		int space = 5;
 		int minMargin = 40;
 		
 		int margin = minMargin + (((width - minMargin - minMargin - buttonWidth) % (buttonWidth + space)) / 2);
