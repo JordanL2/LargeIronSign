@@ -67,7 +67,6 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 	// Network packets
 	public static final Identifier LARGE_IRON_SIGN_SCREEN_OPEN_PACKET_ID = new Identifier(LargeIronSign.MOD_ID, PATH + "_screen_open");
 	public static final Identifier LARGE_IRON_SIGN_SET_SYMBOL_PACKET_ID = new Identifier(LargeIronSign.MOD_ID, PATH + "_set_symbol");
-	public static final Identifier LARGE_IRON_SIGN_REFRESH_MODEL_PACKET_ID = new Identifier(LargeIronSign.MOD_ID, PATH + "_refresh_model");
 	
 	// Dyes
 	public static final int DEFAULT_COLOUR_FOREGROUND = DyeColor.BLACK.getSignColor() | 0xff000000;
@@ -129,7 +128,7 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		Item item1 = player.getMainHandStack().getItem();
 		Item item2 = player.getOffHandStack().getItem();
-		if (hand == Hand.MAIN_HAND && !world.isClient() && player instanceof ServerPlayerEntity serverPlayer) {
+		if (hand == Hand.MAIN_HAND) {
 			// If holding dye, apply foreground / background colour on sign
 			if (DYES.containsKey(item1) || DYES.containsKey(item2)) {
 				BlockEntity blockEntity = world.getBlockEntity(pos);
@@ -140,16 +139,21 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 					if (DYES.containsKey(item2)) {
 						largeIronSignBlockEntity.background = DYES.get(item2);
 					}
-					LargeIronSignBlockEntity.syncUpdateToClient(largeIronSignBlockEntity, pos, serverPlayer);
+					if (world.isClient()) {
+						// On client side, cause block to re-render
+		            	world.updateListeners(pos, state, state, Block.NOTIFY_LISTENERS);
+					} else {
+						// On server side, ensure block entity gets saved
+		        		largeIronSignBlockEntity.markDirty();
+					}
 				}
-				return ActionResult.SUCCESS;				
+			} else if (!world.isClient() && player instanceof ServerPlayerEntity serverPlayer) {
+				// Otherwise, open sign edit screen
+				PacketByteBuf buf = PacketByteBufs.create();
+				buf.writeBlockPos(pos);
+				ServerPlayNetworking.send(serverPlayer, LARGE_IRON_SIGN_SCREEN_OPEN_PACKET_ID, buf);
+				return ActionResult.SUCCESS;
 			}
-			
-			// Otherwise, open sign edit screen
-			PacketByteBuf buf = PacketByteBufs.create();
-			buf.writeBlockPos(pos);
-			ServerPlayNetworking.send(serverPlayer, LARGE_IRON_SIGN_SCREEN_OPEN_PACKET_ID, buf);
-			return ActionResult.SUCCESS;
 		}
 		
 		// If holding dye, ensure animation plays for correct hand

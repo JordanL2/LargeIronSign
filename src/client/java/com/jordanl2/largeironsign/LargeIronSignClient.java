@@ -15,9 +15,6 @@ public class LargeIronSignClient implements ClientModInitializer {
 		ClientPlayNetworking.registerGlobalReceiver(
 				LargeIronSignBlock.LARGE_IRON_SIGN_SCREEN_OPEN_PACKET_ID, 
 				new LargeIronSignScreenOpenHandler());
-		ClientPlayNetworking.registerGlobalReceiver(
-				LargeIronSignBlock.LARGE_IRON_SIGN_REFRESH_MODEL_PACKET_ID, 
-				new LargeIronSignRefreshModelHandler());
 	}
 	
 }

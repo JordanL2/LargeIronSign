@@ -28,8 +28,6 @@ public class LargeIronSignSetSymbolHandler implements ServerPlayNetworking.PlayC
 	        	if (blockEntity != null && blockEntity instanceof LargeIronSignBlockEntity largeIronSignBlockEntity) {
 	        		largeIronSignBlockEntity.character = character;
 	        		largeIronSignBlockEntity.markDirty();
-					// Trigger the client to update and refresh the block
-	        		LargeIronSignBlockEntity.syncUpdateToClient(largeIronSignBlockEntity, pos, player);
 	        	}
 			}
 		});
