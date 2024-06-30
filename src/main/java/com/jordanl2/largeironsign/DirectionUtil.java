@@ -11,6 +11,13 @@ public class DirectionUtil {
 			Direction.SOUTH,
 			Direction.WEST
 	};
+
+	public static final Rotation[] ROTATIONS = new Rotation[] {
+			Rotation.R0,
+			Rotation.R90,
+			Rotation.R180,
+			Rotation.R270
+	};
 	
 	public Direction rotate(Direction direction, Rotation rotation) {
 		int i = 0;
@@ -35,6 +42,21 @@ public class DirectionUtil {
 		
 		i = i % 4;
 		return DIRECTIONS[i];
+	}
+
+	public Rotation getRotation(Direction direction1, Direction direction2) {
+		int i = 0;
+		while (DIRECTIONS[i] != direction1) {
+			i++;
+		}
+
+		int j = 0;
+		while (DIRECTIONS[j] != direction2) {
+			j++;
+		}
+
+		int r = (j + 4 - i) % 4;
+		return ROTATIONS[r];
 	}
 
 }
