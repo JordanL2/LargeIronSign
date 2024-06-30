@@ -132,7 +132,7 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 			// If holding dye, apply foreground / background colour on sign
 			if (DYES.containsKey(item1) || DYES.containsKey(item2)) {
 				BlockEntity blockEntity = world.getBlockEntity(pos);
-				if (blockEntity != null && blockEntity instanceof LargeIronSignBlockEntity largeIronSignBlockEntity) {
+				if (blockEntity instanceof LargeIronSignBlockEntity largeIronSignBlockEntity) {
 					if (DYES.containsKey(item1)) {
 						largeIronSignBlockEntity.foreground = DYES.get(item1);
 					}

@@ -18,6 +18,7 @@ public class LargeIronSignSetSymbolHandler implements ServerPlayNetworking.PlayC
 			PacketByteBuf buf, PacketSender responseSender) {
 		BlockPos pos = buf.readBlockPos();
 		String characterName = buf.readString();
+		int edges = buf.readInt();
 		LargeIronSignCharacter character = LargeIronSignCharacter.valueOf(characterName);
 
 		server.execute(() -> {
@@ -25,8 +26,9 @@ public class LargeIronSignSetSymbolHandler implements ServerPlayNetworking.PlayC
 			BlockState blockState = world.getBlockState(pos);
 			if (blockState.getBlock() instanceof LargeIronSignBlock) {
 	        	BlockEntity blockEntity = world.getBlockEntity(pos);
-	        	if (blockEntity != null && blockEntity instanceof LargeIronSignBlockEntity largeIronSignBlockEntity) {
+	        	if (blockEntity instanceof LargeIronSignBlockEntity largeIronSignBlockEntity) {
 	        		largeIronSignBlockEntity.character = character;
+					largeIronSignBlockEntity.edges = edges;
 	        		largeIronSignBlockEntity.markDirty();
 	        	}
 			}
