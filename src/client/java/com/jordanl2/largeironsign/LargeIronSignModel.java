@@ -226,7 +226,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 			emitter.emit();
 		} else {
 			emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R90), 0.0f, 0.0f, 0.0625f, 1.0f, 0.0f - trimWidth);
-			emitter.spriteBake(spriteTrimEdge, MutableQuadView.BAKE_LOCK_UV);
+			emitter.spriteBake(spriteTrimEdge, MutableQuadView.BAKE_LOCK_UV | MutableQuadView.BAKE_ROTATE_270);
 			emitter.color(-1, -1, -1, -1);
 			emitter.emit();
 		}
@@ -239,7 +239,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 			emitter.emit();
 		} else {
 			emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R270), 0.9375f, 0.0f, 1f, 1.0f, 0.0f - trimWidth);
-			emitter.spriteBake(spriteTrimEdge, MutableQuadView.BAKE_LOCK_UV);
+			emitter.spriteBake(spriteTrimEdge, MutableQuadView.BAKE_LOCK_UV | MutableQuadView.BAKE_ROTATE_90);
 			emitter.color(-1, -1, -1, -1);
 			emitter.emit();
 		}
