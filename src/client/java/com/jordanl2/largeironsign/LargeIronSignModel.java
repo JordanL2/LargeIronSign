@@ -219,6 +219,35 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		MeshBuilder builder = renderer.meshBuilder();
 		QuadEmitter emitter = builder.getEmitter();
 
+		int upRotateFlag = 0;
+		int upOppositeRotateFlag = 0;
+		int downRotateFlag = 0;
+		int downOppositeRotateFlag = 0;
+		switch (direction) {
+			case NORTH:
+				upRotateFlag |= MutableQuadView.BAKE_ROTATE_180;
+				downOppositeRotateFlag |= MutableQuadView.BAKE_ROTATE_180;
+				break;
+			case EAST:
+				upRotateFlag |= MutableQuadView.BAKE_ROTATE_270;
+				upOppositeRotateFlag |= MutableQuadView.BAKE_ROTATE_90;
+				downRotateFlag |= MutableQuadView.BAKE_ROTATE_270;
+				downOppositeRotateFlag |= MutableQuadView.BAKE_ROTATE_90;
+				break;
+			case SOUTH:
+				upOppositeRotateFlag |= MutableQuadView.BAKE_ROTATE_180;
+				downRotateFlag |= MutableQuadView.BAKE_ROTATE_180;
+				break;
+			case WEST:
+				upRotateFlag |= MutableQuadView.BAKE_ROTATE_90;
+				upOppositeRotateFlag |= MutableQuadView.BAKE_ROTATE_270;
+				downRotateFlag |= MutableQuadView.BAKE_ROTATE_90;
+				downOppositeRotateFlag |= MutableQuadView.BAKE_ROTATE_270;
+				break;
+			default:
+				break;
+		}
+
 		// Front - Background
 		emitter.square(direction, 0.0f, 0.0f, 1.0f, 1.0f, FRONT_DEPTH);
 		emitter.spriteBake(spriteFront, MutableQuadView.BAKE_LOCK_UV);
@@ -311,6 +340,26 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 			emitter.spriteBake(spriteTrimEdge, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_270);
 			emitter.color(-1, -1, -1, -1);
 			emitter.emit();
+			if (!topTrim) {
+				// No top trim, add top face
+				Quad top = new Quad(1.0f, 0.0f, 1.0f + TRIM_WIDTH, 0.0f + THICKNESS);
+				top.rotate(directionUtil.getRotation(Direction.NORTH, direction));
+				emitter.square(Direction.UP, top.left, top.bottom, top.right, top.top, 0.0f);
+				emitter.uvUnitSquare();
+				emitter.spriteBake(spriteTrimCornerEdge, MutableQuadView.BAKE_NORMALIZED | upRotateFlag);
+				emitter.color(-1, -1, -1, -1);
+				emitter.emit();
+			}
+			if (!bottomTrim) {
+				// No bottom trim, add bottom face
+				Quad top = new Quad(1.0f, 1.0f - THICKNESS, 1.0f + TRIM_WIDTH, 1.0f);
+				top.rotate(directionUtil.getRotation(direction, Direction.NORTH));
+				emitter.square(Direction.DOWN, top.left, top.bottom, top.right, top.top, 0.0f);
+				emitter.uvUnitSquare();
+				emitter.spriteBake(spriteTrimCornerEdge, MutableQuadView.BAKE_NORMALIZED | downOppositeRotateFlag);
+				emitter.color(-1, -1, -1, -1);
+				emitter.emit();
+			}
 		}
 
 		// Right
@@ -328,36 +377,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		}
 		
 		VoxelShape shape = LargeIronSignBlock.getOutlineShape(direction, false, false, false, false);
-		
-		int upRotateFlag = 0;
-		int upOppositeRotateFlag = 0;
-		int downRotateFlag = 0;
-		int downOppositeRotateFlag = 0;
-		switch (direction) {
-			case NORTH:
-				upRotateFlag |= MutableQuadView.BAKE_ROTATE_180;
-				downOppositeRotateFlag |= MutableQuadView.BAKE_ROTATE_180;
-				break;
-			case EAST:
-				upRotateFlag |= MutableQuadView.BAKE_ROTATE_270;
-				upOppositeRotateFlag |= MutableQuadView.BAKE_ROTATE_90;
-				downRotateFlag |= MutableQuadView.BAKE_ROTATE_270;
-				downOppositeRotateFlag |= MutableQuadView.BAKE_ROTATE_90;
-				break;
-			case SOUTH:
-				upOppositeRotateFlag |= MutableQuadView.BAKE_ROTATE_180;
-				downRotateFlag |= MutableQuadView.BAKE_ROTATE_180;
-				break;
-			case WEST:
-				upRotateFlag |= MutableQuadView.BAKE_ROTATE_90;
-				upOppositeRotateFlag |= MutableQuadView.BAKE_ROTATE_270;
-				downRotateFlag |= MutableQuadView.BAKE_ROTATE_90;
-				downOppositeRotateFlag |= MutableQuadView.BAKE_ROTATE_270;
-				break;
-			default:
-				break;
-		}
-		
+
 		// Up
 		if (!topTrim) {
 			emitter.square(Direction.UP,
