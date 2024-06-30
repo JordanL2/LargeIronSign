@@ -374,6 +374,26 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 			emitter.spriteBake(spriteTrimEdge, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_90);
 			emitter.color(-1, -1, -1, -1);
 			emitter.emit();
+			if (!topTrim) {
+				// No top trim, add top face
+				Quad top = new Quad(0.0f - TRIM_WIDTH, 0.0f, 0.0f, 0.0f + THICKNESS);
+				top.rotate(directionUtil.getRotation(Direction.NORTH, direction));
+				emitter.square(Direction.UP, top.left, top.bottom, top.right, top.top, 0.0f);
+				emitter.uvUnitSquare();
+				emitter.spriteBake(spriteTrimCornerEdge, MutableQuadView.BAKE_NORMALIZED | upOppositeRotateFlag);
+				emitter.color(-1, -1, -1, -1);
+				emitter.emit();
+			}
+			if (!bottomTrim) {
+				// No bottom trim, add bottom face
+				Quad top = new Quad(0.0f - TRIM_WIDTH, 1.0f - THICKNESS, 0.0f, 1.0f);
+				top.rotate(directionUtil.getRotation(direction, Direction.NORTH));
+				emitter.square(Direction.DOWN, top.left, top.bottom, top.right, top.top, 0.0f);
+				emitter.uvUnitSquare();
+				emitter.spriteBake(spriteTrimCornerEdge, MutableQuadView.BAKE_NORMALIZED | downRotateFlag);
+				emitter.color(-1, -1, -1, -1);
+				emitter.emit();
+			}
 		}
 		
 		VoxelShape shape = LargeIronSignBlock.getOutlineShape(direction, false, false, false, false);
