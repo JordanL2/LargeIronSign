@@ -306,10 +306,10 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 			emitter.color(-1, -1, -1, -1);
 			emitter.emit();
 		}
-		if (leftTrim) {
-			emitter.square(backDirection,1.0f, 0.0f, 1.0f + TRIM_WIDTH, 1.0f, 0.0f);
+		if (rightTrim) {
+			emitter.square(backDirection, 0.0f - TRIM_WIDTH, 0.0f, 0.0f, 1.0f, 0.0f);
 			emitter.uvUnitSquare();
-			emitter.spriteBake(spriteTrimBack, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_90);
+			emitter.spriteBake(spriteTrimBack, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_270);
 			emitter.color(-1, -1, -1, -1);
 			emitter.emit();
 		}
@@ -320,10 +320,10 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 			emitter.color(-1, -1, -1, -1);
 			emitter.emit();
 		}
-		if (rightTrim) {
-			emitter.square(backDirection, 0.0f - TRIM_WIDTH, 0.0f, 0.0f, 1.0f, 0.0f);
+		if (leftTrim) {
+			emitter.square(backDirection,1.0f, 0.0f, 1.0f + TRIM_WIDTH, 1.0f, 0.0f);
 			emitter.uvUnitSquare();
-			emitter.spriteBake(spriteTrimBack, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_270);
+			emitter.spriteBake(spriteTrimBack, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_90);
 			emitter.color(-1, -1, -1, -1);
 			emitter.emit();
 		}
@@ -398,7 +398,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		
 		VoxelShape shape = LargeIronSignBlock.getOutlineShape(direction, false, false, false, false);
 
-		// Up
+		// Top
 		if (!topTrim) {
 			emitter.square(Direction.UP,
 					(float) shape.getMin(Axis.X), 1f - (float) shape.getMax(Axis.Z),
@@ -432,7 +432,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 			}
 		}
 		
-		// Down
+		// Bottom
 		if (!bottomTrim) {
 			emitter.square(Direction.DOWN,
 					(float) shape.getMin(Axis.X), (float) shape.getMin(Axis.Z),
