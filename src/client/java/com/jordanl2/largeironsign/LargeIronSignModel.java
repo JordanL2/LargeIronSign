@@ -53,6 +53,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 	private Sprite spriteBack;
 	private Sprite spriteEdge;
 	private Sprite spriteTrimFront;
+	private Sprite spriteTrimBack;
 	private Sprite spriteTrimEdge;
 
 	private final static DirectionUtil directionUtil = new DirectionUtil();
@@ -114,6 +115,10 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 				new SpriteIdentifier(
 						PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
 						LargeIronSignBlock.TRIM_FRONT_TEXTURE));
+		spriteTrimBack = textureGetter.apply(
+				new SpriteIdentifier(
+						PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
+						LargeIronSignBlock.TRIM_BACK_TEXTURE));
 		spriteTrimEdge = textureGetter.apply(
 				new SpriteIdentifier(
 						PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
@@ -243,10 +248,41 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		}
 
 		// Back
-		emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R180), 0.0f, 0.0f, 1.0f, 1.0f, 0.0f);
+		Direction backDirection = directionUtil.rotate(direction, VariantSettings.Rotation.R180);
+		emitter.square(backDirection, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f);
 		emitter.spriteBake(spriteBack, MutableQuadView.BAKE_LOCK_UV);
 		emitter.color(-1, -1, -1, -1);
 		emitter.emit();
+
+		// Back - Trim
+		if (topTrim) {
+			emitter.square(backDirection,0.0f, 1.0f, 1.0f, 1.0f + trimWidth, 0.0f);
+			emitter.uvUnitSquare();
+			emitter.spriteBake(spriteTrimFront, MutableQuadView.BAKE_NORMALIZED);
+			emitter.color(-1, -1, -1, -1);
+			emitter.emit();
+		}
+		if (rightTrim) {
+			emitter.square(backDirection,1.0f, 0.0f, 1.0f + trimWidth, 1.0f, 0.0f);
+			emitter.uvUnitSquare();
+			emitter.spriteBake(spriteTrimFront, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_90);
+			emitter.color(-1, -1, -1, -1);
+			emitter.emit();
+		}
+		if (bottomTrim) {
+			emitter.square(backDirection, 0.0f, 0.0f - trimWidth, 1.0f, 0.0f, 0.0f);
+			emitter.uvUnitSquare();
+			emitter.spriteBake(spriteTrimFront, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_180);
+			emitter.color(-1, -1, -1, -1);
+			emitter.emit();
+		}
+		if (leftTrim) {
+			emitter.square(backDirection, 0.0f - trimWidth, 0.0f, 0.0f, 1.0f, 0.0f);
+			emitter.uvUnitSquare();
+			emitter.spriteBake(spriteTrimFront, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_270);
+			emitter.color(-1, -1, -1, -1);
+			emitter.emit();
+		}
 
 		// Left
 		if (!leftTrim) {
