@@ -212,6 +212,36 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		emitter.color(foreground, foreground, foreground, foreground);
 		emitter.emit();
 
+		// Front - Trim
+		if (topTrim) {
+			emitter.square(direction, 0.0f, 1.0f, 1.0f, 1.0f + trimWidth, 0.9375f);
+			emitter.uvUnitSquare();
+			emitter.spriteBake(spriteTrimFront, MutableQuadView.BAKE_NORMALIZED);
+			emitter.color(-1, -1, -1, -1);
+			emitter.emit();
+		}
+		if (rightTrim) {
+			emitter.square(direction, 1.0f, 0.0f, 1.0f + trimWidth, 1.0f, 0.9375f);
+			emitter.uvUnitSquare();
+			emitter.spriteBake(spriteTrimFront, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_90);
+			emitter.color(-1, -1, -1, -1);
+			emitter.emit();
+		}
+		if (bottomTrim) {
+			emitter.square(direction, 0.0f, 0.0f - trimWidth, 1.0f, 0.0f, 0.9375f);
+			emitter.uvUnitSquare();
+			emitter.spriteBake(spriteTrimFront, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_180);
+			emitter.color(-1, -1, -1, -1);
+			emitter.emit();
+		}
+		if (leftTrim) {
+			emitter.square(direction, 0.0f - trimWidth, 0.0f, 0.0f, 1.0f, 0.9375f);
+			emitter.uvUnitSquare();
+			emitter.spriteBake(spriteTrimFront, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_270);
+			emitter.color(-1, -1, -1, -1);
+			emitter.emit();
+		}
+
 		// Back
 		emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R180), 0.0f, 0.0f, 1.0f, 1.0f, 0.0f);
 		emitter.spriteBake(spriteBack, MutableQuadView.BAKE_LOCK_UV);
