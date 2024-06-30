@@ -63,7 +63,9 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 	public static final Identifier EDGE_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_edge");
 	public static final Identifier BACK_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_back");
 	public static final Identifier FRONT_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_front");
-	
+	public static final Identifier TRIM_FRONT_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_front");
+	public static final Identifier TRIM_EDGE_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_edge");
+
 	// Network packets
 	public static final Identifier LARGE_IRON_SIGN_SCREEN_OPEN_PACKET_ID = new Identifier(LargeIronSign.MOD_ID, PATH + "_screen_open");
 	public static final Identifier LARGE_IRON_SIGN_SET_SYMBOL_PACKET_ID = new Identifier(LargeIronSign.MOD_ID, PATH + "_set_symbol");
