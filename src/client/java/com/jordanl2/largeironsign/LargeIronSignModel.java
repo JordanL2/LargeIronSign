@@ -182,22 +182,22 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		Direction direction = state.get(LargeIronSignBlock.FACING);
 		LargeIronSignBlockEntity entityState = (LargeIronSignBlockEntity) 
 				((FabricBlockView)blockView).getBlockEntityRenderData(pos);
-		Mesh mesh = buildMesh(direction, entityState.character, entityState.foreground, entityState.background, entityState.edges);
+		Mesh mesh = buildMesh(direction, entityState.character, entityState.foreground, entityState.background, entityState.trim);
 		mesh.outputTo(context.getEmitter());
 	}
 	
-	private Mesh buildMesh(Direction direction, LargeIronSignCharacter character, int foreground, int background, int edges) {
+	private Mesh buildMesh(Direction direction, LargeIronSignCharacter character, int foreground, int background, int trim) {
 		Renderer renderer = RendererAccess.INSTANCE.getRenderer();
 		MeshBuilder builder = renderer.meshBuilder();
 		QuadEmitter emitter = builder.getEmitter();
 
-		boolean topEdge = (edges & LargeIronSignBlockEntity.TOP_EDGE) > 0;
-		boolean rightEdge = (edges & LargeIronSignBlockEntity.RIGHT_EDGE) > 0;
-		boolean bottomEdge = (edges & LargeIronSignBlockEntity.BOTTOM_EDGE) > 0;
-		boolean leftEdge = (edges & LargeIronSignBlockEntity.LEFT_EDGE) > 0;
+		boolean topTrim = (trim & LargeIronSignBlockEntity.TOP_EDGE) > 0;
+		boolean rightTrim = (trim & LargeIronSignBlockEntity.RIGHT_EDGE) > 0;
+		boolean bottomTrim = (trim & LargeIronSignBlockEntity.BOTTOM_EDGE) > 0;
+		boolean leftTrim = (trim & LargeIronSignBlockEntity.LEFT_EDGE) > 0;
 
 		float depth = 0.001f;
-		float edgeWidth = 2f / 16f;
+		float trimWidth = 2f / 16f;
 		
 		// Front - Background
 		emitter.square(direction, 0.0f, 0.0f, 1.0f, 1.0f, 0.9375f);
@@ -219,26 +219,26 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		emitter.emit();
 
 		// Left
-		if (!leftEdge) {
+		if (!leftTrim) {
 			emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R90), 0.0f, 0.0f, 0.0625f, 1.0f, 0.0f);
 			emitter.spriteBake(spriteEdge, MutableQuadView.BAKE_LOCK_UV);
 			emitter.color(-1, -1, -1, -1);
 			emitter.emit();
 		} else {
-			emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R90), 0.0f, 0.0f, 0.0625f, 1.0f, 0.0f - edgeWidth);
+			emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R90), 0.0f, 0.0f, 0.0625f, 1.0f, 0.0f - trimWidth);
 			emitter.spriteBake(spriteTrimEdge, MutableQuadView.BAKE_LOCK_UV);
 			emitter.color(-1, -1, -1, -1);
 			emitter.emit();
 		}
 
 		// Right
-		if (!rightEdge) {
+		if (!rightTrim) {
 			emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R270), 0.9375f, 0.0f, 1f, 1.0f, 0.0f);
 			emitter.spriteBake(spriteEdge, MutableQuadView.BAKE_LOCK_UV);
 			emitter.color(-1, -1, -1, -1);
 			emitter.emit();
 		} else {
-			emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R270), 0.9375f, 0.0f, 1f, 1.0f, 0.0f - edgeWidth);
+			emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R270), 0.9375f, 0.0f, 1f, 1.0f, 0.0f - trimWidth);
 			emitter.spriteBake(spriteTrimEdge, MutableQuadView.BAKE_LOCK_UV);
 			emitter.color(-1, -1, -1, -1);
 			emitter.emit();
@@ -268,7 +268,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		}
 		
 		// Up
-		if (!topEdge) {
+		if (!topTrim) {
 			emitter.square(Direction.UP,
 					(float) shape.getMin(Axis.X), 1f - (float) shape.getMax(Axis.Z),
 					(float) shape.getMax(Axis.X), 1f - (float) shape.getMin(Axis.Z), 0.0f);
@@ -278,14 +278,14 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		} else {
 			emitter.square(Direction.UP,
 					(float) shape.getMin(Axis.X), 1f - (float) shape.getMax(Axis.Z),
-					(float) shape.getMax(Axis.X), 1f - (float) shape.getMin(Axis.Z), 0.0f - edgeWidth);
+					(float) shape.getMax(Axis.X), 1f - (float) shape.getMin(Axis.Z), 0.0f - trimWidth);
 			emitter.spriteBake(spriteTrimEdge, MutableQuadView.BAKE_LOCK_UV | upRotateFlag);
 			emitter.color(-1, -1, -1, -1);
 			emitter.emit();
 		}
 		
 		// Down
-		if (!bottomEdge) {
+		if (!bottomTrim) {
 			emitter.square(Direction.DOWN,
 					(float) shape.getMin(Axis.X), (float) shape.getMin(Axis.Z),
 					(float) shape.getMax(Axis.X), (float) shape.getMax(Axis.Z), 0.0f);
@@ -295,7 +295,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		} else {
 			emitter.square(Direction.DOWN,
 					(float) shape.getMin(Axis.X), (float) shape.getMin(Axis.Z),
-					(float) shape.getMax(Axis.X), (float) shape.getMax(Axis.Z), 0.0f - edgeWidth);
+					(float) shape.getMax(Axis.X), (float) shape.getMax(Axis.Z), 0.0f - trimWidth);
 			emitter.spriteBake(spriteTrimEdge, MutableQuadView.BAKE_LOCK_UV | downRotateFlag);
 			emitter.color(-1, -1, -1, -1);
 			emitter.emit();

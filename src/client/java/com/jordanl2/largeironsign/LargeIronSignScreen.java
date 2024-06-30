@@ -27,10 +27,10 @@ public class LargeIronSignScreen extends Screen {
 	private LargeIronSignBlockEntity blockEntity;
 
 	private List<ButtonWidget> buttons;
-	private ButtonWidget topEdgeButton;
-	private ButtonWidget rightEdgeButton;
-	private ButtonWidget bottomEdgeButton;
-	private ButtonWidget leftEdgeButton;
+	private ButtonWidget topTrimButton;
+	private ButtonWidget rightTrimButton;
+	private ButtonWidget bottomTrimButton;
+	private ButtonWidget leftTrimButton;
 
 	protected LargeIronSignScreen(BlockPos pos) {
 		super(Text.literal("Change Sign Symbol"));
@@ -50,62 +50,62 @@ public class LargeIronSignScreen extends Screen {
 		}
 
 
-		// Edge Buttons
+		// Trim Buttons
 
-		int edgeButtonWidth = 30;
-		int edgeButtonHeight = 20;
+		int trimButtonWidth = 30;
+		int trimButtonHeight = 20;
 
-		topEdgeButton = ButtonWidget.builder(Text.literal((blockEntity.edges & LargeIronSignBlockEntity.TOP_EDGE) > 0 ? "On" : "Off"), a -> {
-				if ((blockEntity.edges & LargeIronSignBlockEntity.TOP_EDGE) > 0) {
-					blockEntity.edges -= LargeIronSignBlockEntity.TOP_EDGE;
-					topEdgeButton.setMessage(Text.literal("Off"));
+		topTrimButton = ButtonWidget.builder(Text.literal((blockEntity.trim & LargeIronSignBlockEntity.TOP_EDGE) > 0 ? "On" : "Off"), a -> {
+				if ((blockEntity.trim & LargeIronSignBlockEntity.TOP_EDGE) > 0) {
+					blockEntity.trim -= LargeIronSignBlockEntity.TOP_EDGE;
+					topTrimButton.setMessage(Text.literal("Off"));
 				} else {
-					blockEntity.edges |= LargeIronSignBlockEntity.TOP_EDGE;
-					topEdgeButton.setMessage(Text.literal("On"));
+					blockEntity.trim |= LargeIronSignBlockEntity.TOP_EDGE;
+					topTrimButton.setMessage(Text.literal("On"));
 				}
 				updateBlockEntity();
-			}).dimensions(width / 2 - (edgeButtonWidth / 2), 0, edgeButtonWidth, edgeButtonHeight)
+			}).dimensions(width / 2 - (trimButtonWidth / 2), 0, trimButtonWidth, trimButtonHeight)
 			.build();
-		addDrawableChild(topEdgeButton);
+		addDrawableChild(topTrimButton);
 
-		rightEdgeButton = ButtonWidget.builder(Text.literal((blockEntity.edges & LargeIronSignBlockEntity.RIGHT_EDGE) > 0 ? "On" : "Off"), a -> {
-					if ((blockEntity.edges & LargeIronSignBlockEntity.RIGHT_EDGE) > 0) {
-						blockEntity.edges -= LargeIronSignBlockEntity.RIGHT_EDGE;
-						rightEdgeButton.setMessage(Text.literal("Off"));
+		rightTrimButton = ButtonWidget.builder(Text.literal((blockEntity.trim & LargeIronSignBlockEntity.RIGHT_EDGE) > 0 ? "On" : "Off"), a -> {
+					if ((blockEntity.trim & LargeIronSignBlockEntity.RIGHT_EDGE) > 0) {
+						blockEntity.trim -= LargeIronSignBlockEntity.RIGHT_EDGE;
+						rightTrimButton.setMessage(Text.literal("Off"));
 					} else {
-						blockEntity.edges |= LargeIronSignBlockEntity.RIGHT_EDGE;
-						rightEdgeButton.setMessage(Text.literal("On"));
+						blockEntity.trim |= LargeIronSignBlockEntity.RIGHT_EDGE;
+						rightTrimButton.setMessage(Text.literal("On"));
 					}
 					updateBlockEntity();
-				}).dimensions(width - edgeButtonWidth, height / 2 - (edgeButtonHeight / 2), edgeButtonWidth, edgeButtonHeight)
+				}).dimensions(width - trimButtonWidth, height / 2 - (trimButtonHeight / 2), trimButtonWidth, trimButtonHeight)
 				.build();
-		addDrawableChild(rightEdgeButton);
+		addDrawableChild(rightTrimButton);
 
-		bottomEdgeButton = ButtonWidget.builder(Text.literal((blockEntity.edges & LargeIronSignBlockEntity.BOTTOM_EDGE) > 0 ? "On" : "Off"), a -> {
-					if ((blockEntity.edges & LargeIronSignBlockEntity.BOTTOM_EDGE) > 0) {
-						blockEntity.edges -= LargeIronSignBlockEntity.BOTTOM_EDGE;
-						bottomEdgeButton.setMessage(Text.literal("Off"));
+		bottomTrimButton = ButtonWidget.builder(Text.literal((blockEntity.trim & LargeIronSignBlockEntity.BOTTOM_EDGE) > 0 ? "On" : "Off"), a -> {
+					if ((blockEntity.trim & LargeIronSignBlockEntity.BOTTOM_EDGE) > 0) {
+						blockEntity.trim -= LargeIronSignBlockEntity.BOTTOM_EDGE;
+						bottomTrimButton.setMessage(Text.literal("Off"));
 					} else {
-						blockEntity.edges |= LargeIronSignBlockEntity.BOTTOM_EDGE;
-						bottomEdgeButton.setMessage(Text.literal("On"));
+						blockEntity.trim |= LargeIronSignBlockEntity.BOTTOM_EDGE;
+						bottomTrimButton.setMessage(Text.literal("On"));
 					}
 					updateBlockEntity();
-				}).dimensions(width / 2 - (edgeButtonWidth / 2), height - edgeButtonHeight, edgeButtonWidth, edgeButtonHeight)
+				}).dimensions(width / 2 - (trimButtonWidth / 2), height - trimButtonHeight, trimButtonWidth, trimButtonHeight)
 				.build();
-		addDrawableChild(bottomEdgeButton);
+		addDrawableChild(bottomTrimButton);
 
-		leftEdgeButton = ButtonWidget.builder(Text.literal((blockEntity.edges & LargeIronSignBlockEntity.LEFT_EDGE) > 0 ? "On" : "Off"), a -> {
-					if ((blockEntity.edges & LargeIronSignBlockEntity.LEFT_EDGE) > 0) {
-						blockEntity.edges -= LargeIronSignBlockEntity.LEFT_EDGE;
-						leftEdgeButton.setMessage(Text.literal("Off"));
+		leftTrimButton = ButtonWidget.builder(Text.literal((blockEntity.trim & LargeIronSignBlockEntity.LEFT_EDGE) > 0 ? "On" : "Off"), a -> {
+					if ((blockEntity.trim & LargeIronSignBlockEntity.LEFT_EDGE) > 0) {
+						blockEntity.trim -= LargeIronSignBlockEntity.LEFT_EDGE;
+						leftTrimButton.setMessage(Text.literal("Off"));
 					} else {
-						blockEntity.edges |= LargeIronSignBlockEntity.LEFT_EDGE;
-						leftEdgeButton.setMessage(Text.literal("On"));
+						blockEntity.trim |= LargeIronSignBlockEntity.LEFT_EDGE;
+						leftTrimButton.setMessage(Text.literal("On"));
 					}
 					updateBlockEntity();
-				}).dimensions(0, height / 2 - (edgeButtonHeight / 2), edgeButtonWidth, edgeButtonHeight)
+				}).dimensions(0, height / 2 - (trimButtonHeight / 2), trimButtonWidth, trimButtonHeight)
 				.build();
-		addDrawableChild(leftEdgeButton);
+		addDrawableChild(leftTrimButton);
 
 
 		// Symbol buttons
@@ -157,7 +157,7 @@ public class LargeIronSignScreen extends Screen {
 		PacketByteBuf buf = PacketByteBufs.create();
 		buf.writeBlockPos(pos);
 		buf.writeString(blockEntity.character.name());
-		buf.writeInt(blockEntity.edges);
+		buf.writeInt(blockEntity.trim);
 		ClientPlayNetworking.send(LargeIronSignBlock.LARGE_IRON_SIGN_SET_SYMBOL_PACKET_ID, buf);
 	}
 
