@@ -481,6 +481,36 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 			emitter.emit();
 		}
 
+		// Bottom Right Corner
+		if (bottomTrim && rightTrim) {
+			// Front
+			emitter.square(direction, 1.0f, 0.0f - TRIM_WIDTH, 1.0f + TRIM_WIDTH, 0.0f, FRONT_DEPTH);
+			emitter.uvUnitSquare();
+			emitter.spriteBake(spriteTrimCornerFront, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_180);
+			emitter.color(-1, -1, -1, -1);
+			emitter.emit();
+			// Back
+			emitter.square(backDirection, 0.0f - TRIM_WIDTH, 0.0f - TRIM_WIDTH, 0.0f, 0.0f, 0.0f);
+			emitter.uvUnitSquare();
+			emitter.spriteBake(spriteTrimCornerFront, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_270);
+			emitter.color(-1, -1, -1, -1);
+			emitter.emit();
+			// Right
+			emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R270), 0.9375f, 0.0f - TRIM_WIDTH, 1f, 0.0f, 0.0f - TRIM_WIDTH);
+			emitter.uvUnitSquare();
+			emitter.spriteBake(spriteTrimCornerEdge, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_270);
+			emitter.color(-1, -1, -1, -1);
+			emitter.emit();
+			// Bottom
+			Quad top = new Quad(0.0f - TRIM_WIDTH, 1.0f - THICKNESS, 0.0f, 1.0f);
+			top.rotate(directionUtil.getRotation(direction, Direction.NORTH));
+			emitter.square(Direction.DOWN, top.left, top.bottom, top.right, top.top, 0.0f - TRIM_WIDTH);
+			emitter.uvUnitSquare();
+			emitter.spriteBake(spriteTrimCornerEdge, MutableQuadView.BAKE_NORMALIZED | downRotateFlag);
+			emitter.color(-1, -1, -1, -1);
+			emitter.emit();
+		}
+
 		return builder.build();
 	}
 
