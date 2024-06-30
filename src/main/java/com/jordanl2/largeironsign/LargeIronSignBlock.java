@@ -2,6 +2,7 @@ package com.jordanl2.largeironsign;
 
 import java.util.Map;
 
+import net.fabricmc.fabric.api.blockview.v2.FabricBlockView;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -44,7 +45,11 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 	// BlockState properties
 	public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
-	
+	public static final BooleanProperty TOP_TRIM = BooleanProperty.of("top_trim");
+	public static final BooleanProperty RIGHT_TRIM = BooleanProperty.of("right_trim");
+	public static final BooleanProperty BOTTOM_TRIM = BooleanProperty.of("bottom_trim");
+	public static final BooleanProperty LEFT_TRIM = BooleanProperty.of("left_trim");
+
 	// IDs
 	public static final String PATH = "large_iron_sign";
 	public static final String BLOCK_PATH = "block/" + PATH;
@@ -68,6 +73,11 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 	public static final Identifier TRIM_EDGE_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_edge");
 	public static final Identifier TRIM_CORNER_EDGE_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_corner_edge");
 	public static final Identifier TRIM_CORNER_FRONT_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_corner_front");
+
+	// Model
+	public static final float THICKNESS = 1f / 16f;
+	public static final float FRONT_DEPTH = 1f - THICKNESS;
+	public static final float TRIM_WIDTH = 2f / 16f;
 
 	// Network packets
 	public static final Identifier LARGE_IRON_SIGN_SCREEN_OPEN_PACKET_ID = new Identifier(LargeIronSign.MOD_ID, PATH + "_screen_open");
@@ -98,29 +108,41 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
         super(settings);
         setDefaultState(getDefaultState()
         		.with(FACING, Direction.NORTH)
-        		.with(WATERLOGGED, false));
+        		.with(WATERLOGGED, false)
+        		.with(TOP_TRIM, false)
+        		.with(RIGHT_TRIM, false)
+        		.with(BOTTOM_TRIM, false)
+        		.with(LEFT_TRIM, false));
 	}
 	
 	@Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		builder.add(
 				FACING,
-				WATERLOGGED);
+				WATERLOGGED,
+				TOP_TRIM,
+				RIGHT_TRIM,
+				BOTTOM_TRIM,
+				LEFT_TRIM);
     }
 
 	@SuppressWarnings("deprecation")
 	@Override
     public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
 		Direction dir = state.get(FACING);
-		return LargeIronSignBlock.getOutlineShape(dir);
+		return LargeIronSignBlock.getOutlineShape(dir, state.get(TOP_TRIM), state.get(RIGHT_TRIM), state.get(BOTTOM_TRIM), state.get(LEFT_TRIM));
     }
 	
-	public static VoxelShape getOutlineShape(Direction dir) {
+	public static VoxelShape getOutlineShape(Direction dir, boolean topTrim, boolean rightTrim, boolean bottomTrim, boolean leftTrim) {
+		float trimLeft = leftTrim ? TRIM_WIDTH : 0f;
+		float trimRight = rightTrim ? TRIM_WIDTH : 0f;
+		float trimTop = topTrim ? TRIM_WIDTH : 0f;
+		float trimBottom = bottomTrim ? TRIM_WIDTH : 0f;
         return switch (dir) {
-            case NORTH -> VoxelShapes.cuboid(0f, 0f, 0.9375f, 1f, 1f, 1f);
-            case SOUTH -> VoxelShapes.cuboid(0f, 0f, 0f, 1f, 1f, 0.0625f);
-            case EAST -> VoxelShapes.cuboid(0f, 0f, 0f, 0.0625f, 1f, 1f);
-            case WEST -> VoxelShapes.cuboid(0.9375f, 0f, 0f, 1f, 1f, 1f);
+            case NORTH -> VoxelShapes.cuboid(0f - trimRight, 0f - trimBottom, FRONT_DEPTH, 1f + trimLeft, 1f + trimTop, 1f);
+            case SOUTH -> VoxelShapes.cuboid(0f - trimLeft, 0f - trimBottom, 0f, 1f + trimRight, 1f + trimTop, THICKNESS);
+            case EAST -> VoxelShapes.cuboid(0f, 0f - trimBottom, 0f - trimRight, THICKNESS, 1f + trimTop, 1f + trimLeft);
+            case WEST -> VoxelShapes.cuboid(FRONT_DEPTH, 0f - trimBottom, 0f - trimLeft, 1f, 1f + trimTop, 1f + trimRight);
             default -> VoxelShapes.fullCube();
         };
 	}

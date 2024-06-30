@@ -49,9 +49,9 @@ import net.minecraft.world.BlockRenderView;
 public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBakedModel {
 
 	public static final float TEXT_DEPTH = 0.001f;
-	public static final float THICKNESS = 1f / 16f;
-	public static final float FRONT_DEPTH = 1f - THICKNESS;
-	public static final float TRIM_WIDTH = 2f / 16f;
+	public static final float THICKNESS = LargeIronSignBlock.THICKNESS;
+	public static final float FRONT_DEPTH = LargeIronSignBlock.FRONT_DEPTH;
+	public static final float TRIM_WIDTH = LargeIronSignBlock.TRIM_WIDTH;
 
 	private final Sprite[] sprites = new Sprite[LargeIronSignCharacter.values().length];
 	private Sprite spriteFront;
@@ -200,21 +200,24 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 	@Override
 	public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
 		Direction direction = state.get(LargeIronSignBlock.FACING);
-		LargeIronSignBlockEntity entityState = (LargeIronSignBlockEntity) 
-				((FabricBlockView)blockView).getBlockEntityRenderData(pos);
-		Mesh mesh = buildMesh(direction, entityState.character, entityState.foreground, entityState.background, entityState.trim);
+		LargeIronSignBlockEntity entityState = (LargeIronSignBlockEntity) blockView.getBlockEntityRenderData(pos);
+		Mesh mesh = buildMesh(
+				direction,
+				entityState.character,
+				entityState.foreground,
+				entityState.background,
+				state.get(LargeIronSignBlock.TOP_TRIM),
+				state.get(LargeIronSignBlock.RIGHT_TRIM),
+				state.get(LargeIronSignBlock.BOTTOM_TRIM),
+				state.get(LargeIronSignBlock.LEFT_TRIM));
 		mesh.outputTo(context.getEmitter());
 	}
 	
-	private Mesh buildMesh(Direction direction, LargeIronSignCharacter character, int foreground, int background, int trim) {
+	private Mesh buildMesh(Direction direction, LargeIronSignCharacter character, int foreground, int background,
+						   boolean topTrim, boolean rightTrim, boolean bottomTrim, boolean leftTrim) {
 		Renderer renderer = RendererAccess.INSTANCE.getRenderer();
 		MeshBuilder builder = renderer.meshBuilder();
 		QuadEmitter emitter = builder.getEmitter();
-
-		boolean topTrim = (trim & LargeIronSignBlockEntity.TOP_EDGE) > 0;
-		boolean rightTrim = (trim & LargeIronSignBlockEntity.RIGHT_EDGE) > 0;
-		boolean bottomTrim = (trim & LargeIronSignBlockEntity.BOTTOM_EDGE) > 0;
-		boolean leftTrim = (trim & LargeIronSignBlockEntity.LEFT_EDGE) > 0;
 
 		// Front - Background
 		emitter.square(direction, 0.0f, 0.0f, 1.0f, 1.0f, FRONT_DEPTH);
@@ -324,7 +327,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 			emitter.emit();
 		}
 		
-		VoxelShape shape = LargeIronSignBlock.getOutlineShape(direction);
+		VoxelShape shape = LargeIronSignBlock.getOutlineShape(direction, topTrim, rightTrim, bottomTrim, leftTrim);
 		
 		int upRotateFlag = 0;
 		int upOppositeRotateFlag = 0;
@@ -521,7 +524,10 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 				LargeIronSignCharacter.KEY_A, 
 				LargeIronSignBlock.DEFAULT_COLOUR_FOREGROUND, 
 				LargeIronSignBlock.DEFAULT_COLOUR_BACKGROUND,
-				0);
+				false,
+				false,
+				false,
+				false);
 		mesh.outputTo(context.getEmitter());
     }
     

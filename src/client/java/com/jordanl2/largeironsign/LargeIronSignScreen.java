@@ -25,6 +25,10 @@ public class LargeIronSignScreen extends Screen {
 	private BlockPos pos;
 	private ClientWorld world;
 	private LargeIronSignBlockEntity blockEntity;
+	private boolean topTrim;
+	private boolean rightTrim;
+	private boolean bottomTrim;
+	private boolean leftTrim;
 
 	private List<ButtonWidget> buttons;
 	private ButtonWidget topTrimButton;
@@ -42,6 +46,12 @@ public class LargeIronSignScreen extends Screen {
 		super.init();
 
 		world = client.world;
+		BlockState blockState = world.getBlockState(pos);
+		topTrim = blockState.get(LargeIronSignBlock.TOP_TRIM);
+		rightTrim = blockState.get(LargeIronSignBlock.RIGHT_TRIM);
+		bottomTrim = blockState.get(LargeIronSignBlock.BOTTOM_TRIM);
+		leftTrim = blockState.get(LargeIronSignBlock.LEFT_TRIM);
+
 		BlockEntity blockEntity1 = world.getBlockEntity(pos);
 		if (blockEntity1 instanceof LargeIronSignBlockEntity largeIronSignBlockEntity) {
 			blockEntity = largeIronSignBlockEntity;
@@ -55,12 +65,12 @@ public class LargeIronSignScreen extends Screen {
 		int trimButtonWidth = 30;
 		int trimButtonHeight = 20;
 
-		topTrimButton = ButtonWidget.builder(Text.literal((blockEntity.trim & LargeIronSignBlockEntity.TOP_EDGE) > 0 ? "On" : "Off"), a -> {
-				if ((blockEntity.trim & LargeIronSignBlockEntity.TOP_EDGE) > 0) {
-					blockEntity.trim -= LargeIronSignBlockEntity.TOP_EDGE;
+		topTrimButton = ButtonWidget.builder(Text.literal(topTrim ? "On" : "Off"), a -> {
+				if (topTrim) {
+					topTrim = false;
 					topTrimButton.setMessage(Text.literal("Off"));
 				} else {
-					blockEntity.trim |= LargeIronSignBlockEntity.TOP_EDGE;
+					topTrim = true;
 					topTrimButton.setMessage(Text.literal("On"));
 				}
 				updateBlockEntity();
@@ -68,12 +78,12 @@ public class LargeIronSignScreen extends Screen {
 			.build();
 		addDrawableChild(topTrimButton);
 
-		rightTrimButton = ButtonWidget.builder(Text.literal((blockEntity.trim & LargeIronSignBlockEntity.RIGHT_EDGE) > 0 ? "On" : "Off"), a -> {
-					if ((blockEntity.trim & LargeIronSignBlockEntity.RIGHT_EDGE) > 0) {
-						blockEntity.trim -= LargeIronSignBlockEntity.RIGHT_EDGE;
+		rightTrimButton = ButtonWidget.builder(Text.literal(rightTrim ? "On" : "Off"), a -> {
+					if (rightTrim) {
+						rightTrim = false;
 						rightTrimButton.setMessage(Text.literal("Off"));
 					} else {
-						blockEntity.trim |= LargeIronSignBlockEntity.RIGHT_EDGE;
+						rightTrim = true;
 						rightTrimButton.setMessage(Text.literal("On"));
 					}
 					updateBlockEntity();
@@ -81,12 +91,12 @@ public class LargeIronSignScreen extends Screen {
 				.build();
 		addDrawableChild(rightTrimButton);
 
-		bottomTrimButton = ButtonWidget.builder(Text.literal((blockEntity.trim & LargeIronSignBlockEntity.BOTTOM_EDGE) > 0 ? "On" : "Off"), a -> {
-					if ((blockEntity.trim & LargeIronSignBlockEntity.BOTTOM_EDGE) > 0) {
-						blockEntity.trim -= LargeIronSignBlockEntity.BOTTOM_EDGE;
+		bottomTrimButton = ButtonWidget.builder(Text.literal(bottomTrim ? "On" : "Off"), a -> {
+					if (bottomTrim) {
+						bottomTrim = false;
 						bottomTrimButton.setMessage(Text.literal("Off"));
 					} else {
-						blockEntity.trim |= LargeIronSignBlockEntity.BOTTOM_EDGE;
+						bottomTrim = true;
 						bottomTrimButton.setMessage(Text.literal("On"));
 					}
 					updateBlockEntity();
@@ -94,12 +104,12 @@ public class LargeIronSignScreen extends Screen {
 				.build();
 		addDrawableChild(bottomTrimButton);
 
-		leftTrimButton = ButtonWidget.builder(Text.literal((blockEntity.trim & LargeIronSignBlockEntity.LEFT_EDGE) > 0 ? "On" : "Off"), a -> {
-					if ((blockEntity.trim & LargeIronSignBlockEntity.LEFT_EDGE) > 0) {
-						blockEntity.trim -= LargeIronSignBlockEntity.LEFT_EDGE;
+		leftTrimButton = ButtonWidget.builder(Text.literal(leftTrim ? "On" : "Off"), a -> {
+					if (leftTrim) {
+						leftTrim = false;
 						leftTrimButton.setMessage(Text.literal("Off"));
 					} else {
-						blockEntity.trim |= LargeIronSignBlockEntity.LEFT_EDGE;
+						leftTrim = true;
 						leftTrimButton.setMessage(Text.literal("On"));
 					}
 					updateBlockEntity();
@@ -157,7 +167,10 @@ public class LargeIronSignScreen extends Screen {
 		PacketByteBuf buf = PacketByteBufs.create();
 		buf.writeBlockPos(pos);
 		buf.writeString(blockEntity.character.name());
-		buf.writeInt(blockEntity.trim);
+		buf.writeBoolean(topTrim);
+		buf.writeBoolean(rightTrim);
+		buf.writeBoolean(bottomTrim);
+		buf.writeBoolean(leftTrim);
 		ClientPlayNetworking.send(LargeIronSignBlock.LARGE_IRON_SIGN_SET_SYMBOL_PACKET_ID, buf);
 	}
 

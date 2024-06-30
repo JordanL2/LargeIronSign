@@ -18,7 +18,10 @@ public class LargeIronSignSetSymbolHandler implements ServerPlayNetworking.PlayC
 			PacketByteBuf buf, PacketSender responseSender) {
 		BlockPos pos = buf.readBlockPos();
 		String characterName = buf.readString();
-		int trim = buf.readInt();
+		boolean topTrim = buf.readBoolean();
+		boolean rightTrim = buf.readBoolean();
+		boolean bottomTrim = buf.readBoolean();
+		boolean leftTrim = buf.readBoolean();
 		LargeIronSignCharacter character = LargeIronSignCharacter.valueOf(characterName);
 
 		server.execute(() -> {
@@ -28,7 +31,11 @@ public class LargeIronSignSetSymbolHandler implements ServerPlayNetworking.PlayC
 	        	BlockEntity blockEntity = world.getBlockEntity(pos);
 	        	if (blockEntity instanceof LargeIronSignBlockEntity largeIronSignBlockEntity) {
 	        		largeIronSignBlockEntity.character = character;
-					largeIronSignBlockEntity.trim = trim;
+					world.setBlockState(pos, blockState
+							.with(LargeIronSignBlock.TOP_TRIM, topTrim)
+							.with(LargeIronSignBlock.RIGHT_TRIM, rightTrim)
+							.with(LargeIronSignBlock.BOTTOM_TRIM, bottomTrim)
+							.with(LargeIronSignBlock.LEFT_TRIM, leftTrim));
 	        		largeIronSignBlockEntity.markDirty();
 	        	}
 			}
