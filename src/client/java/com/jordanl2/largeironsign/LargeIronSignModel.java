@@ -327,7 +327,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 			emitter.emit();
 		}
 		
-		VoxelShape shape = LargeIronSignBlock.getOutlineShape(direction, topTrim, rightTrim, bottomTrim, leftTrim);
+		VoxelShape shape = LargeIronSignBlock.getOutlineShape(direction, false, false, false, false);
 		
 		int upRotateFlag = 0;
 		int upOppositeRotateFlag = 0;
