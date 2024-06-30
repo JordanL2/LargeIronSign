@@ -66,6 +66,8 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 	public static final Identifier TRIM_FRONT_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_front");
 	public static final Identifier TRIM_BACK_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_front");
 	public static final Identifier TRIM_EDGE_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_edge");
+	public static final Identifier TRIM_CORNER_EDGE_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_corner_edge");
+	public static final Identifier TRIM_CORNER_FRONT_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_corner_front");
 
 	// Network packets
 	public static final Identifier LARGE_IRON_SIGN_SCREEN_OPEN_PACKET_ID = new Identifier(LargeIronSign.MOD_ID, PATH + "_screen_open");
@@ -105,7 +107,8 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 				FACING,
 				WATERLOGGED);
     }
-	
+
+	@SuppressWarnings("deprecation")
 	@Override
     public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
 		Direction dir = state.get(FACING);
@@ -113,20 +116,16 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
     }
 	
 	public static VoxelShape getOutlineShape(Direction dir) {
-		switch (dir) {
-			case NORTH:
-				return VoxelShapes.cuboid(0f, 0f, 0.9375f, 1f, 1f, 1f);
-			case SOUTH:
-				return VoxelShapes.cuboid(0f, 0f, 0f, 1f, 1f, 0.0625f);
-			case EAST:
-				return VoxelShapes.cuboid(0f, 0f, 0f, 0.0625f, 1f, 1f);
-			case WEST:
-				return VoxelShapes.cuboid(0.9375f, 0f, 0f, 1f, 1f, 1f);
-			default:
-				return VoxelShapes.fullCube();
-		}
+        return switch (dir) {
+            case NORTH -> VoxelShapes.cuboid(0f, 0f, 0.9375f, 1f, 1f, 1f);
+            case SOUTH -> VoxelShapes.cuboid(0f, 0f, 0f, 1f, 1f, 0.0625f);
+            case EAST -> VoxelShapes.cuboid(0f, 0f, 0f, 0.0625f, 1f, 1f);
+            case WEST -> VoxelShapes.cuboid(0.9375f, 0f, 0f, 1f, 1f, 1f);
+            default -> VoxelShapes.fullCube();
+        };
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		Item item1 = player.getMainHandStack().getItem();
@@ -181,14 +180,12 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 				.with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).isOf(Fluids.WATER));
     }
 
-    // Overriding AbstractBlock methods is not deprecated
     @SuppressWarnings("deprecation")
 	@Override
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
     
-    // Overriding AbstractBlock methods is not deprecated
     @SuppressWarnings("deprecation")
 	@Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
