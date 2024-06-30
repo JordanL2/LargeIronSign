@@ -414,6 +414,22 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 			emitter.spriteBake(spriteTrimEdge, MutableQuadView.BAKE_NORMALIZED | upRotateFlag);
 			emitter.color(-1, -1, -1, -1);
 			emitter.emit();
+			if (!leftTrim) {
+				// No left trim, add left face
+				emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R90), 0.0f, 1.0f, 0.0625f, 1.0f + TRIM_WIDTH, 0.0f);
+				emitter.uvUnitSquare();
+				emitter.spriteBake(spriteTrimCornerEdge, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_90);
+				emitter.color(-1, -1, -1, -1);
+				emitter.emit();
+			}
+			if (!rightTrim) {
+				// No right trim, add right face
+				emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R270), 0.9375f, 1.0f, 1f, 1.0f + TRIM_WIDTH, 0.0f);
+				emitter.uvUnitSquare();
+				emitter.spriteBake(spriteTrimCornerEdge, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_90);
+				emitter.color(-1, -1, -1, -1);
+				emitter.emit();
+			}
 		}
 		
 		// Down
@@ -432,6 +448,22 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 			emitter.spriteBake(spriteTrimEdge, MutableQuadView.BAKE_NORMALIZED | downRotateFlag);
 			emitter.color(-1, -1, -1, -1);
 			emitter.emit();
+			if (!leftTrim) {
+				// No left trim, add left face
+				emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R90), 0.0f, 0.0f - TRIM_WIDTH, 0.0625f, 0.0f, 0.0f);
+				emitter.uvUnitSquare();
+				emitter.spriteBake(spriteTrimCornerEdge, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_270);
+				emitter.color(-1, -1, -1, -1);
+				emitter.emit();
+			}
+			if (!rightTrim) {
+				// No right trim, add right face
+				emitter.square(directionUtil.rotate(direction, VariantSettings.Rotation.R270), 0.9375f, 0.0f - TRIM_WIDTH, 1f, 0.0f, 0.0f);
+				emitter.uvUnitSquare();
+				emitter.spriteBake(spriteTrimCornerEdge, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_270);
+				emitter.color(-1, -1, -1, -1);
+				emitter.emit();
+			}
 		}
 
 		// Top Left Corner
