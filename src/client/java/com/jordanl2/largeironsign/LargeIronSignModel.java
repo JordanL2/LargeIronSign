@@ -490,21 +490,29 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 				emitter.emit();
 			}
 		}
-		
-		VoxelShape shape = LargeIronSignBlock.getOutlineShape(direction, false, false, false, false);
 
 		// Top
 		if (!topTrim) {
+			Quad top = new Quad(0.0f, 0.0f, 1.0f, THICKNESS);
+			top.rotate(directionUtil.getRotation(Direction.NORTH, direction));
 			emitter.square(Direction.UP,
-					(float) shape.getMin(Axis.X), 1f - (float) shape.getMax(Axis.Z),
-					(float) shape.getMax(Axis.X), 1f - (float) shape.getMin(Axis.Z), 0.0f);
+					top.left,
+					top.bottom,
+					top.right,
+					top.top,
+					0.0f);
 			emitter.spriteBake(spriteEdge, MutableQuadView.BAKE_LOCK_UV | upRotateFlag);
 			emitter.color(-1, -1, -1, -1);
 			emitter.emit();
 		} else {
+			Quad top = new Quad(0.0f, 0.0f, 1.0f, THICKNESS);
+			top.rotate(directionUtil.getRotation(Direction.NORTH, direction));
 			emitter.square(Direction.UP,
-					(float) shape.getMin(Axis.X), 1f - (float) shape.getMax(Axis.Z),
-					(float) shape.getMax(Axis.X), 1f - (float) shape.getMin(Axis.Z), 0.0f - TRIM_WIDTH);
+					top.left,
+					top.bottom,
+					top.right,
+					top.top,
+					0.0f - TRIM_WIDTH);
 			emitter.uvUnitSquare();
 			emitter.spriteBake(spriteTrimEdge, MutableQuadView.BAKE_NORMALIZED | upRotateFlag);
 			emitter.color(-1, -1, -1, -1);
@@ -529,16 +537,26 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		
 		// Bottom
 		if (!bottomTrim) {
+			Quad top = new Quad(0.0f, 1.0f - THICKNESS, 1.0f, 1.0f);
+			top.rotate(directionUtil.getRotation(direction, Direction.NORTH));
 			emitter.square(Direction.DOWN,
-					(float) shape.getMin(Axis.X), (float) shape.getMin(Axis.Z),
-					(float) shape.getMax(Axis.X), (float) shape.getMax(Axis.Z), 0.0f);
+					top.left,
+					top.bottom,
+					top.right,
+					top.top,
+					0.0f);
 			emitter.spriteBake(spriteEdge, MutableQuadView.BAKE_LOCK_UV | downRotateFlag);
 			emitter.color(-1, -1, -1, -1);
 			emitter.emit();
 		} else {
+			Quad top = new Quad(0.0f, 1.0f - THICKNESS, 1.0f, 1.0f);
+			top.rotate(directionUtil.getRotation(direction, Direction.NORTH));
 			emitter.square(Direction.DOWN,
-					(float) shape.getMin(Axis.X), (float) shape.getMin(Axis.Z),
-					(float) shape.getMax(Axis.X), (float) shape.getMax(Axis.Z), 0.0f - TRIM_WIDTH);
+					top.left,
+					top.bottom,
+					top.right,
+					top.top,
+					0.0f - TRIM_WIDTH);
 			emitter.uvUnitSquare();
 			emitter.spriteBake(spriteTrimEdge, MutableQuadView.BAKE_NORMALIZED | downRotateFlag);
 			emitter.color(-1, -1, -1, -1);
