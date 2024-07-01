@@ -36,7 +36,6 @@ public class LargeIronSignBlockNeighbourState {
     public LargeIronSignBlockNeighbourState(BlockView blockView, BlockState state, BlockPos pos) {
         Direction direction = state.get(LargeIronSignBlock.FACING);
 
-        VoxelShape ourShape;
         BlockPos blockToTopLeftPos;
         BlockPos blockToTopPos = pos.add(0, 1, 0);
         BlockPos blockToTopRightPos;
@@ -48,7 +47,6 @@ public class LargeIronSignBlockNeighbourState {
 
         switch (direction) {
             case NORTH:
-                ourShape = VoxelShapes.cuboid(0f - TRIM_WIDTH, 0f - TRIM_WIDTH, 1.0f - THICKNESS, 1f + TRIM_WIDTH, 1f + TRIM_WIDTH, 1f);
                 blockToLeftPos = pos.add(1, 0, 0);
                 blockToRightPos = pos.add(-1, 0, 0);
                 blockToTopLeftPos = pos.add(1, 1, 0);
@@ -57,7 +55,6 @@ public class LargeIronSignBlockNeighbourState {
                 blockToBottomRightPos = pos.add(-1, -1, 0);
                 break;
             case EAST:
-                ourShape = VoxelShapes.cuboid(0f, 0f - TRIM_WIDTH, 0f - TRIM_WIDTH, THICKNESS, 1f + TRIM_WIDTH, 1f + TRIM_WIDTH);
                 blockToLeftPos = pos.add(0, 0, 1);
                 blockToRightPos = pos.add(0, 0, -1);
                 blockToTopLeftPos = pos.add(0, 1, 1);
@@ -66,7 +63,6 @@ public class LargeIronSignBlockNeighbourState {
                 blockToBottomRightPos = pos.add(0, -1, -1);
                 break;
             case SOUTH:
-                ourShape = VoxelShapes.cuboid(0f - TRIM_WIDTH, 0f - TRIM_WIDTH, 0f, 1f + TRIM_WIDTH, 1f + TRIM_WIDTH, THICKNESS);
                 blockToLeftPos = pos.add(-1, 0, 0);
                 blockToRightPos = pos.add(1, 0, 0);
                 blockToTopLeftPos = pos.add(-1, 1, 0);
@@ -76,7 +72,6 @@ public class LargeIronSignBlockNeighbourState {
                 break;
             case WEST:
             default:
-                ourShape = VoxelShapes.cuboid(1.0f - THICKNESS, 0f - TRIM_WIDTH, 0f - TRIM_WIDTH, 1f, 1f + TRIM_WIDTH, 1f + TRIM_WIDTH);
                 blockToLeftPos = pos.add(0, 0, -1);
                 blockToRightPos = pos.add(0, 0, 1);
                 blockToTopLeftPos = pos.add(0, 1, -1);
@@ -94,6 +89,7 @@ public class LargeIronSignBlockNeighbourState {
         BlockState blockToBottomLeft = blockView.getBlockState(blockToBottomLeftPos);
         BlockState blockToLeft = blockView.getBlockState(blockToLeftPos);
 
+        VoxelShape ourShape = makeOutlineShape(direction);
         Box ourShapeBox = ourShape.getBoundingBox().offset(pos);
 
         innerCornerTopLeft = blockToTopLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopLeft.get(LargeIronSignBlock.RIGHT_TRIM) && state.get(LargeIronSignBlock.TOP_TRIM);
@@ -118,14 +114,29 @@ public class LargeIronSignBlockNeighbourState {
         if (blockState.isAir()) {
             return true;
         }
+        VoxelShape thisShape;
         if (blockState.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK)) {
-            return false;
+            thisShape = makeOutlineShape(blockState.get(LargeIronSignBlock.FACING));
+        } else {
+            thisShape = blockState.getOutlineShape(blockView, pos);
         }
-        VoxelShape thisShape = blockState.getOutlineShape(blockView, pos);
         if (thisShape.isEmpty()) {
             return true;
         }
         return !ourShape.intersects(thisShape.getBoundingBox().offset(pos));
+    }
+
+    private VoxelShape makeOutlineShape(Direction direction) {
+        return switch (direction) {
+            case NORTH ->
+                    VoxelShapes.cuboid(0f - TRIM_WIDTH, 0f - TRIM_WIDTH, 1.0f - THICKNESS, 1f + TRIM_WIDTH, 1f + TRIM_WIDTH, 1f);
+            case EAST ->
+                    VoxelShapes.cuboid(0f, 0f - TRIM_WIDTH, 0f - TRIM_WIDTH, THICKNESS, 1f + TRIM_WIDTH, 1f + TRIM_WIDTH);
+            case SOUTH ->
+                    VoxelShapes.cuboid(0f - TRIM_WIDTH, 0f - TRIM_WIDTH, 0f, 1f + TRIM_WIDTH, 1f + TRIM_WIDTH, THICKNESS);
+            default ->
+                    VoxelShapes.cuboid(1.0f - THICKNESS, 0f - TRIM_WIDTH, 0f - TRIM_WIDTH, 1f, 1f + TRIM_WIDTH, 1f + TRIM_WIDTH);
+        };
     }
 
     public boolean innerCornerTopLeft() {
