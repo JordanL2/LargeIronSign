@@ -73,6 +73,8 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 	public static final Identifier TRIM_EDGE_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_edge");
 	public static final Identifier TRIM_CORNER_EDGE_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_corner_edge");
 	public static final Identifier TRIM_CORNER_FRONT_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_corner_front");
+	public static final Identifier TRIM_INNER_CORNER_FRONT_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_inner_corner_front");
+	public static final Identifier TRIM_INNER_CORNER_BACK_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_inner_corner_front");
 
 	// Model
 	public static final float THICKNESS = 1f / 16f;

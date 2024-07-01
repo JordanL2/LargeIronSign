@@ -62,6 +62,8 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 	private Sprite spriteTrimEdge;
 	private Sprite spriteTrimCornerEdge;
 	private Sprite spriteTrimCornerFront;
+	private Sprite spriteTrimInnerCornerFront;
+	private Sprite spriteTrimInnerCornerBack;
 
 	private final static DirectionUtil directionUtil = new DirectionUtil();
 	
@@ -138,6 +140,14 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 				new SpriteIdentifier(
 						PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
 						LargeIronSignBlock.TRIM_CORNER_EDGE_TEXTURE));
+		spriteTrimInnerCornerFront = textureGetter.apply(
+				new SpriteIdentifier(
+						PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
+						LargeIronSignBlock.TRIM_INNER_CORNER_FRONT_TEXTURE));
+		spriteTrimInnerCornerBack = textureGetter.apply(
+				new SpriteIdentifier(
+						PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
+						LargeIronSignBlock.TRIM_INNER_CORNER_BACK_TEXTURE));
 
 		// Find cutout material
 		MaterialFinder finder = Objects.requireNonNull(RendererAccess.INSTANCE.getRenderer()).materialFinder();
@@ -243,14 +253,14 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 				state.get(LargeIronSignBlock.RIGHT_TRIM),
 				state.get(LargeIronSignBlock.BOTTOM_TRIM),
 				state.get(LargeIronSignBlock.LEFT_TRIM),
-				blockToTopLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopLeft.get(LargeIronSignBlock.RIGHT_TRIM),
-				blockToTopRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopRight.get(LargeIronSignBlock.LEFT_TRIM),
-				blockToTopRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopRight.get(LargeIronSignBlock.BOTTOM_TRIM),
-				blockToBottomRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomRight.get(LargeIronSignBlock.TOP_TRIM),
-				blockToBottomRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomRight.get(LargeIronSignBlock.LEFT_TRIM),
-				blockToBottomLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomLeft.get(LargeIronSignBlock.RIGHT_TRIM),
-				blockToBottomLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomLeft.get(LargeIronSignBlock.TOP_TRIM),
-				blockToTopLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopLeft.get(LargeIronSignBlock.BOTTOM_TRIM));
+				blockToTopLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopLeft.get(LargeIronSignBlock.RIGHT_TRIM) && state.get(LargeIronSignBlock.TOP_TRIM),
+				blockToTopRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopRight.get(LargeIronSignBlock.LEFT_TRIM) && state.get(LargeIronSignBlock.TOP_TRIM),
+				blockToTopRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopRight.get(LargeIronSignBlock.BOTTOM_TRIM) && state.get(LargeIronSignBlock.RIGHT_TRIM),
+				blockToBottomRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomRight.get(LargeIronSignBlock.TOP_TRIM) && state.get(LargeIronSignBlock.RIGHT_TRIM),
+				blockToBottomRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomRight.get(LargeIronSignBlock.LEFT_TRIM) && state.get(LargeIronSignBlock.BOTTOM_TRIM),
+				blockToBottomLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomLeft.get(LargeIronSignBlock.RIGHT_TRIM) && state.get(LargeIronSignBlock.BOTTOM_TRIM),
+				blockToBottomLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomLeft.get(LargeIronSignBlock.TOP_TRIM) && state.get(LargeIronSignBlock.LEFT_TRIM),
+				blockToTopLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopLeft.get(LargeIronSignBlock.BOTTOM_TRIM) && state.get(LargeIronSignBlock.LEFT_TRIM));
 		mesh.outputTo(context.getEmitter());
 	}
 	
@@ -682,6 +692,70 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 			emitter.square(Direction.DOWN, top.left, top.bottom, top.right, top.top, 0.0f - TRIM_WIDTH);
 			emitter.uvUnitSquare();
 			emitter.spriteBake(spriteTrimCornerEdge, MutableQuadView.BAKE_NORMALIZED | downRotateFlag);
+			emitter.color(-1, -1, -1, -1);
+			emitter.emit();
+		}
+
+		// Top-Right Inner Corner
+		if (innerCornerTopRight) {
+			// Front
+			emitter.square(direction, 1.0f - TRIM_WIDTH, 1.0f, 1.0f, 1.0f + TRIM_WIDTH, FRONT_DEPTH);
+			emitter.uvUnitSquare();
+			emitter.spriteBake(spriteTrimInnerCornerFront, MutableQuadView.BAKE_NORMALIZED);
+			emitter.color(-1, -1, -1, -1);
+			emitter.emit();
+			// Back
+			emitter.square(backDirection, 0.0f, 1.0f, 0.0f + TRIM_WIDTH, 1.0f + TRIM_WIDTH, 0.0f);
+			emitter.uvUnitSquare();
+			emitter.spriteBake(spriteTrimInnerCornerBack, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_90);
+			emitter.color(-1, -1, -1, -1);
+			emitter.emit();
+		}
+
+		// Right-Bottom Inner Corner
+		if (innerCornerRightBottom) {
+			// Front
+			emitter.square(direction, 1.0f, 0.0f, 1.0f + TRIM_WIDTH, 0.0f + TRIM_WIDTH, FRONT_DEPTH);
+			emitter.uvUnitSquare();
+			emitter.spriteBake(spriteTrimInnerCornerFront, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_90);
+			emitter.color(-1, -1, -1, -1);
+			emitter.emit();
+			// Back
+			emitter.square(backDirection, 0.0f - TRIM_WIDTH, 0.0f, 0.0f, 0.0f + TRIM_WIDTH, 0.0f);
+			emitter.uvUnitSquare();
+			emitter.spriteBake(spriteTrimInnerCornerBack, MutableQuadView.BAKE_NORMALIZED);
+			emitter.color(-1, -1, -1, -1);
+			emitter.emit();
+		}
+
+		// Bottom-Left Inner Corner
+		if (innerCornerBottomLeft) {
+			// Front
+			emitter.square(direction, 0.0f, 0.0f - TRIM_WIDTH, 0.0f + TRIM_WIDTH, 0.0f, FRONT_DEPTH);
+			emitter.uvUnitSquare();
+			emitter.spriteBake(spriteTrimInnerCornerFront, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_180);
+			emitter.color(-1, -1, -1, -1);
+			emitter.emit();
+			// Back
+			emitter.square(backDirection, 1.0f - TRIM_WIDTH, 0.0f - TRIM_WIDTH, 1.0f, 0.0f, 0.0f);
+			emitter.uvUnitSquare();
+			emitter.spriteBake(spriteTrimInnerCornerBack, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_270);
+			emitter.color(-1, -1, -1, -1);
+			emitter.emit();
+		}
+
+		// Left-Top Inner Corner
+		if (innerCornerLeftTop) {
+			// Front
+			emitter.square(direction, 0.0f - TRIM_WIDTH, 1.0f - TRIM_WIDTH, 0.0f, 1.0f, FRONT_DEPTH);
+			emitter.uvUnitSquare();
+			emitter.spriteBake(spriteTrimInnerCornerFront, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_270);
+			emitter.color(-1, -1, -1, -1);
+			emitter.emit();
+			// Back
+			emitter.square(backDirection, 1.0f, 1.0f - TRIM_WIDTH, 1.0f + TRIM_WIDTH, 1.0f, 0.0f);
+			emitter.uvUnitSquare();
+			emitter.spriteBake(spriteTrimInnerCornerBack, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_180);
 			emitter.color(-1, -1, -1, -1);
 			emitter.emit();
 		}
