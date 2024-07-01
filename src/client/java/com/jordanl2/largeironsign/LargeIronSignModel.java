@@ -210,18 +210,13 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 				entityState.character,
 				entityState.foreground,
 				entityState.background,
-				state.get(LargeIronSignBlock.TOP_TRIM) && neighbourState.topIsClear(),
-				state.get(LargeIronSignBlock.RIGHT_TRIM) && neighbourState.rightIsClear(),
-				state.get(LargeIronSignBlock.BOTTOM_TRIM) && neighbourState.bottomIsClear(),
-				state.get(LargeIronSignBlock.LEFT_TRIM) && neighbourState.leftIsClear(),
+				state.get(LargeIronSignBlock.TRIM),
 				neighbourState);
 		mesh.outputTo(context.getEmitter());
 	}
 
 	private Mesh buildMesh(final Direction direction, final LargeIronSignCharacter character,
-						   final int foreground, final int background,
-						   final boolean topTrim, final boolean rightTrim,
-						   final boolean bottomTrim, final boolean leftTrim,
+						   final int foreground, final int background, final boolean trim,
 						   final LargeIronSignBlockNeighbourState neighbourState) {
 		final Renderer renderer = RendererAccess.INSTANCE.getRenderer();
 		final MeshBuilder builder = renderer.meshBuilder();
@@ -239,6 +234,11 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		final boolean topRightIsClear = neighbourState.topRightIsClear();
 		final boolean bottomRightIsClear = neighbourState.bottomRightIsClear();
 		final boolean bottomLeftIsClear = neighbourState.bottomLeftIsClear();
+
+		final boolean topTrim = trim && neighbourState.topIsClear();
+		final boolean rightTrim = trim && neighbourState.rightIsClear();
+		final boolean bottomTrim = trim && neighbourState.bottomIsClear();
+		final boolean leftTrim = trim && neighbourState.leftIsClear();
 
 		int upRotateFlag = 0;
 		int upOppositeRotateFlag = 0;
@@ -737,7 +737,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 				LargeIronSignCharacter.KEY_A, 
 				LargeIronSignBlock.DEFAULT_COLOUR_FOREGROUND, 
 				LargeIronSignBlock.DEFAULT_COLOUR_BACKGROUND,
-				false,false,false,false,
+				false,
 				new LargeIronSignBlockNeighbourState());
 		mesh.outputTo(context.getEmitter());
     }

@@ -39,10 +39,7 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 	// BlockState properties
 	public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
-	public static final BooleanProperty TOP_TRIM = BooleanProperty.of("top_trim");
-	public static final BooleanProperty RIGHT_TRIM = BooleanProperty.of("right_trim");
-	public static final BooleanProperty BOTTOM_TRIM = BooleanProperty.of("bottom_trim");
-	public static final BooleanProperty LEFT_TRIM = BooleanProperty.of("left_trim");
+	public static final BooleanProperty TRIM = BooleanProperty.of("trim");
 
 	// IDs
 	public static final String PATH = "large_iron_sign";
@@ -104,10 +101,7 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
         setDefaultState(getDefaultState()
         		.with(FACING, Direction.NORTH)
         		.with(WATERLOGGED, false)
-        		.with(TOP_TRIM, false)
-        		.with(RIGHT_TRIM, false)
-        		.with(BOTTOM_TRIM, false)
-        		.with(LEFT_TRIM, false));
+        		.with(TRIM, false));
 	}
 	
 	@Override
@@ -115,10 +109,7 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 		builder.add(
 				FACING,
 				WATERLOGGED,
-				TOP_TRIM,
-				RIGHT_TRIM,
-				BOTTOM_TRIM,
-				LEFT_TRIM);
+				TRIM);
     }
 
 	@SuppressWarnings("deprecation")
@@ -126,10 +117,11 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
     public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
 		Direction dir = state.get(FACING);
 		LargeIronSignBlockNeighbourState neighbourState = new LargeIronSignBlockNeighbourState(view, state, pos);
-		float trimLeft = state.get(LEFT_TRIM) && neighbourState.leftIsClear() ? TRIM_WIDTH : 0f;
-		float trimRight = state.get(RIGHT_TRIM) && neighbourState.rightIsClear() ? TRIM_WIDTH : 0f;
-		float trimTop = state.get(TOP_TRIM) && neighbourState.topIsClear() ? TRIM_WIDTH : 0f;
-		float trimBottom = state.get(BOTTOM_TRIM) && neighbourState.bottomIsClear() ? TRIM_WIDTH : 0f;
+		boolean trim = state.get(TRIM);
+		float trimLeft = trim && neighbourState.leftIsClear() ? TRIM_WIDTH : 0f;
+		float trimRight = trim && neighbourState.rightIsClear() ? TRIM_WIDTH : 0f;
+		float trimTop = trim && neighbourState.topIsClear() ? TRIM_WIDTH : 0f;
+		float trimBottom = trim && neighbourState.bottomIsClear() ? TRIM_WIDTH : 0f;
         return switch (dir) {
             case NORTH -> VoxelShapes.cuboid(0f - trimRight, 0f - trimBottom, 1.0f - THICKNESS, 1f + trimLeft, 1f + trimTop, 1f);
             case SOUTH -> VoxelShapes.cuboid(0f - trimLeft, 0f - trimBottom, 0f, 1f + trimRight, 1f + trimTop, THICKNESS);

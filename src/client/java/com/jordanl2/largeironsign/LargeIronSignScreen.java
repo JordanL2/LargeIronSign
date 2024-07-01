@@ -25,16 +25,10 @@ public class LargeIronSignScreen extends Screen {
 	private BlockPos pos;
 	private ClientWorld world;
 	private LargeIronSignBlockEntity blockEntity;
-	private boolean topTrim;
-	private boolean rightTrim;
-	private boolean bottomTrim;
-	private boolean leftTrim;
+	private boolean trim;
 
 	private List<ButtonWidget> buttons;
-	private ButtonWidget topTrimButton;
-	private ButtonWidget rightTrimButton;
-	private ButtonWidget bottomTrimButton;
-	private ButtonWidget leftTrimButton;
+	private ButtonWidget trimButton;
 
 	protected LargeIronSignScreen(BlockPos pos) {
 		super(Text.literal("Change Sign Symbol"));
@@ -47,10 +41,7 @@ public class LargeIronSignScreen extends Screen {
 
 		world = client.world;
 		BlockState blockState = world.getBlockState(pos);
-		topTrim = blockState.get(LargeIronSignBlock.TOP_TRIM);
-		rightTrim = blockState.get(LargeIronSignBlock.RIGHT_TRIM);
-		bottomTrim = blockState.get(LargeIronSignBlock.BOTTOM_TRIM);
-		leftTrim = blockState.get(LargeIronSignBlock.LEFT_TRIM);
+		trim = blockState.get(LargeIronSignBlock.TRIM);
 
 		BlockEntity blockEntity1 = world.getBlockEntity(pos);
 		if (blockEntity1 instanceof LargeIronSignBlockEntity largeIronSignBlockEntity) {
@@ -60,62 +51,23 @@ public class LargeIronSignScreen extends Screen {
 		}
 
 
-		// Trim Buttons
+		// Trim Button
 
 		int trimButtonWidth = 30;
 		int trimButtonHeight = 20;
 
-		topTrimButton = ButtonWidget.builder(Text.literal(topTrim ? "On" : "Off"), a -> {
-				if (topTrim) {
-					topTrim = false;
-					topTrimButton.setMessage(Text.literal("Off"));
+		trimButton = ButtonWidget.builder(Text.literal(trim ? "On" : "Off"), a -> {
+				if (trim) {
+					trim = false;
+					trimButton.setMessage(Text.literal("Off"));
 				} else {
-					topTrim = true;
-					topTrimButton.setMessage(Text.literal("On"));
+					trim = true;
+					trimButton.setMessage(Text.literal("On"));
 				}
 				updateBlockEntity();
-			}).dimensions(width / 2 - (trimButtonWidth / 2), 0, trimButtonWidth, trimButtonHeight)
+			}).dimensions(5, 5, trimButtonWidth, trimButtonHeight)
 			.build();
-		addDrawableChild(topTrimButton);
-
-		rightTrimButton = ButtonWidget.builder(Text.literal(rightTrim ? "On" : "Off"), a -> {
-					if (rightTrim) {
-						rightTrim = false;
-						rightTrimButton.setMessage(Text.literal("Off"));
-					} else {
-						rightTrim = true;
-						rightTrimButton.setMessage(Text.literal("On"));
-					}
-					updateBlockEntity();
-				}).dimensions(width - trimButtonWidth, height / 2 - (trimButtonHeight / 2), trimButtonWidth, trimButtonHeight)
-				.build();
-		addDrawableChild(rightTrimButton);
-
-		bottomTrimButton = ButtonWidget.builder(Text.literal(bottomTrim ? "On" : "Off"), a -> {
-					if (bottomTrim) {
-						bottomTrim = false;
-						bottomTrimButton.setMessage(Text.literal("Off"));
-					} else {
-						bottomTrim = true;
-						bottomTrimButton.setMessage(Text.literal("On"));
-					}
-					updateBlockEntity();
-				}).dimensions(width / 2 - (trimButtonWidth / 2), height - trimButtonHeight, trimButtonWidth, trimButtonHeight)
-				.build();
-		addDrawableChild(bottomTrimButton);
-
-		leftTrimButton = ButtonWidget.builder(Text.literal(leftTrim ? "On" : "Off"), a -> {
-					if (leftTrim) {
-						leftTrim = false;
-						leftTrimButton.setMessage(Text.literal("Off"));
-					} else {
-						leftTrim = true;
-						leftTrimButton.setMessage(Text.literal("On"));
-					}
-					updateBlockEntity();
-				}).dimensions(0, height / 2 - (trimButtonHeight / 2), trimButtonWidth, trimButtonHeight)
-				.build();
-		addDrawableChild(leftTrimButton);
+		addDrawableChild(trimButton);
 
 
 		// Symbol buttons
@@ -167,10 +119,7 @@ public class LargeIronSignScreen extends Screen {
 		PacketByteBuf buf = PacketByteBufs.create();
 		buf.writeBlockPos(pos);
 		buf.writeString(blockEntity.character.name());
-		buf.writeBoolean(topTrim);
-		buf.writeBoolean(rightTrim);
-		buf.writeBoolean(bottomTrim);
-		buf.writeBoolean(leftTrim);
+		buf.writeBoolean(trim);
 		ClientPlayNetworking.send(LargeIronSignBlock.LARGE_IRON_SIGN_SET_SYMBOL_PACKET_ID, buf);
 	}
 

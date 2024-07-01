@@ -92,14 +92,8 @@ public class LargeIronSignBlockNeighbourState {
         VoxelShape ourShape = makeOutlineShape(direction);
         Box ourShapeBox = ourShape.getBoundingBox().offset(pos);
 
-        innerCornerTopLeft = blockToTopLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopLeft.get(LargeIronSignBlock.RIGHT_TRIM) && state.get(LargeIronSignBlock.TOP_TRIM);
-        innerCornerTopRight = blockToTopRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopRight.get(LargeIronSignBlock.LEFT_TRIM) && state.get(LargeIronSignBlock.TOP_TRIM);
-        innerCornerRightTop = blockToTopRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopRight.get(LargeIronSignBlock.BOTTOM_TRIM) && state.get(LargeIronSignBlock.RIGHT_TRIM);
-        innerCornerRightBottom = blockToBottomRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomRight.get(LargeIronSignBlock.TOP_TRIM) && state.get(LargeIronSignBlock.RIGHT_TRIM);
-        innerCornerBottomRight = blockToBottomRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomRight.get(LargeIronSignBlock.LEFT_TRIM) && state.get(LargeIronSignBlock.BOTTOM_TRIM);
-        innerCornerBottomLeft = blockToBottomLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomLeft.get(LargeIronSignBlock.RIGHT_TRIM) && state.get(LargeIronSignBlock.BOTTOM_TRIM);
-        innerCornerLeftBottom = blockToBottomLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomLeft.get(LargeIronSignBlock.TOP_TRIM) && state.get(LargeIronSignBlock.LEFT_TRIM);
-        innerCornerLeftTop = blockToTopLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopLeft.get(LargeIronSignBlock.BOTTOM_TRIM) && state.get(LargeIronSignBlock.LEFT_TRIM);
+        boolean trim = state.get(LargeIronSignBlock.TRIM);
+
         topLeftIsClear = blockIsClear(blockToTopLeft, blockToTopLeftPos, blockView, ourShapeBox);
         topIsClear = blockIsClear(blockToTop, blockToTopPos, blockView, ourShapeBox);
         topRightIsClear = blockIsClear(blockToTopRight, blockToTopRightPos, blockView, ourShapeBox);
@@ -108,6 +102,14 @@ public class LargeIronSignBlockNeighbourState {
         bottomIsClear = blockIsClear(blockToBottom, blockToBottomPos, blockView, ourShapeBox);
         bottomLeftIsClear = blockIsClear(blockToBottomLeft, blockToBottomLeftPos, blockView, ourShapeBox);
         leftIsClear = blockIsClear(blockToLeft, blockToLeftPos, blockView, ourShapeBox);
+        innerCornerTopLeft = trim && blockToTopLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopLeft.get(LargeIronSignBlock.TRIM);
+        innerCornerTopRight = trim && blockToTopRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopRight.get(LargeIronSignBlock.TRIM);
+        innerCornerRightTop = trim && blockToTopRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopRight.get(LargeIronSignBlock.TRIM);
+        innerCornerRightBottom = trim && blockToBottomRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomRight.get(LargeIronSignBlock.TRIM);
+        innerCornerBottomRight = trim && blockToBottomRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomRight.get(LargeIronSignBlock.TRIM);
+        innerCornerBottomLeft = trim && blockToBottomLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomLeft.get(LargeIronSignBlock.TRIM);
+        innerCornerLeftBottom = trim && blockToBottomLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomLeft.get(LargeIronSignBlock.TRIM);
+        innerCornerLeftTop = trim && blockToTopLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopLeft.get(LargeIronSignBlock.TRIM);
     }
 
     private boolean blockIsClear(BlockState blockState, BlockPos pos, BlockView blockView, Box ourShape) {
