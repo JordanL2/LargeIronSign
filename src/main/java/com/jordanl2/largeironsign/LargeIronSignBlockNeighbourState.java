@@ -3,7 +3,7 @@ package com.jordanl2.largeironsign;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockRenderView;
+import net.minecraft.world.BlockView;
 
 public class LargeIronSignBlockNeighbourState {
 
@@ -27,7 +27,7 @@ public class LargeIronSignBlockNeighbourState {
     public LargeIronSignBlockNeighbourState() {
     }
 
-    public LargeIronSignBlockNeighbourState(BlockRenderView blockView, BlockState state, BlockPos pos) {
+    public LargeIronSignBlockNeighbourState(BlockView blockView, BlockState state, BlockPos pos) {
         Direction direction = state.get(LargeIronSignBlock.FACING);
 
         BlockState blockToTopLeft;

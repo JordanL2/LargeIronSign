@@ -1,18 +1,10 @@
 package com.jordanl2.largeironsign;
 
-import java.util.Map;
-
-import net.fabricmc.fabric.api.blockview.v2.FabricBlockView;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.Waterloggable;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
@@ -39,6 +31,8 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+
+import java.util.Map;
 
 public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEntityProvider, Waterloggable {
 	
@@ -131,14 +125,11 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 	@Override
     public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
 		Direction dir = state.get(FACING);
-		return LargeIronSignBlock.getOutlineShape(dir, state.get(TOP_TRIM), state.get(RIGHT_TRIM), state.get(BOTTOM_TRIM), state.get(LEFT_TRIM));
-    }
-	
-	public static VoxelShape getOutlineShape(Direction dir, boolean topTrim, boolean rightTrim, boolean bottomTrim, boolean leftTrim) {
-		float trimLeft = leftTrim ? TRIM_WIDTH : 0f;
-		float trimRight = rightTrim ? TRIM_WIDTH : 0f;
-		float trimTop = topTrim ? TRIM_WIDTH : 0f;
-		float trimBottom = bottomTrim ? TRIM_WIDTH : 0f;
+		LargeIronSignBlockNeighbourState neighbourState = new LargeIronSignBlockNeighbourState(view, state, pos);
+		float trimLeft = state.get(LEFT_TRIM) && neighbourState.leftIsClear() ? TRIM_WIDTH : 0f;
+		float trimRight = state.get(RIGHT_TRIM) && neighbourState.rightIsClear() ? TRIM_WIDTH : 0f;
+		float trimTop = state.get(TOP_TRIM) && neighbourState.topIsClear() ? TRIM_WIDTH : 0f;
+		float trimBottom = state.get(BOTTOM_TRIM) && neighbourState.bottomIsClear() ? TRIM_WIDTH : 0f;
         return switch (dir) {
             case NORTH -> VoxelShapes.cuboid(0f - trimRight, 0f - trimBottom, 1.0f - THICKNESS, 1f + trimLeft, 1f + trimTop, 1f);
             case SOUTH -> VoxelShapes.cuboid(0f - trimLeft, 0f - trimBottom, 0f, 1f + trimRight, 1f + trimTop, THICKNESS);
