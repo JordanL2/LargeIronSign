@@ -78,7 +78,6 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 
 	// Model
 	public static final float THICKNESS = 1f / 16f;
-	public static final float FRONT_DEPTH = 1f - THICKNESS;
 	public static final float TRIM_WIDTH = 2f / 16f;
 
 	// Network packets
@@ -141,10 +140,10 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 		float trimTop = topTrim ? TRIM_WIDTH : 0f;
 		float trimBottom = bottomTrim ? TRIM_WIDTH : 0f;
         return switch (dir) {
-            case NORTH -> VoxelShapes.cuboid(0f - trimRight, 0f - trimBottom, FRONT_DEPTH, 1f + trimLeft, 1f + trimTop, 1f);
+            case NORTH -> VoxelShapes.cuboid(0f - trimRight, 0f - trimBottom, 1.0f - THICKNESS, 1f + trimLeft, 1f + trimTop, 1f);
             case SOUTH -> VoxelShapes.cuboid(0f - trimLeft, 0f - trimBottom, 0f, 1f + trimRight, 1f + trimTop, THICKNESS);
             case EAST -> VoxelShapes.cuboid(0f, 0f - trimBottom, 0f - trimRight, THICKNESS, 1f + trimTop, 1f + trimLeft);
-            case WEST -> VoxelShapes.cuboid(FRONT_DEPTH, 0f - trimBottom, 0f - trimLeft, 1f, 1f + trimTop, 1f + trimRight);
+            case WEST -> VoxelShapes.cuboid(1.0f - THICKNESS, 0f - trimBottom, 0f - trimLeft, 1f, 1f + trimTop, 1f + trimRight);
             default -> VoxelShapes.fullCube();
         };
 	}

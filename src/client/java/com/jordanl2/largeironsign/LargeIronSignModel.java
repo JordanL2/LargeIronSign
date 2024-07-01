@@ -50,7 +50,6 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 
 	public static final float TEXT_DEPTH = 0.001f;
 	public static final float THICKNESS = LargeIronSignBlock.THICKNESS;
-	public static final float FRONT_DEPTH = LargeIronSignBlock.FRONT_DEPTH;
 	public static final float TRIM_WIDTH = LargeIronSignBlock.TRIM_WIDTH;
 
 	private final Sprite[] sprites = new Sprite[LargeIronSignCharacter.values().length];
@@ -304,13 +303,13 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		}
 
 		// Front - Background
-		emitter.square(direction, 0.0f, 0.0f, 1.0f, 1.0f, FRONT_DEPTH);
+		emitter.square(direction, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f - THICKNESS);
 		emitter.spriteBake(spriteFront, MutableQuadView.BAKE_LOCK_UV);
 		emitter.color(background, background, background, background);
 		emitter.emit();
 		
 		// Front - Text
-		emitter.square(direction, 0.0f, 0.0f, 1.0f, 1.0f, FRONT_DEPTH - TEXT_DEPTH);
+		emitter.square(direction, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f - THICKNESS - TEXT_DEPTH);
 		emitter.spriteBake(sprites[character.ordinal()], MutableQuadView.BAKE_LOCK_UV);
 		emitter.material(cutoutMaterial);
 		emitter.color(foreground, foreground, foreground, foreground);
@@ -323,7 +322,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 					1.0f,
 					1.0f - (innerCornerTopRight ? TRIM_WIDTH : 0),
 					1.0f + TRIM_WIDTH,
-					FRONT_DEPTH);
+					1.0f - THICKNESS);
 			emitter.uvUnitSquare();
 			emitter.spriteBake(spriteTrimFront, MutableQuadView.BAKE_NORMALIZED);
 			emitter.color(-1, -1, -1, -1);
@@ -335,7 +334,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 					0.0f + (innerCornerRightBottom ? TRIM_WIDTH : 0),
 					1.0f + TRIM_WIDTH,
 					1.0f - (innerCornerRightTop ? TRIM_WIDTH : 0),
-					FRONT_DEPTH);
+					1.0f - THICKNESS);
 			emitter.uvUnitSquare();
 			emitter.spriteBake(spriteTrimFront, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_90);
 			emitter.color(-1, -1, -1, -1);
@@ -347,7 +346,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 					0.0f - TRIM_WIDTH,
 					1.0f - (innerCornerBottomRight ? TRIM_WIDTH : 0),
 					0.0f,
-					FRONT_DEPTH);
+					1.0f - THICKNESS);
 			emitter.uvUnitSquare();
 			emitter.spriteBake(spriteTrimFront, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_180);
 			emitter.color(-1, -1, -1, -1);
@@ -359,7 +358,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 					0.0f + (innerCornerLeftBottom ? TRIM_WIDTH : 0),
 					0.0f,
 					1.0f - (innerCornerLeftTop ? TRIM_WIDTH : 0),
-					FRONT_DEPTH);
+					1.0f - THICKNESS);
 			emitter.uvUnitSquare();
 			emitter.spriteBake(spriteTrimFront, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_270);
 			emitter.color(-1, -1, -1, -1);
@@ -580,7 +579,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		// Top Left Corner
 		if (topTrim && leftTrim) {
 			// Front
-			emitter.square(direction, 0.0f - TRIM_WIDTH, 1.0f, 0.0f, 1.0f + TRIM_WIDTH, FRONT_DEPTH);
+			emitter.square(direction, 0.0f - TRIM_WIDTH, 1.0f, 0.0f, 1.0f + TRIM_WIDTH, 1.0f - THICKNESS);
 			emitter.uvUnitSquare();
 			emitter.spriteBake(spriteTrimCornerFront, MutableQuadView.BAKE_NORMALIZED);
 			emitter.color(-1, -1, -1, -1);
@@ -610,7 +609,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		// Top Right Corner
 		if (topTrim && rightTrim) {
 			// Front
-			emitter.square(direction, 1.0f, 1.0f, 1.0f + TRIM_WIDTH, 1.0f + TRIM_WIDTH, FRONT_DEPTH);
+			emitter.square(direction, 1.0f, 1.0f, 1.0f + TRIM_WIDTH, 1.0f + TRIM_WIDTH, 1.0f - THICKNESS);
 			emitter.uvUnitSquare();
 			emitter.spriteBake(spriteTrimCornerFront, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_90);
 			emitter.color(-1, -1, -1, -1);
@@ -640,7 +639,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		// Bottom Left Corner
 		if (bottomTrim && leftTrim) {
 			// Front
-			emitter.square(direction, 0.0f - TRIM_WIDTH, 0.0f - TRIM_WIDTH, 0.0f, 0.0f, FRONT_DEPTH);
+			emitter.square(direction, 0.0f - TRIM_WIDTH, 0.0f - TRIM_WIDTH, 0.0f, 0.0f, 1.0f - THICKNESS);
 			emitter.uvUnitSquare();
 			emitter.spriteBake(spriteTrimCornerFront, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_270);
 			emitter.color(-1, -1, -1, -1);
@@ -670,7 +669,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		// Bottom Right Corner
 		if (bottomTrim && rightTrim) {
 			// Front
-			emitter.square(direction, 1.0f, 0.0f - TRIM_WIDTH, 1.0f + TRIM_WIDTH, 0.0f, FRONT_DEPTH);
+			emitter.square(direction, 1.0f, 0.0f - TRIM_WIDTH, 1.0f + TRIM_WIDTH, 0.0f, 1.0f - THICKNESS);
 			emitter.uvUnitSquare();
 			emitter.spriteBake(spriteTrimCornerFront, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_180);
 			emitter.color(-1, -1, -1, -1);
@@ -700,7 +699,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		// Top-Right Inner Corner
 		if (innerCornerTopRight) {
 			// Front
-			emitter.square(direction, 1.0f - TRIM_WIDTH, 1.0f, 1.0f, 1.0f + TRIM_WIDTH, FRONT_DEPTH);
+			emitter.square(direction, 1.0f - TRIM_WIDTH, 1.0f, 1.0f, 1.0f + TRIM_WIDTH, 1.0f - THICKNESS);
 			emitter.uvUnitSquare();
 			emitter.spriteBake(spriteTrimInnerCornerFront, MutableQuadView.BAKE_NORMALIZED);
 			emitter.color(-1, -1, -1, -1);
@@ -716,7 +715,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		// Right-Bottom Inner Corner
 		if (innerCornerRightBottom) {
 			// Front
-			emitter.square(direction, 1.0f, 0.0f, 1.0f + TRIM_WIDTH, 0.0f + TRIM_WIDTH, FRONT_DEPTH);
+			emitter.square(direction, 1.0f, 0.0f, 1.0f + TRIM_WIDTH, 0.0f + TRIM_WIDTH, 1.0f - THICKNESS);
 			emitter.uvUnitSquare();
 			emitter.spriteBake(spriteTrimInnerCornerFront, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_90);
 			emitter.color(-1, -1, -1, -1);
@@ -732,7 +731,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		// Bottom-Left Inner Corner
 		if (innerCornerBottomLeft) {
 			// Front
-			emitter.square(direction, 0.0f, 0.0f - TRIM_WIDTH, 0.0f + TRIM_WIDTH, 0.0f, FRONT_DEPTH);
+			emitter.square(direction, 0.0f, 0.0f - TRIM_WIDTH, 0.0f + TRIM_WIDTH, 0.0f, 1.0f - THICKNESS);
 			emitter.uvUnitSquare();
 			emitter.spriteBake(spriteTrimInnerCornerFront, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_180);
 			emitter.color(-1, -1, -1, -1);
@@ -748,7 +747,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		// Left-Top Inner Corner
 		if (innerCornerLeftTop) {
 			// Front
-			emitter.square(direction, 0.0f - TRIM_WIDTH, 1.0f - TRIM_WIDTH, 0.0f, 1.0f, FRONT_DEPTH);
+			emitter.square(direction, 0.0f - TRIM_WIDTH, 1.0f - TRIM_WIDTH, 0.0f, 1.0f, 1.0f - THICKNESS);
 			emitter.uvUnitSquare();
 			emitter.spriteBake(spriteTrimInnerCornerFront, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_270);
 			emitter.color(-1, -1, -1, -1);
