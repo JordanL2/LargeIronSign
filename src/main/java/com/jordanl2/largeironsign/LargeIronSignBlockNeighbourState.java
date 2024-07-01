@@ -3,7 +3,12 @@ package com.jordanl2.largeironsign;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+
+import static com.jordanl2.largeironsign.LargeIronSignBlock.THICKNESS;
+import static com.jordanl2.largeironsign.LargeIronSignBlock.TRIM_WIDTH;
 
 public class LargeIronSignBlockNeighbourState {
 
@@ -30,49 +35,63 @@ public class LargeIronSignBlockNeighbourState {
     public LargeIronSignBlockNeighbourState(BlockView blockView, BlockState state, BlockPos pos) {
         Direction direction = state.get(LargeIronSignBlock.FACING);
 
-        BlockState blockToTopLeft;
-        BlockState blockToTop = blockView.getBlockState(pos.add(0, 1, 0));
-        BlockState blockToTopRight;
-        BlockState blockToRight;
-        BlockState blockToBottomRight;
-        BlockState blockToBottom = blockView.getBlockState(pos.add(0, -1, 0));
-        BlockState blockToBottomLeft;
-        BlockState blockToLeft;
+        VoxelShape ourShape;
+        BlockPos blockToTopLeftPos;
+        BlockPos blockToTopPos = pos.add(0, 1, 0);
+        BlockPos blockToTopRightPos;
+        BlockPos blockToRightPos;
+        BlockPos blockToBottomRightPos;
+        BlockPos blockToBottomPos = pos.add(0, -1, 0);
+        BlockPos blockToBottomLeftPos;
+        BlockPos blockToLeftPos;
+
         switch (direction) {
             case NORTH:
-                blockToLeft = blockView.getBlockState(pos.add(1, 0, 0));
-                blockToRight = blockView.getBlockState(pos.add(-1, 0, 0));
-                blockToTopLeft = blockView.getBlockState(pos.add(1, 1, 0));
-                blockToTopRight = blockView.getBlockState(pos.add(-1, 1, 0));
-                blockToBottomLeft = blockView.getBlockState(pos.add(1, -1, 0));
-                blockToBottomRight = blockView.getBlockState(pos.add(-1, -1, 0));
+                ourShape = VoxelShapes.cuboid(0f - TRIM_WIDTH, 0f - TRIM_WIDTH, 1.0f - THICKNESS, 1f + TRIM_WIDTH, 1f + TRIM_WIDTH, 1f);
+                blockToLeftPos = pos.add(1, 0, 0);
+                blockToRightPos = pos.add(-1, 0, 0);
+                blockToTopLeftPos = pos.add(1, 1, 0);
+                blockToTopRightPos = pos.add(-1, 1, 0);
+                blockToBottomLeftPos = pos.add(1, -1, 0);
+                blockToBottomRightPos = pos.add(-1, -1, 0);
                 break;
             case EAST:
-                blockToLeft = blockView.getBlockState(pos.add(0, 0, 1));
-                blockToRight = blockView.getBlockState(pos.add(0, 0, -1));
-                blockToTopLeft = blockView.getBlockState(pos.add(0, 1, 1));
-                blockToTopRight = blockView.getBlockState(pos.add(0, 1, -1));
-                blockToBottomLeft = blockView.getBlockState(pos.add(0, -1, 1));
-                blockToBottomRight = blockView.getBlockState(pos.add(0, -1, -1));
+                ourShape = VoxelShapes.cuboid(0f, 0f - TRIM_WIDTH, 0f - TRIM_WIDTH, THICKNESS, 1f + TRIM_WIDTH, 1f + TRIM_WIDTH);
+                blockToLeftPos = pos.add(0, 0, 1);
+                blockToRightPos = pos.add(0, 0, -1);
+                blockToTopLeftPos = pos.add(0, 1, 1);
+                blockToTopRightPos = pos.add(0, 1, -1);
+                blockToBottomLeftPos = pos.add(0, -1, 1);
+                blockToBottomRightPos = pos.add(0, -1, -1);
                 break;
             case SOUTH:
-                blockToLeft = blockView.getBlockState(pos.add(-1, 0, 0));
-                blockToRight = blockView.getBlockState(pos.add(1, 0, 0));
-                blockToTopLeft = blockView.getBlockState(pos.add(-1, 1, 0));
-                blockToTopRight = blockView.getBlockState(pos.add(1, 1, 0));
-                blockToBottomLeft = blockView.getBlockState(pos.add(-1, -1, 0));
-                blockToBottomRight = blockView.getBlockState(pos.add(1, -1, 0));
+                ourShape = VoxelShapes.cuboid(0f - TRIM_WIDTH, 0f - TRIM_WIDTH, 0f, 1f + TRIM_WIDTH, 1f + TRIM_WIDTH, THICKNESS);
+                blockToLeftPos = pos.add(-1, 0, 0);
+                blockToRightPos = pos.add(1, 0, 0);
+                blockToTopLeftPos = pos.add(-1, 1, 0);
+                blockToTopRightPos = pos.add(1, 1, 0);
+                blockToBottomLeftPos = pos.add(-1, -1, 0);
+                blockToBottomRightPos = pos.add(1, -1, 0);
                 break;
             case WEST:
             default:
-                blockToLeft = blockView.getBlockState(pos.add(0, 0, -1));
-                blockToRight = blockView.getBlockState(pos.add(0, 0, 1));
-                blockToTopLeft = blockView.getBlockState(pos.add(0, 1, -1));
-                blockToTopRight = blockView.getBlockState(pos.add(0, 1, 1));
-                blockToBottomLeft = blockView.getBlockState(pos.add(0, -1, -1));
-                blockToBottomRight = blockView.getBlockState(pos.add(0, -1, 1));
+                ourShape = VoxelShapes.cuboid(1.0f - THICKNESS, 0f - TRIM_WIDTH, 0f - TRIM_WIDTH, 1f, 1f + TRIM_WIDTH, 1f + TRIM_WIDTH);
+                blockToLeftPos = pos.add(0, 0, -1);
+                blockToRightPos = pos.add(0, 0, 1);
+                blockToTopLeftPos = pos.add(0, 1, -1);
+                blockToTopRightPos = pos.add(0, 1, 1);
+                blockToBottomLeftPos = pos.add(0, -1, -1);
+                blockToBottomRightPos = pos.add(0, -1, 1);
                 break;
         }
+        BlockState blockToTopLeft = blockView.getBlockState(blockToTopLeftPos);
+        BlockState blockToTop = blockView.getBlockState(blockToTopPos);
+        BlockState blockToTopRight = blockView.getBlockState(blockToTopRightPos);
+        BlockState blockToRight = blockView.getBlockState(blockToRightPos);
+        BlockState blockToBottomRight = blockView.getBlockState(blockToBottomRightPos);
+        BlockState blockToBottom = blockView.getBlockState(blockToBottomPos);
+        BlockState blockToBottomLeft = blockView.getBlockState(blockToBottomLeftPos);
+        BlockState blockToLeft = blockView.getBlockState(blockToLeftPos);
 
         innerCornerTopLeft = blockToTopLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopLeft.get(LargeIronSignBlock.RIGHT_TRIM) && state.get(LargeIronSignBlock.TOP_TRIM);
         innerCornerTopRight = blockToTopRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopRight.get(LargeIronSignBlock.LEFT_TRIM) && state.get(LargeIronSignBlock.TOP_TRIM);
@@ -82,18 +101,28 @@ public class LargeIronSignBlockNeighbourState {
         innerCornerBottomLeft = blockToBottomLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomLeft.get(LargeIronSignBlock.RIGHT_TRIM) && state.get(LargeIronSignBlock.BOTTOM_TRIM);
         innerCornerLeftBottom = blockToBottomLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomLeft.get(LargeIronSignBlock.TOP_TRIM) && state.get(LargeIronSignBlock.LEFT_TRIM);
         innerCornerLeftTop = blockToTopLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopLeft.get(LargeIronSignBlock.BOTTOM_TRIM) && state.get(LargeIronSignBlock.LEFT_TRIM);
-        topLeftIsClear = blockIsClear(blockToTopLeft);
-        topIsClear = blockIsClear(blockToTop);
-        topRightIsClear = blockIsClear(blockToTopRight);
-        rightIsClear = blockIsClear(blockToRight);
-        bottomRightIsClear = blockIsClear(blockToBottomRight);
-        bottomIsClear = blockIsClear(blockToBottom);
-        bottomLeftIsClear = blockIsClear(blockToBottomLeft);
-        leftIsClear = blockIsClear(blockToLeft);
+        topLeftIsClear = blockIsClear(blockToTopLeft, blockToTopLeftPos, blockView, ourShape);
+        topIsClear = blockIsClear(blockToTop, blockToTopPos, blockView, ourShape);
+        topRightIsClear = blockIsClear(blockToTopRight, blockToTopRightPos, blockView, ourShape);
+        rightIsClear = blockIsClear(blockToRight, blockToRightPos, blockView, ourShape);
+        bottomRightIsClear = blockIsClear(blockToBottomRight, blockToBottomRightPos, blockView, ourShape);
+        bottomIsClear = blockIsClear(blockToBottom, blockToBottomPos, blockView, ourShape);
+        bottomLeftIsClear = blockIsClear(blockToBottomLeft, blockToBottomLeftPos, blockView, ourShape);
+        leftIsClear = blockIsClear(blockToLeft, blockToLeftPos, blockView, ourShape);
     }
 
-    private boolean blockIsClear(BlockState blockState) {
-        return blockState.isAir();
+    private boolean blockIsClear(BlockState blockState, BlockPos pos, BlockView blockView, VoxelShape ourShape) {
+        if (blockState.isAir()) {
+            return true;
+        }
+        if (blockState.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK)) {
+            return false;
+        }
+        VoxelShape thisShape = blockState.getOutlineShape(blockView, pos);
+        if (thisShape.isEmpty()) {
+            return true;
+        }
+        return !ourShape.getBoundingBox().intersects(thisShape.getBoundingBox());
     }
 
     public boolean innerCornerTopLeft() {
