@@ -212,23 +212,33 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		LargeIronSignBlockEntity entityState = (LargeIronSignBlockEntity) blockView.getBlockEntityRenderData(pos);
 
 		BlockState blockToTopLeft;
+		BlockState blockToTop = blockView.getBlockState(pos.add(0, 1, 0));
 		BlockState blockToTopRight;
-		BlockState blockToBottomLeft;
+		BlockState blockToRight;
 		BlockState blockToBottomRight;
+		BlockState blockToBottom = blockView.getBlockState(pos.add(0, -1, 0));
+		BlockState blockToBottomLeft;
+		BlockState blockToLeft;
 		switch (direction) {
 			case NORTH:
+				blockToLeft = blockView.getBlockState(pos.add(1, 0, 0));
+				blockToRight = blockView.getBlockState(pos.add(-1, 0, 0));
 				blockToTopLeft = blockView.getBlockState(pos.add(1, 1, 0));
 				blockToTopRight = blockView.getBlockState(pos.add(-1, 1, 0));
 				blockToBottomLeft = blockView.getBlockState(pos.add(1, -1, 0));
 				blockToBottomRight = blockView.getBlockState(pos.add(-1, -1, 0));
 				break;
 			case EAST:
+				blockToLeft = blockView.getBlockState(pos.add(0, 0, 1));
+				blockToRight = blockView.getBlockState(pos.add(0, 0, -1));
 				blockToTopLeft = blockView.getBlockState(pos.add(0, 1, 1));
 				blockToTopRight = blockView.getBlockState(pos.add(0, 1, -1));
 				blockToBottomLeft = blockView.getBlockState(pos.add(0, -1, 1));
 				blockToBottomRight = blockView.getBlockState(pos.add(0, -1, -1));
 				break;
 			case SOUTH:
+				blockToLeft = blockView.getBlockState(pos.add(-1, 0, 0));
+				blockToRight = blockView.getBlockState(pos.add(1, 0, 0));
 				blockToTopLeft = blockView.getBlockState(pos.add(-1, 1, 0));
 				blockToTopRight = blockView.getBlockState(pos.add(1, 1, 0));
 				blockToBottomLeft = blockView.getBlockState(pos.add(-1, -1, 0));
@@ -236,6 +246,8 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 				break;
 			case WEST:
 			default:
+				blockToLeft = blockView.getBlockState(pos.add(0, 0, -1));
+				blockToRight = blockView.getBlockState(pos.add(0, 0, 1));
 				blockToTopLeft = blockView.getBlockState(pos.add(0, 1, -1));
 				blockToTopRight = blockView.getBlockState(pos.add(0, 1, 1));
 				blockToBottomLeft = blockView.getBlockState(pos.add(0, -1, -1));
@@ -248,10 +260,10 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 				entityState.character,
 				entityState.foreground,
 				entityState.background,
-				state.get(LargeIronSignBlock.TOP_TRIM),
-				state.get(LargeIronSignBlock.RIGHT_TRIM),
-				state.get(LargeIronSignBlock.BOTTOM_TRIM),
-				state.get(LargeIronSignBlock.LEFT_TRIM),
+				state.get(LargeIronSignBlock.TOP_TRIM) && blockIsClear(blockToTop),
+				state.get(LargeIronSignBlock.RIGHT_TRIM) && blockIsClear(blockToRight),
+				state.get(LargeIronSignBlock.BOTTOM_TRIM) && blockIsClear(blockToBottom),
+				state.get(LargeIronSignBlock.LEFT_TRIM) && blockIsClear(blockToLeft),
 				blockToTopLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopLeft.get(LargeIronSignBlock.RIGHT_TRIM) && state.get(LargeIronSignBlock.TOP_TRIM),
 				blockToTopRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopRight.get(LargeIronSignBlock.LEFT_TRIM) && state.get(LargeIronSignBlock.TOP_TRIM),
 				blockToTopRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopRight.get(LargeIronSignBlock.BOTTOM_TRIM) && state.get(LargeIronSignBlock.RIGHT_TRIM),
@@ -259,8 +271,14 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 				blockToBottomRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomRight.get(LargeIronSignBlock.LEFT_TRIM) && state.get(LargeIronSignBlock.BOTTOM_TRIM),
 				blockToBottomLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomLeft.get(LargeIronSignBlock.RIGHT_TRIM) && state.get(LargeIronSignBlock.BOTTOM_TRIM),
 				blockToBottomLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomLeft.get(LargeIronSignBlock.TOP_TRIM) && state.get(LargeIronSignBlock.LEFT_TRIM),
-				blockToTopLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopLeft.get(LargeIronSignBlock.BOTTOM_TRIM) && state.get(LargeIronSignBlock.LEFT_TRIM));
+				blockToTopLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopLeft.get(LargeIronSignBlock.BOTTOM_TRIM) && state.get(LargeIronSignBlock.LEFT_TRIM),
+				blockIsClear(blockToTopLeft), blockIsClear(blockToTopRight),
+				blockIsClear(blockToBottomRight), blockIsClear(blockToBottomLeft));
 		mesh.outputTo(context.getEmitter());
+	}
+
+	private boolean blockIsClear(BlockState blockState) {
+		return blockState.isAir();
 	}
 	
 	private Mesh buildMesh(Direction direction, LargeIronSignCharacter character, int foreground, int background,
@@ -268,7 +286,9 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 						   boolean innerCornerTopLeft, boolean innerCornerTopRight,
 						   boolean innerCornerRightTop, boolean innerCornerRightBottom,
 						   boolean innerCornerBottomRight, boolean innerCornerBottomLeft,
-						   boolean innerCornerLeftBottom, boolean innerCornerLeftTop) {
+						   boolean innerCornerLeftBottom, boolean innerCornerLeftTop,
+						   boolean topLeftIsClear, boolean topRightIsClear,
+						   boolean bottomRightIsClear, boolean bottomLeftIsClear) {
 		Renderer renderer = RendererAccess.INSTANCE.getRenderer();
 		MeshBuilder builder = renderer.meshBuilder();
 		QuadEmitter emitter = builder.getEmitter();
@@ -577,7 +597,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		}
 
 		// Top Left Corner
-		if (topTrim && leftTrim) {
+		if (topTrim && leftTrim && topLeftIsClear) {
 			// Front
 			emitter.square(direction, 0.0f - TRIM_WIDTH, 1.0f, 0.0f, 1.0f + TRIM_WIDTH, 1.0f - THICKNESS);
 			emitter.uvUnitSquare();
@@ -607,7 +627,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		}
 
 		// Top Right Corner
-		if (topTrim && rightTrim) {
+		if (topTrim && rightTrim && topRightIsClear) {
 			// Front
 			emitter.square(direction, 1.0f, 1.0f, 1.0f + TRIM_WIDTH, 1.0f + TRIM_WIDTH, 1.0f - THICKNESS);
 			emitter.uvUnitSquare();
@@ -637,7 +657,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		}
 
 		// Bottom Left Corner
-		if (bottomTrim && leftTrim) {
+		if (bottomTrim && leftTrim && bottomLeftIsClear) {
 			// Front
 			emitter.square(direction, 0.0f - TRIM_WIDTH, 0.0f - TRIM_WIDTH, 0.0f, 0.0f, 1.0f - THICKNESS);
 			emitter.uvUnitSquare();
@@ -667,7 +687,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		}
 
 		// Bottom Right Corner
-		if (bottomTrim && rightTrim) {
+		if (bottomTrim && rightTrim && bottomRightIsClear) {
 			// Front
 			emitter.square(direction, 1.0f, 0.0f - TRIM_WIDTH, 1.0f + TRIM_WIDTH, 0.0f, 1.0f - THICKNESS);
 			emitter.uvUnitSquare();
@@ -771,6 +791,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 				LargeIronSignBlock.DEFAULT_COLOUR_FOREGROUND, 
 				LargeIronSignBlock.DEFAULT_COLOUR_BACKGROUND,
 				false,false,false,false,
+				false, false, false, false,
 				false, false, false, false,
 				false, false, false, false);
 		mesh.outputTo(context.getEmitter());
