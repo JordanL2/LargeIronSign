@@ -2,6 +2,7 @@ package com.jordanl2.largeironsign;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
@@ -93,6 +94,8 @@ public class LargeIronSignBlockNeighbourState {
         BlockState blockToBottomLeft = blockView.getBlockState(blockToBottomLeftPos);
         BlockState blockToLeft = blockView.getBlockState(blockToLeftPos);
 
+        Box ourShapeBox = ourShape.getBoundingBox().offset(pos);
+
         innerCornerTopLeft = blockToTopLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopLeft.get(LargeIronSignBlock.RIGHT_TRIM) && state.get(LargeIronSignBlock.TOP_TRIM);
         innerCornerTopRight = blockToTopRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopRight.get(LargeIronSignBlock.LEFT_TRIM) && state.get(LargeIronSignBlock.TOP_TRIM);
         innerCornerRightTop = blockToTopRight.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopRight.get(LargeIronSignBlock.BOTTOM_TRIM) && state.get(LargeIronSignBlock.RIGHT_TRIM);
@@ -101,17 +104,17 @@ public class LargeIronSignBlockNeighbourState {
         innerCornerBottomLeft = blockToBottomLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomLeft.get(LargeIronSignBlock.RIGHT_TRIM) && state.get(LargeIronSignBlock.BOTTOM_TRIM);
         innerCornerLeftBottom = blockToBottomLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToBottomLeft.get(LargeIronSignBlock.TOP_TRIM) && state.get(LargeIronSignBlock.LEFT_TRIM);
         innerCornerLeftTop = blockToTopLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopLeft.get(LargeIronSignBlock.BOTTOM_TRIM) && state.get(LargeIronSignBlock.LEFT_TRIM);
-        topLeftIsClear = blockIsClear(blockToTopLeft, blockToTopLeftPos, blockView, ourShape);
-        topIsClear = blockIsClear(blockToTop, blockToTopPos, blockView, ourShape);
-        topRightIsClear = blockIsClear(blockToTopRight, blockToTopRightPos, blockView, ourShape);
-        rightIsClear = blockIsClear(blockToRight, blockToRightPos, blockView, ourShape);
-        bottomRightIsClear = blockIsClear(blockToBottomRight, blockToBottomRightPos, blockView, ourShape);
-        bottomIsClear = blockIsClear(blockToBottom, blockToBottomPos, blockView, ourShape);
-        bottomLeftIsClear = blockIsClear(blockToBottomLeft, blockToBottomLeftPos, blockView, ourShape);
-        leftIsClear = blockIsClear(blockToLeft, blockToLeftPos, blockView, ourShape);
+        topLeftIsClear = blockIsClear(blockToTopLeft, blockToTopLeftPos, blockView, ourShapeBox);
+        topIsClear = blockIsClear(blockToTop, blockToTopPos, blockView, ourShapeBox);
+        topRightIsClear = blockIsClear(blockToTopRight, blockToTopRightPos, blockView, ourShapeBox);
+        rightIsClear = blockIsClear(blockToRight, blockToRightPos, blockView, ourShapeBox);
+        bottomRightIsClear = blockIsClear(blockToBottomRight, blockToBottomRightPos, blockView, ourShapeBox);
+        bottomIsClear = blockIsClear(blockToBottom, blockToBottomPos, blockView, ourShapeBox);
+        bottomLeftIsClear = blockIsClear(blockToBottomLeft, blockToBottomLeftPos, blockView, ourShapeBox);
+        leftIsClear = blockIsClear(blockToLeft, blockToLeftPos, blockView, ourShapeBox);
     }
 
-    private boolean blockIsClear(BlockState blockState, BlockPos pos, BlockView blockView, VoxelShape ourShape) {
+    private boolean blockIsClear(BlockState blockState, BlockPos pos, BlockView blockView, Box ourShape) {
         if (blockState.isAir()) {
             return true;
         }
@@ -122,7 +125,7 @@ public class LargeIronSignBlockNeighbourState {
         if (thisShape.isEmpty()) {
             return true;
         }
-        return !ourShape.getBoundingBox().intersects(thisShape.getBoundingBox());
+        return !ourShape.intersects(thisShape.getBoundingBox().offset(pos));
     }
 
     public boolean innerCornerTopLeft() {
