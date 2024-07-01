@@ -56,17 +56,18 @@ public class LargeIronSignScreen extends Screen {
 		int trimButtonWidth = 30;
 		int trimButtonHeight = 20;
 
-		trimButton = ButtonWidget.builder(Text.literal(trim ? "On" : "Off"), a -> {
+		trimButton = ButtonWidget.builder(Text.literal("Trim"), a -> {
 				if (trim) {
 					trim = false;
-					trimButton.setMessage(Text.literal("Off"));
+					trimButton.setAlpha(0.5f);
 				} else {
 					trim = true;
-					trimButton.setMessage(Text.literal("On"));
+					trimButton.setAlpha(1.0f);
 				}
 				updateBlockEntity();
 			}).dimensions(5, 5, trimButtonWidth, trimButtonHeight)
 			.build();
+		trimButton.setAlpha(trim ? 1.0f : 0.5f);
 		addDrawableChild(trimButton);
 
 
