@@ -355,9 +355,9 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		if (rightTrim) {
 			emitter.square(backDirection,
 					0.0f - TRIM_WIDTH,
-					0.0f + (innerCornerLeftBottom ? TRIM_WIDTH : 0),
+					0.0f + (innerCornerRightBottom ? TRIM_WIDTH : 0),
 					0.0f,
-					1.0f - (innerCornerLeftTop ? TRIM_WIDTH : 0),
+					1.0f - (innerCornerRightTop ? TRIM_WIDTH : 0),
 					0.0f);
 			emitter.uvUnitSquare();
 			emitter.spriteBake(spriteTrimBack, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_270);
@@ -379,9 +379,9 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
 		if (leftTrim) {
 			emitter.square(backDirection,
 					1.0f,
-					0.0f + (innerCornerRightBottom ? TRIM_WIDTH : 0),
+					0.0f + (innerCornerLeftBottom ? TRIM_WIDTH : 0),
 					1.0f + TRIM_WIDTH,
-					1.0f - (innerCornerRightTop ? TRIM_WIDTH : 0),
+					1.0f - (innerCornerLeftTop ? TRIM_WIDTH : 0),
 					0.0f);
 			emitter.uvUnitSquare();
 			emitter.spriteBake(spriteTrimBack, MutableQuadView.BAKE_NORMALIZED | MutableQuadView.BAKE_ROTATE_90);
