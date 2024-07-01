@@ -6,7 +6,13 @@ This is a mod for Minecraft that adds a sign that displays a single large charac
 
 ![All symbols](screenshots/othersymbols.png)
 
+The sign can be coloured, both the text and the background separately.
+
 ![All colours](screenshots/colours.png)
+
+An optional trim can be added to the sign.
+
+![All colours](screenshots/trim.png)
 
 
 ## Dependencies
