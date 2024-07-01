@@ -30,7 +30,7 @@ To make signs, use an iron block in a stonecutter. This will produce 16 signs.
 
 ![How to make sign](screenshots/making.png)
 
-Place the sign, then right-click it and select the character it should display.
+Place the sign, then right-click it and select the character it should display. You can also enable/disable the trim here.
 
 ![How to select character](screenshots/selection.png)
 
