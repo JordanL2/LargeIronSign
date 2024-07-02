@@ -32,9 +32,8 @@ public class LargeIronSign implements ModInitializer {
         Registry.register(Registries.ITEM,
                 LargeIronSignBlock.ID,
                 LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK_ITEM);
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(content -> {
-            content.add(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK_ITEM);
-        });
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(content ->
+                content.add(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK_ITEM));
         
         // Network
         ServerPlayNetworking.registerGlobalReceiver(

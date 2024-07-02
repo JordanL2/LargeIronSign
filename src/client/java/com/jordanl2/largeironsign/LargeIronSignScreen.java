@@ -1,8 +1,5 @@
 package com.jordanl2.largeironsign;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -22,12 +19,11 @@ import net.minecraft.util.math.BlockPos;
 @Environment(EnvType.CLIENT)
 public class LargeIronSignScreen extends Screen {
     
-    private BlockPos pos;
+    private final BlockPos pos;
     private ClientWorld world;
     private LargeIronSignBlockEntity blockEntity;
     private boolean trim;
     
-    private List<ButtonWidget> buttons;
     private ButtonWidget trimButton;
     
     protected LargeIronSignScreen(final BlockPos pos) {
@@ -39,10 +35,11 @@ public class LargeIronSignScreen extends Screen {
     protected void init() {
         super.init();
         
+        assert client != null;
         world = client.world;
+        assert world != null;
         BlockState blockState = world.getBlockState(pos);
         trim = blockState.get(LargeIronSignBlock.TRIM);
-        
         BlockEntity blockEntity1 = world.getBlockEntity(pos);
         if (blockEntity1 instanceof LargeIronSignBlockEntity largeIronSignBlockEntity) {
             blockEntity = largeIronSignBlockEntity;
@@ -73,7 +70,6 @@ public class LargeIronSignScreen extends Screen {
         
         // Symbol buttons
         
-        buttons = new ArrayList<>();
         int buttonWidth = 20;
         int buttonHeight = 20;
         int space = 5;
@@ -87,13 +83,11 @@ public class LargeIronSignScreen extends Screen {
         int y = minMargin + (height - minMargin - minMargin - buttonHeight - ((rows - 1) * (buttonHeight + space))) / 2;
         
         for (LargeIronSignCharacter character : LargeIronSignCharacter.values()) {
-            ButtonWidget button = ButtonWidget.builder(Text.literal(character.getLabel()), a -> {
-                        setBlockChar(character);
-                    })
+            ButtonWidget button = ButtonWidget.builder(Text.literal(character.getLabel()), a ->
+                    setBlockChar(character))
                     .dimensions(x, y, buttonWidth, buttonHeight)
                     .tooltip(Tooltip.of(Text.literal("Set sign to " + character.getDescription())))
                     .build();
-            buttons.add(button);
             addDrawableChild(button);
             
             x += buttonWidth + space;

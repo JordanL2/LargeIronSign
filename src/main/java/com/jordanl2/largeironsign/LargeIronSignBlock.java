@@ -33,6 +33,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEntityProvider, Waterloggable {
     
@@ -188,7 +189,7 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
     
     @Override
     public BlockState getPlacementState(final ItemPlacementContext ctx) {
-        return super.getPlacementState(ctx)
+        return Objects.requireNonNull(super.getPlacementState(ctx))
                 .with(Properties.HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite())
                 .with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).isOf(Fluids.WATER));
     }

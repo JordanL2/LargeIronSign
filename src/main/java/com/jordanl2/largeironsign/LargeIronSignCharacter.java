@@ -92,13 +92,13 @@ public enum LargeIronSignCharacter implements StringIdentifiable {
 	private final String label;
 	private final String description;
 	
-	private LargeIronSignCharacter(final String name, final String label) {
+	LargeIronSignCharacter(final String name, final String label) {
 		this.name = name;
 		this.label = label;
 		this.description = label;
 	}
 	
-	private LargeIronSignCharacter(final String name, final String label, final String description) {
+	LargeIronSignCharacter(final String name, final String label, final String description) {
 		this.name = name;
 		this.label = label;
 		this.description = description;

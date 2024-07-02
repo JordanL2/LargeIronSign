@@ -208,7 +208,10 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
     public void emitBlockQuads(final BlockRenderView blockView, final BlockState state,final  BlockPos pos,
                                final Supplier<Random> randomSupplier, final RenderContext context) {
         Direction direction = state.get(LargeIronSignBlock.FACING);
-        LargeIronSignBlockEntity entityState = (LargeIronSignBlockEntity) blockView.getBlockEntityRenderData(pos);
+        Object entityStateObject = blockView.getBlockEntityRenderData(pos);
+        if (!(entityStateObject instanceof LargeIronSignBlockEntity entityState)) {
+            return;
+        }
         
         LargeIronSignBlockNeighbourState neighbourState = new LargeIronSignBlockNeighbourState(blockView, state, pos);
         
@@ -226,6 +229,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
                            final int foreground, final int background, final boolean trim,
                            final LargeIronSignBlockNeighbourState neighbourState) {
         final Renderer renderer = RendererAccess.INSTANCE.getRenderer();
+        assert renderer != null;
         final MeshBuilder builder = renderer.meshBuilder();
         final QuadEmitter emitter = builder.getEmitter();
         
