@@ -131,13 +131,13 @@ public class LargeIronSignBlockNeighbourState {
     private VoxelShape makeOutlineShape(Direction direction) {
         return switch (direction) {
             case NORTH ->
-                    VoxelShapes.cuboid(0f - TRIM_WIDTH, 0f - TRIM_WIDTH, 1.0f - THICKNESS, 1f + TRIM_WIDTH, 1f + TRIM_WIDTH, 1f);
+                    VoxelShapes.cuboid(0f - TRIM_WIDTH, 0f - TRIM_WIDTH, 1f - THICKNESS, 1f + TRIM_WIDTH, 1f + TRIM_WIDTH, 1f);
             case EAST ->
                     VoxelShapes.cuboid(0f, 0f - TRIM_WIDTH, 0f - TRIM_WIDTH, THICKNESS, 1f + TRIM_WIDTH, 1f + TRIM_WIDTH);
             case SOUTH ->
                     VoxelShapes.cuboid(0f - TRIM_WIDTH, 0f - TRIM_WIDTH, 0f, 1f + TRIM_WIDTH, 1f + TRIM_WIDTH, THICKNESS);
             default ->
-                    VoxelShapes.cuboid(1.0f - THICKNESS, 0f - TRIM_WIDTH, 0f - TRIM_WIDTH, 1f, 1f + TRIM_WIDTH, 1f + TRIM_WIDTH);
+                    VoxelShapes.cuboid(1f - THICKNESS, 0f - TRIM_WIDTH, 0f - TRIM_WIDTH, 1f, 1f + TRIM_WIDTH, 1f + TRIM_WIDTH);
         };
     }
 

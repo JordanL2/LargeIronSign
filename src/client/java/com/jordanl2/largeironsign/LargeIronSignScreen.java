@@ -62,12 +62,12 @@ public class LargeIronSignScreen extends Screen {
 					trimButton.setAlpha(0.5f);
 				} else {
 					trim = true;
-					trimButton.setAlpha(1.0f);
+					trimButton.setAlpha(1f);
 				}
 				updateBlockEntity();
 			}).dimensions(5, 5, trimButtonWidth, trimButtonHeight)
 			.build();
-		trimButton.setAlpha(trim ? 1.0f : 0.5f);
+		trimButton.setAlpha(trim ? 1f : 0.5f);
 		addDrawableChild(trimButton);
 
 

@@ -50,7 +50,7 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 	// Block and Item singletons
 	public static final LargeIronSignBlock LARGE_IRON_SIGN_BLOCK = new LargeIronSignBlock(FabricBlockSettings.create()
 			.requiresTool()
-			.strength(1.5f, 6.0f));
+			.strength(1.5f, 6f));
 	public static final BlockItem LARGE_IRON_SIGN_BLOCK_ITEM = new BlockItem(
 			LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK, 
 			new FabricItemSettings());
@@ -123,10 +123,10 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
 		float trimTop = trim && neighbourState.topIsClear() ? TRIM_WIDTH : 0f;
 		float trimBottom = trim && neighbourState.bottomIsClear() ? TRIM_WIDTH : 0f;
         return switch (dir) {
-            case NORTH -> VoxelShapes.cuboid(0f - trimRight, 0f - trimBottom, 1.0f - THICKNESS, 1f + trimLeft, 1f + trimTop, 1f);
+            case NORTH -> VoxelShapes.cuboid(0f - trimRight, 0f - trimBottom, 1f - THICKNESS, 1f + trimLeft, 1f + trimTop, 1f);
             case SOUTH -> VoxelShapes.cuboid(0f - trimLeft, 0f - trimBottom, 0f, 1f + trimRight, 1f + trimTop, THICKNESS);
             case EAST -> VoxelShapes.cuboid(0f, 0f - trimBottom, 0f - trimRight, THICKNESS, 1f + trimTop, 1f + trimLeft);
-            case WEST -> VoxelShapes.cuboid(1.0f - THICKNESS, 0f - trimBottom, 0f - trimLeft, 1f, 1f + trimTop, 1f + trimRight);
+            case WEST -> VoxelShapes.cuboid(1f - THICKNESS, 0f - trimBottom, 0f - trimLeft, 1f, 1f + trimTop, 1f + trimRight);
             default -> VoxelShapes.fullCube();
         };
 	}

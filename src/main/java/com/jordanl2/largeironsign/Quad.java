@@ -36,9 +36,9 @@ public class Quad {
             float normalisedRight = right - ROTATE_X;
             float normalisedTop = top - ROTATE_Y;
 
-            top = (0.0f - normalisedLeft) + ROTATE_Y;
+            top = (0f - normalisedLeft) + ROTATE_Y;
             right = normalisedTop + ROTATE_X;
-            bottom = (0.0f - normalisedRight) + ROTATE_Y;
+            bottom = (0f - normalisedRight) + ROTATE_Y;
             left = normalisedBottom + ROTATE_X;
         }
         return this;
