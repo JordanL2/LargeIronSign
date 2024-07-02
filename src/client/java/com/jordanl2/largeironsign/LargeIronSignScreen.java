@@ -30,7 +30,7 @@ public class LargeIronSignScreen extends Screen {
     private List<ButtonWidget> buttons;
     private ButtonWidget trimButton;
     
-    protected LargeIronSignScreen(BlockPos pos) {
+    protected LargeIronSignScreen(final BlockPos pos) {
         super(Text.literal("Change Sign Symbol"));
         this.pos = pos;
     }
@@ -104,7 +104,7 @@ public class LargeIronSignScreen extends Screen {
         }
     }
     
-    private void setBlockChar(LargeIronSignCharacter character) {
+    private void setBlockChar(final LargeIronSignCharacter character) {
         blockEntity.character = character;
         updateBlockEntity();
         
@@ -130,7 +130,7 @@ public class LargeIronSignScreen extends Screen {
     }
     
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void render(final DrawContext context, final int mouseX, final int mouseY, final float delta) {
         renderBackground(context);
         super.render(context, mouseX, mouseY, delta);
     }

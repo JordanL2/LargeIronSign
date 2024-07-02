@@ -19,7 +19,7 @@ public class DirectionUtil {
             Rotation.R270
     };
     
-    public Direction rotate(Direction direction, Rotation rotation) {
+    public Direction rotate(final Direction direction, final Rotation rotation) {
         int i = 0;
         while (DIRECTIONS[i] != direction) {
             i++;
@@ -44,7 +44,7 @@ public class DirectionUtil {
         return DIRECTIONS[i];
     }
     
-    public Rotation getRotation(Direction direction1, Direction direction2) {
+    public Rotation getRotation(final Direction direction1, final Direction direction2) {
         int i = 0;
         while (DIRECTIONS[i] != direction1) {
             i++;

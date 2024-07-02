@@ -10,7 +10,8 @@ import net.minecraft.util.math.BlockPos;
 public class LargeIronSignScreenOpenHandler implements ClientPlayNetworking.PlayChannelHandler {
     
     @Override
-    public void receive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
+    public void receive(final MinecraftClient client, final ClientPlayNetworkHandler handler,
+                        final PacketByteBuf buf, final PacketSender responseSender) {
         BlockPos pos = buf.readBlockPos();
         client.execute(() -> client.setScreen(new LargeIronSignScreen(pos)));
     }

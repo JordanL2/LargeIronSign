@@ -33,7 +33,7 @@ public class LargeIronSignBlockNeighbourState {
     public LargeIronSignBlockNeighbourState() {
     }
     
-    public LargeIronSignBlockNeighbourState(BlockView blockView, BlockState state, BlockPos pos) {
+    public LargeIronSignBlockNeighbourState(final BlockView blockView, final BlockState state, final BlockPos pos) {
         Direction direction = state.get(LargeIronSignBlock.FACING);
         
         BlockPos blockToTopLeftPos;
@@ -112,7 +112,8 @@ public class LargeIronSignBlockNeighbourState {
         innerCornerLeftTop = trim && blockToTopLeft.isOf(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK) && blockToTopLeft.get(LargeIronSignBlock.TRIM) && leftIsClear;
     }
     
-    private boolean blockIsClear(BlockState blockState, BlockPos pos, BlockView blockView, Box ourShape) {
+    private boolean blockIsClear(final BlockState blockState, final BlockPos pos,
+                                 final BlockView blockView, final Box ourShape) {
         if (blockState.isAir()) {
             return true;
         }
@@ -128,7 +129,7 @@ public class LargeIronSignBlockNeighbourState {
         return !ourShape.intersects(thisShape.getBoundingBox().offset(pos));
     }
     
-    private VoxelShape makeOutlineShape(Direction direction) {
+    private VoxelShape makeOutlineShape(final Direction direction) {
         return switch (direction) {
             case NORTH ->
                     VoxelShapes.cuboid(0f - TRIM_WIDTH, 0f - TRIM_WIDTH, 1f - THICKNESS, 1f + TRIM_WIDTH, 1f + TRIM_WIDTH, 1f);

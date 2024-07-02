@@ -20,12 +20,12 @@ public class LargeIronSignBlockEntity extends BlockEntity {
     public volatile int foreground = LargeIronSignBlock.DEFAULT_COLOUR_FOREGROUND;
     public volatile int background = LargeIronSignBlock.DEFAULT_COLOUR_BACKGROUND;
     
-    public LargeIronSignBlockEntity(BlockPos pos, BlockState state) {
+    public LargeIronSignBlockEntity(final BlockPos pos, final BlockState state) {
         super(LargeIronSign.LARGE_IRON_SIGN_BLOCK_ENTITY, pos, state);
     }
     
     @Override
-    public void writeNbt(NbtCompound nbt) {
+    public void writeNbt(final NbtCompound nbt) {
         nbt.putInt("character", character.ordinal());
         nbt.putInt("foreground", foreground);
         nbt.putInt("background", background);
@@ -34,7 +34,7 @@ public class LargeIronSignBlockEntity extends BlockEntity {
     }
     
     @Override
-    public void readNbt(NbtCompound nbt) {
+    public void readNbt(final NbtCompound nbt) {
         super.readNbt(nbt);
         
         character = LargeIronSignCharacter.values()[nbt.getInt("character")];

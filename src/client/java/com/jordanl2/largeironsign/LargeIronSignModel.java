@@ -72,12 +72,12 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
     }
     
     @Override
-    public void setParents(Function<Identifier, UnbakedModel> var1) {
+    public void setParents(final Function<Identifier, UnbakedModel> var1) {
     }
     
     @Override
-    public BakedModel bake(Baker baker, Function<SpriteIdentifier, Sprite> textureGetter,
-                           ModelBakeSettings rotationContainer, Identifier modelId) {
+    public BakedModel bake(final Baker baker, final Function<SpriteIdentifier, Sprite> textureGetter,
+                           final ModelBakeSettings rotationContainer, final Identifier modelId) {
         // Make model transformation
         Transformation gui = new Transformation(
                 new Vector3f(ModelHelper.MODEL_TRANSFORM_BLOCK.gui.rotation),
@@ -157,7 +157,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
     // BakedModel methods
     
     @Override
-    public List<BakedQuad> getQuads(BlockState var1, Direction var2, Random var3) {
+    public List<BakedQuad> getQuads(final BlockState var1, final Direction var2, final Random var3) {
         return List.of();
     }
     
@@ -205,7 +205,8 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
     }
     
     @Override
-    public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
+    public void emitBlockQuads(final BlockRenderView blockView, final BlockState state,final  BlockPos pos,
+                               final Supplier<Random> randomSupplier, final RenderContext context) {
         Direction direction = state.get(LargeIronSignBlock.FACING);
         LargeIronSignBlockEntity entityState = (LargeIronSignBlockEntity) blockView.getBlockEntityRenderData(pos);
         
@@ -797,7 +798,8 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
     }
     
     @Override
-    public void emitItemQuads(ItemStack itemStack, Supplier<Random> randomSupplier, RenderContext context) {
+    public void emitItemQuads(final ItemStack itemStack, final Supplier<Random> randomSupplier,
+                              final RenderContext context) {
         Mesh mesh = buildMesh(
                 Direction.NORTH,
                 LargeIronSignCharacter.KEY_A,

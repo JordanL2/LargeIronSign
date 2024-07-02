@@ -97,7 +97,7 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
             Map.entry(Items.MAGENTA_DYE, DyeColor.MAGENTA.getSignColor() | 0xff000000),
             Map.entry(Items.PINK_DYE, DyeColor.PINK.getSignColor() | 0xff000000));
     
-    public LargeIronSignBlock(Settings settings) {
+    public LargeIronSignBlock(final Settings settings) {
         super(settings);
         setDefaultState(getDefaultState()
                 .with(FACING, Direction.NORTH)
@@ -106,7 +106,7 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
     }
     
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void appendProperties(final StateManager.Builder<Block, BlockState> builder) {
         builder.add(
                 FACING,
                 WATERLOGGED,
@@ -115,7 +115,8 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
     
     @SuppressWarnings("deprecation")
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
+    public VoxelShape getOutlineShape(final BlockState state, final BlockView view, final BlockPos pos,
+                                      final ShapeContext context) {
         Direction dir = state.get(FACING);
         LargeIronSignBlockNeighbourState neighbourState = new LargeIronSignBlockNeighbourState(view, state, pos);
         boolean trim = state.get(TRIM);
@@ -138,7 +139,8 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
     
     @SuppressWarnings("deprecation")
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    public ActionResult onUse(final BlockState state, final World world, final BlockPos pos,
+                              final PlayerEntity player, final Hand hand, final BlockHitResult hit) {
         Item item1 = player.getMainHandStack().getItem();
         Item item2 = player.getOffHandStack().getItem();
         if (hand == Hand.MAIN_HAND) {
@@ -185,7 +187,7 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
     }
     
     @Override
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
+    public BlockState getPlacementState(final ItemPlacementContext ctx) {
         return super.getPlacementState(ctx)
                 .with(Properties.HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite())
                 .with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).isOf(Fluids.WATER));
@@ -193,13 +195,15 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
     
     @SuppressWarnings("deprecation")
     @Override
-    public FluidState getFluidState(BlockState state) {
+    public FluidState getFluidState(final BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
     
     @SuppressWarnings("deprecation")
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+    public BlockState getStateForNeighborUpdate(final BlockState state, final Direction direction,
+                                                final BlockState neighborState, final WorldAccess world,
+                                                final BlockPos pos, final BlockPos neighborPos) {
         if (state.get(WATERLOGGED)) {
             world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
@@ -208,7 +212,7 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
     }
     
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity createBlockEntity(final BlockPos pos, final BlockState state) {
         return new LargeIronSignBlockEntity(pos, state);
     }
 }

@@ -14,8 +14,9 @@ import net.minecraft.world.World;
 public class LargeIronSignSetSymbolHandler implements ServerPlayNetworking.PlayChannelHandler {
     
     @Override
-    public void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
-                        PacketByteBuf buf, PacketSender responseSender) {
+    public void receive(final MinecraftServer server, final ServerPlayerEntity player,
+                        final ServerPlayNetworkHandler handler, final PacketByteBuf buf,
+                        final PacketSender responseSender) {
         BlockPos pos = buf.readBlockPos();
         String characterName = buf.readString();
         boolean trim = buf.readBoolean();
