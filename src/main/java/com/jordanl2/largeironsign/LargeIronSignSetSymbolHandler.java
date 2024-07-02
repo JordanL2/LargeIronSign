@@ -12,28 +12,28 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class LargeIronSignSetSymbolHandler implements ServerPlayNetworking.PlayChannelHandler {
-
-	@Override
-	public void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
-			PacketByteBuf buf, PacketSender responseSender) {
-		BlockPos pos = buf.readBlockPos();
-		String characterName = buf.readString();
-		boolean trim = buf.readBoolean();
-		LargeIronSignCharacter character = LargeIronSignCharacter.valueOf(characterName);
-
-		server.execute(() -> {
-			World world = player.getWorld();
-			BlockState blockState = world.getBlockState(pos);
-			if (blockState.getBlock() instanceof LargeIronSignBlock) {
-	        	BlockEntity blockEntity = world.getBlockEntity(pos);
-	        	if (blockEntity instanceof LargeIronSignBlockEntity largeIronSignBlockEntity) {
-	        		largeIronSignBlockEntity.character = character;
-					world.setBlockState(pos, blockState
-							.with(LargeIronSignBlock.TRIM, trim));
-	        		largeIronSignBlockEntity.markDirty();
-	        	}
-			}
-		});
-	}
-
+    
+    @Override
+    public void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
+                        PacketByteBuf buf, PacketSender responseSender) {
+        BlockPos pos = buf.readBlockPos();
+        String characterName = buf.readString();
+        boolean trim = buf.readBoolean();
+        LargeIronSignCharacter character = LargeIronSignCharacter.valueOf(characterName);
+        
+        server.execute(() -> {
+            World world = player.getWorld();
+            BlockState blockState = world.getBlockState(pos);
+            if (blockState.getBlock() instanceof LargeIronSignBlock) {
+                BlockEntity blockEntity = world.getBlockEntity(pos);
+                if (blockEntity instanceof LargeIronSignBlockEntity largeIronSignBlockEntity) {
+                    largeIronSignBlockEntity.character = character;
+                    world.setBlockState(pos, blockState
+                            .with(LargeIronSignBlock.TRIM, trim));
+                    largeIronSignBlockEntity.markDirty();
+                }
+            }
+        });
+    }
+    
 }
