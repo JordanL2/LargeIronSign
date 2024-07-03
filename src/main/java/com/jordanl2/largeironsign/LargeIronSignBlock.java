@@ -128,7 +128,13 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
                 trim && neighbourState.leftIsClear());
     }
     
-    public VoxelShape getOutlineShapeWithTrim(final Direction direction,
+    @SuppressWarnings("deprecation")
+    public VoxelShape getSidesShape(final BlockState state, final BlockView world, final BlockPos pos) {
+        Direction direction = state.get(FACING);
+        return getOutlineShapeWithTrim(direction, false, false, false, false);
+    }
+
+    private VoxelShape getOutlineShapeWithTrim(final Direction direction,
                                               final boolean isTrimTop, final boolean isTrimRight,
                                               final boolean isTrimBottom, final boolean isTrimLeft) {
         float trimTop = isTrimTop ? TRIM_WIDTH : 0f;
@@ -146,12 +152,6 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
                     VoxelShapes.cuboid(1f - THICKNESS, 0f - trimBottom, 0f - trimLeft, 1f, 1f + trimTop, 1f + trimRight);
             default -> VoxelShapes.fullCube();
         };
-    }
-    
-    @SuppressWarnings("deprecation")
-    public VoxelShape getSidesShape(BlockState state, BlockView world, BlockPos pos) {
-        Direction direction = state.get(FACING);
-        return getOutlineShapeWithTrim(direction, false, false, false, false);
     }
     
     @SuppressWarnings("deprecation")
