@@ -118,24 +118,40 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
     @Override
     public VoxelShape getOutlineShape(final BlockState state, final BlockView view, final BlockPos pos,
                                       final ShapeContext context) {
-        Direction dir = state.get(FACING);
+        Direction direction = state.get(FACING);
         LargeIronSignBlockNeighbourState neighbourState = new LargeIronSignBlockNeighbourState(view, state, pos);
         boolean trim = state.get(TRIM);
-        float trimLeft = trim && neighbourState.leftIsClear() ? TRIM_WIDTH : 0f;
-        float trimRight = trim && neighbourState.rightIsClear() ? TRIM_WIDTH : 0f;
-        float trimTop = trim && neighbourState.topIsClear() ? TRIM_WIDTH : 0f;
-        float trimBottom = trim && neighbourState.bottomIsClear() ? TRIM_WIDTH : 0f;
-        return switch (dir) {
+        return getOutlineShapeWithTrim(direction,
+                trim && neighbourState.topIsClear(),
+                trim && neighbourState.rightIsClear(),
+                trim && neighbourState.bottomIsClear(),
+                trim && neighbourState.leftIsClear());
+    }
+    
+    public VoxelShape getOutlineShapeWithTrim(final Direction direction,
+                                              final boolean isTrimTop, final boolean isTrimRight,
+                                              final boolean isTrimBottom, final boolean isTrimLeft) {
+        float trimTop = isTrimTop ? TRIM_WIDTH : 0f;
+        float trimRight = isTrimRight ? TRIM_WIDTH : 0f;
+        float trimBottom = isTrimBottom ? TRIM_WIDTH : 0f;
+        float trimLeft = isTrimLeft ? TRIM_WIDTH : 0f;
+        return switch (direction) {
             case NORTH ->
                     VoxelShapes.cuboid(0f - trimRight, 0f - trimBottom, 1f - THICKNESS, 1f + trimLeft, 1f + trimTop, 1f);
-            case SOUTH ->
-                    VoxelShapes.cuboid(0f - trimLeft, 0f - trimBottom, 0f, 1f + trimRight, 1f + trimTop, THICKNESS);
             case EAST ->
                     VoxelShapes.cuboid(0f, 0f - trimBottom, 0f - trimRight, THICKNESS, 1f + trimTop, 1f + trimLeft);
+            case SOUTH ->
+                    VoxelShapes.cuboid(0f - trimLeft, 0f - trimBottom, 0f, 1f + trimRight, 1f + trimTop, THICKNESS);
             case WEST ->
                     VoxelShapes.cuboid(1f - THICKNESS, 0f - trimBottom, 0f - trimLeft, 1f, 1f + trimTop, 1f + trimRight);
             default -> VoxelShapes.fullCube();
         };
+    }
+    
+    @SuppressWarnings("deprecation")
+    public VoxelShape getSidesShape(BlockState state, BlockView world, BlockPos pos) {
+        Direction direction = state.get(FACING);
+        return getOutlineShapeWithTrim(direction, false, false, false, false);
     }
     
     @SuppressWarnings("deprecation")
