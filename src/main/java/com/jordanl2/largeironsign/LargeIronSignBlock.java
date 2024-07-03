@@ -129,6 +129,7 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
     }
     
     @SuppressWarnings("deprecation")
+    @Override
     public VoxelShape getSidesShape(final BlockState state, final BlockView world, final BlockPos pos) {
         Direction direction = state.get(FACING);
         return getOutlineShapeWithTrim(direction, false, false, false, false);
