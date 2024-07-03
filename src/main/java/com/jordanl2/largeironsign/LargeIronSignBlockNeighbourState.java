@@ -113,7 +113,7 @@ public class LargeIronSignBlockNeighbourState {
     }
     
     private boolean blockIsClear(final BlockState blockState, final BlockPos pos,
-                                 final BlockView blockView, final Box ourShape) {
+                                 final BlockView blockView, final Box ourShapeBox) {
         if (blockState.isAir()) {
             return true;
         }
@@ -126,7 +126,15 @@ public class LargeIronSignBlockNeighbourState {
         if (thisShape.isEmpty()) {
             return true;
         }
-        return !ourShape.intersects(thisShape.getBoundingBox().offset(pos));
+        if (!ourShapeBox.intersects(thisShape.getBoundingBox().offset(pos))) {
+            return true;
+        }
+        for (Box thisShapeBox : thisShape.getBoundingBoxes()) {
+            if (ourShapeBox.intersects(thisShapeBox.offset(pos))) {
+                return false;
+            }
+        }
+        return true;
     }
     
     private VoxelShape makeOutlineShape(final Direction direction) {
