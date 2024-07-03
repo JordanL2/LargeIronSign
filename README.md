@@ -17,11 +17,9 @@ An optional trim can be added to the sign.
 
 ## Dependencies
 
-| Minecraft     | 1.20.1        |
-| ------------- | ------------- |
-| Java          | 17            |
-| Fabric Loader | 0.15.7        |
-| Fabric API    | 0.91.0+1.20.1 |
+| Minecraft | Java | Fabric Loader | Fabric API    |
+|-----------|------|---------------|---------------|
+| 1.20.1    | 17   | 0.15.7        | 0.91.0+1.20.1 |
 
 
 ## How to Use
