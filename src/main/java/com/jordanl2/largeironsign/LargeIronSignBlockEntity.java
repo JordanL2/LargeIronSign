@@ -26,7 +26,7 @@ public class LargeIronSignBlockEntity extends BlockEntity {
     
     @Override
     public void writeNbt(final NbtCompound nbt) {
-        nbt.putInt("character", character.ordinal());
+        nbt.putString("character", character.name());
         nbt.putInt("foreground", foreground);
         nbt.putInt("background", background);
         
@@ -37,7 +37,7 @@ public class LargeIronSignBlockEntity extends BlockEntity {
     public void readNbt(final NbtCompound nbt) {
         super.readNbt(nbt);
         
-        character = LargeIronSignCharacter.values()[nbt.getInt("character")];
+        character = LargeIronSignCharacter.valueOf(nbt.getString("character"));
         foreground = nbt.getInt("foreground");
         background = nbt.getInt("background");
     }
