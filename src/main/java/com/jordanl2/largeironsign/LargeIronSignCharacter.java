@@ -31,7 +31,8 @@ public enum LargeIronSignCharacter implements StringIdentifiable {
 	KEY_X("x", "X"),
 	KEY_Y("y", "Y"),
 	KEY_Z("z", "Z"),
-	KEY_0("0", "0"),
+	
+	KEY_0("0", "0", true),
 	KEY_1("1", "1"),
 	KEY_2("2", "2"),
 	KEY_3("3", "3"),
@@ -42,7 +43,7 @@ public enum LargeIronSignCharacter implements StringIdentifiable {
 	KEY_8("8", "8"),
 	KEY_9("9", "9"),
 
-	CHR_46("chr46", "."),
+	CHR_46("chr46", ".", true),
 	CHR_44("chr44", ","),
 	CHR_59("chr59", ";"),
 	CHR_58("chr58", ":"),
@@ -91,17 +92,27 @@ public enum LargeIronSignCharacter implements StringIdentifiable {
 	private final String name;
 	private final String label;
 	private final String description;
+	private final boolean newLine;
 	
 	LargeIronSignCharacter(final String name, final String label) {
 		this.name = name;
 		this.label = label;
 		this.description = label;
+		this.newLine = false;
+	}
+	
+	LargeIronSignCharacter(final String name, final String label, boolean newLine) {
+		this.name = name;
+		this.label = label;
+		this.description = label;
+		this.newLine = newLine;
 	}
 	
 	LargeIronSignCharacter(final String name, final String label, final String description) {
 		this.name = name;
 		this.label = label;
 		this.description = description;
+		this.newLine = false;
 	}
 	
     public String toString() {
@@ -120,6 +131,10 @@ public enum LargeIronSignCharacter implements StringIdentifiable {
     public String getDescription() {
     	return description;
     }
+	
+	public boolean isNewLine() {
+		return newLine;
+	}
     
     public Identifier getBlockTextureIdentifier() {
     	return new Identifier(LargeIronSign.MOD_ID, LargeIronSignBlock.BLOCK_PATH + this.getSuffix());

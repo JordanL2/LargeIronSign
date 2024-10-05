@@ -72,29 +72,36 @@ public class LargeIronSignScreen extends Screen {
         
         int buttonWidth = 20;
         int buttonHeight = 20;
-        int space = 5;
+        int space = 3;
+        int newLineSpace = 10;
         int minMargin = 40;
         
         int margin = minMargin + (((width - minMargin - minMargin - buttonWidth) % (buttonWidth + space)) / 2);
         int x = margin;
-        
-        int buttonsPerRow = ((width - minMargin - minMargin - buttonWidth) / (buttonWidth + space)) + 1;
-        int rows = (int) Math.ceil((float) LargeIronSignCharacter.values().length / (float) buttonsPerRow);
-        int y = minMargin + (height - minMargin - minMargin - buttonHeight - ((rows - 1) * (buttonHeight + space))) / 2;
-        
+        int y = minMargin;
+
+        boolean first = true;
         for (LargeIronSignCharacter character : LargeIronSignCharacter.values()) {
+            if (!first) {
+                if (character.isNewLine()) {
+                    x = margin;
+                    y += buttonHeight + newLineSpace;
+                } else {
+                    x += buttonWidth + space;
+                    if (x + buttonWidth + margin > width) {
+                        x = margin;
+                        y += buttonHeight + space;
+                    }
+                }
+            }
+            first = false;
+
             ButtonWidget button = ButtonWidget.builder(Text.literal(character.getLabel()), a ->
                     setBlockChar(character))
                     .dimensions(x, y, buttonWidth, buttonHeight)
                     .tooltip(Tooltip.of(Text.literal("Set sign to " + character.getDescription())))
                     .build();
             addDrawableChild(button);
-            
-            x += buttonWidth + space;
-            if (x + buttonWidth + margin > width) {
-                x = margin;
-                y += buttonHeight + space;
-            }
         }
     }
     
