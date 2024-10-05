@@ -50,21 +50,15 @@ public class LargeIronSignScreen extends Screen {
         
         // Trim Button
         
-        int trimButtonWidth = 30;
+        int trimButtonWidth = 50;
         int trimButtonHeight = 20;
         
-        trimButton = ButtonWidget.builder(Text.literal("Trim"), a -> {
-                    if (trim) {
-                        trim = false;
-                        trimButton.setAlpha(0.5f);
-                    } else {
-                        trim = true;
-                        trimButton.setAlpha(1f);
-                    }
+        trimButton = ButtonWidget.builder(Text.literal(trimButtonText()), a -> {
+                    trim = !trim;
+                    trimButton.setMessage(Text.literal(trimButtonText()));
                     updateBlockEntity();
                 }).dimensions(5, 5, trimButtonWidth, trimButtonHeight)
                 .build();
-        trimButton.setAlpha(trim ? 1f : 0.5f);
         addDrawableChild(trimButton);
         
         
@@ -103,6 +97,10 @@ public class LargeIronSignScreen extends Screen {
                     .build();
             addDrawableChild(button);
         }
+    }
+    
+    private String trimButtonText() {
+        return trim ? "Trim On" : "Trim Off";
     }
     
     private void setBlockChar(final LargeIronSignCharacter character) {
