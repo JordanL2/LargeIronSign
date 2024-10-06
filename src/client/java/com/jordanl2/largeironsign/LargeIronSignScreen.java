@@ -130,7 +130,7 @@ public class LargeIronSignScreen extends Screen {
     
     @Override
     public void render(final DrawContext context, final int mouseX, final int mouseY, final float delta) {
-        renderBackground(context);
+        renderBackground(context, mouseX, mouseY, delta);
         super.render(context, mouseX, mouseY, delta);
     }
 }
