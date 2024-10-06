@@ -1,5 +1,6 @@
 package com.jordanl2.largeironsign;
 
+import net.minecraft.registry.RegistryWrapper;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.block.BlockState;
@@ -25,17 +26,17 @@ public class LargeIronSignBlockEntity extends BlockEntity {
     }
     
     @Override
-    public void writeNbt(final NbtCompound nbt) {
+    public void writeNbt(final NbtCompound nbt, final RegistryWrapper.WrapperLookup wrapperLookup) {
         nbt.putString("character", character.name());
         nbt.putInt("foreground", foreground);
         nbt.putInt("background", background);
         
-        super.writeNbt(nbt);
+        super.writeNbt(nbt, wrapperLookup);
     }
     
     @Override
-    public void readNbt(final NbtCompound nbt) {
-        super.readNbt(nbt);
+    public void readNbt(final NbtCompound nbt, final RegistryWrapper.WrapperLookup wrapperLookup) {
+        super.readNbt(nbt, wrapperLookup);
         
         character = LargeIronSignCharacter.valueOf(nbt.getString("character"));
         foreground = nbt.getInt("foreground");
@@ -54,7 +55,7 @@ public class LargeIronSignBlockEntity extends BlockEntity {
     }
     
     @Override
-    public NbtCompound toInitialChunkDataNbt() {
-        return createNbt();
+    public NbtCompound toInitialChunkDataNbt(final RegistryWrapper.WrapperLookup wrapperLookup) {
+        return createNbt(wrapperLookup);
     }
 }

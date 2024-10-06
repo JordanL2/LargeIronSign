@@ -1,8 +1,10 @@
 {
     "type": "minecraft:stonecutting",
-    "count": 16,
     "ingredient": {
         "item": "minecraft:iron_block"
     },
-    "result": "largeironsign:large_iron_sign"
+    "result": {
+        "id": "largeironsign:large_iron_sign",
+        "count": 16
+    }
 }

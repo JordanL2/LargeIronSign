@@ -1,29 +1,24 @@
 package com.jordanl2.largeironsign;
 
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class LargeIronSignSetSymbolHandler implements ServerPlayNetworking.PlayChannelHandler {
+public class LargeIronSignSetSymbolHandler implements ServerPlayNetworking.PlayPayloadHandler<LargeIronSignSetSymbolPayload> {
     
     @Override
-    public void receive(final MinecraftServer server, final ServerPlayerEntity player,
-                        final ServerPlayNetworkHandler handler, final PacketByteBuf buf,
-                        final PacketSender responseSender) {
-        BlockPos pos = buf.readBlockPos();
-        String characterName = buf.readString();
-        boolean trim = buf.readBoolean();
+    public void receive(final LargeIronSignSetSymbolPayload payload, final ServerPlayNetworking.Context context) {
+        BlockPos pos = payload.pos();
+        String characterName = payload.characterName();
+        boolean trim = payload.trim();
         LargeIronSignCharacter character = LargeIronSignCharacter.valueOf(characterName);
         
+        MinecraftServer server = context.server();
         server.execute(() -> {
-            World world = player.getWorld();
+            World world = context.player().getWorld();
             BlockState blockState = world.getBlockState(pos);
             if (blockState.getBlock() instanceof LargeIronSignBlock) {
                 BlockEntity blockEntity = world.getBlockEntity(pos);
@@ -36,5 +31,6 @@ public class LargeIronSignSetSymbolHandler implements ServerPlayNetworking.PlayC
             }
         });
     }
-    
+
 }
+

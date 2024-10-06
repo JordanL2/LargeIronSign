@@ -1,10 +1,7 @@
 package com.jordanl2.largeironsign;
 
 import com.mojang.serialization.MapCodec;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,7 +11,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.Items;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -22,7 +18,6 @@ import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -50,12 +45,12 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
     public static final Identifier ID = new Identifier(LargeIronSign.MOD_ID, PATH);
     
     // Block and Item singletons
-    public static final LargeIronSignBlock LARGE_IRON_SIGN_BLOCK = new LargeIronSignBlock(FabricBlockSettings.create()
+    public static final LargeIronSignBlock LARGE_IRON_SIGN_BLOCK = new LargeIronSignBlock(AbstractBlock.Settings.create()
             .requiresTool()
             .strength(1.5f, 6f));
     public static final BlockItem LARGE_IRON_SIGN_BLOCK_ITEM = new BlockItem(
             LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK,
-            new FabricItemSettings());
+            new Item.Settings());
     
     // Textures
     public static final Identifier EDGE_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_edge");
@@ -73,10 +68,6 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
     // Model
     public static final float THICKNESS = 1f / 16f;
     public static final float TRIM_WIDTH = 2f / 16f;
-    
-    // Network packets
-    public static final Identifier LARGE_IRON_SIGN_SCREEN_OPEN_PACKET_ID = new Identifier(LargeIronSign.MOD_ID, PATH + "_screen_open");
-    public static final Identifier LARGE_IRON_SIGN_SET_SYMBOL_PACKET_ID = new Identifier(LargeIronSign.MOD_ID, PATH + "_set_symbol");
     
     // Dyes
     public static final int DEFAULT_COLOUR_FOREGROUND = DyeColor.BLACK.getSignColor() | 0xff000000;
@@ -120,7 +111,6 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
                 TRIM);
     }
     
-    @SuppressWarnings("deprecation")
     @Override
     public VoxelShape getOutlineShape(final BlockState state, final BlockView view, final BlockPos pos,
                                       final ShapeContext context) {
@@ -134,7 +124,6 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
                 trim && neighbourState.leftIsClear());
     }
     
-    @SuppressWarnings("deprecation")
     @Override
     public VoxelShape getSidesShape(final BlockState state, final BlockView world, final BlockPos pos) {
         Direction direction = state.get(FACING);
@@ -161,49 +150,40 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
         };
     }
     
-    @SuppressWarnings("deprecation")
     @Override
-    public ActionResult onUse(final BlockState state, final World world, final BlockPos pos,
-                              final PlayerEntity player, final Hand hand, final BlockHitResult hit) {
+    protected ActionResult onUse(final BlockState state, final World world, final BlockPos pos,
+                                 final PlayerEntity player, final BlockHitResult hit) {
         Item item1 = player.getMainHandStack().getItem();
         Item item2 = player.getOffHandStack().getItem();
-        if (hand == Hand.MAIN_HAND) {
-            // If holding dye, apply foreground / background colour on sign
-            if (DYES.containsKey(item1) || DYES.containsKey(item2)) {
-                BlockEntity blockEntity = world.getBlockEntity(pos);
-                if (blockEntity instanceof LargeIronSignBlockEntity largeIronSignBlockEntity) {
-                    if (DYES.containsKey(item1)) {
-                        largeIronSignBlockEntity.foreground = DYES.get(item1);
-                    }
-                    if (DYES.containsKey(item2)) {
-                        largeIronSignBlockEntity.background = DYES.get(item2);
-                    }
-                    if (world.isClient()) {
-                        // On client side, cause block to re-render
-                        world.updateListeners(pos, state, state, Block.NOTIFY_LISTENERS);
-                    } else {
-                        // On server side, ensure block entity gets saved
-                        largeIronSignBlockEntity.markDirty();
-                    }
+        
+        // If holding dye, apply foreground / background colour on sign
+        if (DYES.containsKey(item1) || DYES.containsKey(item2)) {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof LargeIronSignBlockEntity largeIronSignBlockEntity) {
+                if (DYES.containsKey(item1)) {
+                    largeIronSignBlockEntity.foreground = DYES.get(item1);
                 }
-            } else if (!world.isClient() && player instanceof ServerPlayerEntity serverPlayer) {
-                // Otherwise, open sign edit screen
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(pos);
-                ServerPlayNetworking.send(serverPlayer, LARGE_IRON_SIGN_SCREEN_OPEN_PACKET_ID, buf);
-                return ActionResult.SUCCESS;
+                if (DYES.containsKey(item2)) {
+                    largeIronSignBlockEntity.background = DYES.get(item2);
+                }
+                if (world.isClient()) {
+                    // On client side, cause block to re-render
+                    world.updateListeners(pos, state, state, Block.NOTIFY_LISTENERS);
+                } else {
+                    // On server side, ensure block entity gets saved
+                    largeIronSignBlockEntity.markDirty();
+                }
             }
+        } else if (!world.isClient() && player instanceof ServerPlayerEntity serverPlayer) {
+            // Otherwise, open sign edit screen
+            ServerPlayNetworking.send(serverPlayer, new LargeIronSignScreenOpenPayload(pos));
+            return ActionResult.SUCCESS;
         }
         
         // If holding dye, ensure animation plays for correct hand
         if (world.isClient()) {
             if (DYES.containsKey(item1) || DYES.containsKey(item2)) {
-                if (hand == Hand.MAIN_HAND && DYES.containsKey(item1)) {
-                    return ActionResult.SUCCESS;
-                } else if (hand == Hand.OFF_HAND && DYES.containsKey(item2)) {
-                    return ActionResult.SUCCESS;
-                }
-                return ActionResult.PASS;
+                return ActionResult.SUCCESS;
             }
         }
         
@@ -217,13 +197,11 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
                 .with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).isOf(Fluids.WATER));
     }
     
-    @SuppressWarnings("deprecation")
     @Override
     public FluidState getFluidState(final BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
     
-    @SuppressWarnings("deprecation")
     @Override
     public BlockState getStateForNeighborUpdate(final BlockState state, final Direction direction,
                                                 final BlockState neighborState, final WorldAccess world,

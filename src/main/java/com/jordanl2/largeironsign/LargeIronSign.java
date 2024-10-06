@@ -2,6 +2,7 @@ package com.jordanl2.largeironsign;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntityType;
@@ -36,8 +37,10 @@ public class LargeIronSign implements ModInitializer {
                 content.add(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK_ITEM));
         
         // Network
+        PayloadTypeRegistry.playC2S().register(LargeIronSignScreenOpenPayload.PACKET_ID, LargeIronSignScreenOpenPayload.PACKET_CODEC);
+        PayloadTypeRegistry.playC2S().register(LargeIronSignSetSymbolPayload.PACKET_ID, LargeIronSignSetSymbolPayload.PACKET_CODEC);
         ServerPlayNetworking.registerGlobalReceiver(
-                LargeIronSignBlock.LARGE_IRON_SIGN_SET_SYMBOL_PACKET_ID,
+                LargeIronSignSetSymbolPayload.PACKET_ID,
                 new LargeIronSignSetSymbolHandler());
     }
 }

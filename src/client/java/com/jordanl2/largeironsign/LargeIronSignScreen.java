@@ -3,7 +3,6 @@ package com.jordanl2.largeironsign;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -12,7 +11,6 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 
@@ -116,11 +114,7 @@ public class LargeIronSignScreen extends Screen {
         world.updateListeners(pos, blockState, blockState, Block.NOTIFY_LISTENERS);
         
         // Sync to server
-        PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeBlockPos(pos);
-        buf.writeString(blockEntity.character.name());
-        buf.writeBoolean(trim);
-        ClientPlayNetworking.send(LargeIronSignBlock.LARGE_IRON_SIGN_SET_SYMBOL_PACKET_ID, buf);
+        ClientPlayNetworking.send(new LargeIronSignSetSymbolPayload(pos, blockEntity.character.name(), trim));
     }
     
     @Override
