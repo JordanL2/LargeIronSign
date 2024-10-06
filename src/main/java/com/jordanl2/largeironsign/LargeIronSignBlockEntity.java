@@ -14,7 +14,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class LargeIronSignBlockEntity extends BlockEntity {
     
-    public static final Identifier ID = new Identifier(LargeIronSign.MOD_ID, LargeIronSignBlock.PATH + "_block_entity");
+    public static final Identifier ID = Identifier.of(LargeIronSign.MOD_ID, LargeIronSignBlock.PATH + "_block_entity");
     
     // Entity properties
     public volatile LargeIronSignCharacter character = LargeIronSignCharacter.SPACE;

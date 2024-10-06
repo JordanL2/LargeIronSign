@@ -137,7 +137,7 @@ public enum LargeIronSignCharacter implements StringIdentifiable {
 	}
     
     public Identifier getBlockTextureIdentifier() {
-    	return new Identifier(LargeIronSign.MOD_ID, LargeIronSignBlock.BLOCK_PATH + this.getSuffix());
+    	return Identifier.of(LargeIronSign.MOD_ID, LargeIronSignBlock.BLOCK_PATH + this.getSuffix());
     }
     
     public String getSuffix() {

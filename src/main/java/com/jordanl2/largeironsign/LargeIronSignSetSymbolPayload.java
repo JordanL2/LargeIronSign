@@ -14,7 +14,7 @@ public record LargeIronSignSetSymbolPayload(BlockPos pos, String characterName, 
         return PACKET_ID;
     }
 
-    public static final CustomPayload.Id<LargeIronSignSetSymbolPayload> PACKET_ID = new CustomPayload.Id<>(new Identifier(LargeIronSign.MOD_ID, LargeIronSignBlock.PATH + "_set_symbol"));
+    public static final CustomPayload.Id<LargeIronSignSetSymbolPayload> PACKET_ID = new CustomPayload.Id<>(Identifier.of(LargeIronSign.MOD_ID, LargeIronSignBlock.PATH + "_set_symbol"));
     public static final PacketCodec<RegistryByteBuf, LargeIronSignSetSymbolPayload> PACKET_CODEC =
             PacketCodec.tuple(
                     BlockPos.PACKET_CODEC, LargeIronSignSetSymbolPayload::pos,

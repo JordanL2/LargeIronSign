@@ -18,7 +18,7 @@ public class LargeIronSign implements ModInitializer {
     public static final BlockEntityType<LargeIronSignBlockEntity> LARGE_IRON_SIGN_BLOCK_ENTITY = Registry.register(
             Registries.BLOCK_ENTITY_TYPE,
             LargeIronSignBlockEntity.ID,
-            FabricBlockEntityTypeBuilder.create(
+            BlockEntityType.Builder.create(
                     LargeIronSignBlockEntity::new,
                     LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK).build());
     

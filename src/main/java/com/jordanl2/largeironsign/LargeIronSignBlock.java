@@ -42,7 +42,7 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
     public static final String PATH = "large_iron_sign";
     public static final String BLOCK_PATH = "block/" + PATH;
     public static final String ITEM_PATH = "item/" + PATH;
-    public static final Identifier ID = new Identifier(LargeIronSign.MOD_ID, PATH);
+    public static final Identifier ID = Identifier.of(LargeIronSign.MOD_ID, PATH);
     
     // Block and Item singletons
     public static final LargeIronSignBlock LARGE_IRON_SIGN_BLOCK = new LargeIronSignBlock(AbstractBlock.Settings.create()
@@ -53,17 +53,17 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
             new Item.Settings());
     
     // Textures
-    public static final Identifier EDGE_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_edge");
-    public static final Identifier BACK_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_back");
-    public static final Identifier FRONT_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_front");
-    public static final Identifier TRIM_FRONT_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_front");
-    public static final Identifier TRIM_BACK_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_front");
-    public static final Identifier TRIM_EDGE_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_edge");
-    public static final Identifier TRIM_INSIDE_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_inside");
-    public static final Identifier TRIM_CORNER_EDGE_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_corner_edge");
-    public static final Identifier TRIM_CORNER_FRONT_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_corner_front");
-    public static final Identifier TRIM_INNER_CORNER_FRONT_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_inner_corner_front");
-    public static final Identifier TRIM_INNER_CORNER_BACK_TEXTURE = new Identifier(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_inner_corner_front");
+    public static final Identifier EDGE_TEXTURE = Identifier.of(LargeIronSign.MOD_ID, "block/" + PATH + "_edge");
+    public static final Identifier BACK_TEXTURE = Identifier.of(LargeIronSign.MOD_ID, "block/" + PATH + "_back");
+    public static final Identifier FRONT_TEXTURE = Identifier.of(LargeIronSign.MOD_ID, "block/" + PATH + "_front");
+    public static final Identifier TRIM_FRONT_TEXTURE = Identifier.of(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_front");
+    public static final Identifier TRIM_BACK_TEXTURE = Identifier.of(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_front");
+    public static final Identifier TRIM_EDGE_TEXTURE = Identifier.of(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_edge");
+    public static final Identifier TRIM_INSIDE_TEXTURE = Identifier.of(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_inside");
+    public static final Identifier TRIM_CORNER_EDGE_TEXTURE = Identifier.of(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_corner_edge");
+    public static final Identifier TRIM_CORNER_FRONT_TEXTURE = Identifier.of(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_corner_front");
+    public static final Identifier TRIM_INNER_CORNER_FRONT_TEXTURE = Identifier.of(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_inner_corner_front");
+    public static final Identifier TRIM_INNER_CORNER_BACK_TEXTURE = Identifier.of(LargeIronSign.MOD_ID, "block/" + PATH + "_trim_inner_corner_front");
     
     // Model
     public static final float THICKNESS = 1f / 16f;

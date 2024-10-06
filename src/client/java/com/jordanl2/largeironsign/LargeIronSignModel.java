@@ -77,7 +77,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
     
     @Override
     public BakedModel bake(final Baker baker, final Function<SpriteIdentifier, Sprite> textureGetter,
-                           final ModelBakeSettings rotationContainer, final Identifier modelId) {
+                           final ModelBakeSettings rotationContainer) {
         // Make model transformation
         Transformation gui = new Transformation(
                 new Vector3f(ModelHelper.MODEL_TRANSFORM_BLOCK.gui.rotation),
