@@ -5,7 +5,7 @@
 	"name": "Large Iron Sign",
 	"description": "An iron sign that displays a single, large, user-selected character. Text and background can be coloured.",
 	"authors": [
-		"Me!"
+		"Jordan Leppert"
 	],
 	"contact": {
 		"homepage": "https://github.com/JordanL2/LargeIronSign",
@@ -25,12 +25,11 @@
 	"mixins": [
 	],
 	"depends": {
-		"fabricloader": ">=0.15.7",
+		"fabricloader": ">=0.16.5",
 		"minecraft": "~1.20.1",
 		"java": ">=17",
 		"fabric-api": "*"
 	},
 	"suggests": {
-		"another-mod": "*"
 	}
 }
