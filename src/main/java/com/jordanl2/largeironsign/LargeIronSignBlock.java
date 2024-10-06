@@ -1,5 +1,6 @@
 package com.jordanl2.largeironsign;
 
+import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -104,6 +105,11 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
                 .with(FACING, Direction.NORTH)
                 .with(WATERLOGGED, false)
                 .with(TRIM, false));
+    }
+    
+    @Override
+    protected MapCodec<? extends HorizontalFacingBlock> getCodec() {
+        return null;
     }
     
     @Override
