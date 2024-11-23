@@ -24,14 +24,12 @@ import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.data.client.VariantSettings;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.PlayerScreenHandler;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockRenderView;
 import org.joml.Vector3f;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
@@ -67,12 +65,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
     // UnbakedModel methods
     
     @Override
-    public Collection<Identifier> getModelDependencies() {
-        return List.of();
-    }
-    
-    @Override
-    public void setParents(final Function<Identifier, UnbakedModel> var1) {
+    public void resolve(Resolver resolver) {
     }
     
     @Override

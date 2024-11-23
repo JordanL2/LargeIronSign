@@ -14,7 +14,7 @@ public class LargeIronSignModelLoadingPlugin implements ModelLoadingPlugin {
     public static final LargeIronSignModel LARGE_IRON_SIGN_MODEL = new LargeIronSignModel();
     
     @Override
-    public void onInitializeModelLoader(final Context pluginContext) {
+    public void initialize(final Context pluginContext) {
         pluginContext.resolveModel().register(new ModelResolver() {
             @Override
             public @Nullable UnbakedModel resolveModel(final Context context) {

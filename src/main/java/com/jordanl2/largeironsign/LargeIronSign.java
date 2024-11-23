@@ -18,7 +18,7 @@ public class LargeIronSign implements ModInitializer {
     public static final BlockEntityType<LargeIronSignBlockEntity> LARGE_IRON_SIGN_BLOCK_ENTITY = Registry.register(
             Registries.BLOCK_ENTITY_TYPE,
             LargeIronSignBlockEntity.ID,
-            BlockEntityType.Builder.create(
+            FabricBlockEntityTypeBuilder.create(
                     LargeIronSignBlockEntity::new,
                     LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK).build());
     
@@ -26,12 +26,12 @@ public class LargeIronSign implements ModInitializer {
     public void onInitialize() {
         // Blocks
         Registry.register(Registries.BLOCK,
-                LargeIronSignBlock.ID,
+                LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK_KEY,
                 LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK);
         
         // Items
         Registry.register(Registries.ITEM,
-                LargeIronSignBlock.ID,
+                LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK_ITEM_KEY,
                 LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK_ITEM);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(content ->
                 content.add(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK_ITEM));

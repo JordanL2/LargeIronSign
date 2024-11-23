@@ -11,10 +11,12 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.Items;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
@@ -22,11 +24,13 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
+import net.minecraft.world.tick.ScheduledTickView;
 
 import java.util.Map;
 import java.util.Objects;
@@ -34,7 +38,7 @@ import java.util.Objects;
 public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEntityProvider, Waterloggable {
     
     // BlockState properties
-    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public static final BooleanProperty TRIM = BooleanProperty.of("trim");
     
@@ -44,13 +48,20 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
     public static final String ITEM_PATH = "item/" + PATH;
     public static final Identifier ID = Identifier.of(LargeIronSign.MOD_ID, PATH);
     
-    // Block and Item singletons
+    // Block
+    public static final RegistryKey<Block> LARGE_IRON_SIGN_BLOCK_KEY = RegistryKey.of(RegistryKeys.BLOCK, ID);
     public static final LargeIronSignBlock LARGE_IRON_SIGN_BLOCK = new LargeIronSignBlock(AbstractBlock.Settings.create()
             .requiresTool()
-            .strength(1.5f, 6f));
+            .strength(1.5f, 6f)
+            .registryKey(LARGE_IRON_SIGN_BLOCK_KEY));
+    
+    // Item
+    public static final RegistryKey<Item> LARGE_IRON_SIGN_BLOCK_ITEM_KEY = RegistryKey.of(RegistryKeys.ITEM, ID);
     public static final BlockItem LARGE_IRON_SIGN_BLOCK_ITEM = new BlockItem(
             LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK,
-            new Item.Settings());
+            new Item.Settings()
+                    .useBlockPrefixedTranslationKey()
+                    .registryKey(LARGE_IRON_SIGN_BLOCK_ITEM_KEY));
     
     // Textures
     public static final Identifier EDGE_TEXTURE = Identifier.of(LargeIronSign.MOD_ID, "block/" + PATH + "_edge");
@@ -203,14 +214,15 @@ public class LargeIronSignBlock extends HorizontalFacingBlock implements BlockEn
     }
     
     @Override
-    public BlockState getStateForNeighborUpdate(final BlockState state, final Direction direction,
-                                                final BlockState neighborState, final WorldAccess world,
-                                                final BlockPos pos, final BlockPos neighborPos) {
+    protected BlockState getStateForNeighborUpdate(final BlockState state, final WorldView world,
+                                                   final ScheduledTickView tickView, final BlockPos pos,
+                                                   final Direction direction, final BlockPos neighborPos,
+                                                   final BlockState neighborState, final Random random) {
         if (state.get(WATERLOGGED)) {
-            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+            tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
         
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        return super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
     }
     
     @Override
