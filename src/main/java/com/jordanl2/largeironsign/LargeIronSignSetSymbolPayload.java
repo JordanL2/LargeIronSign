@@ -19,6 +19,6 @@ public record LargeIronSignSetSymbolPayload(BlockPos pos, String characterName, 
             PacketCodec.tuple(
                     BlockPos.PACKET_CODEC, LargeIronSignSetSymbolPayload::pos,
                     PacketCodecs.STRING, LargeIronSignSetSymbolPayload::characterName,
-                    PacketCodecs.BOOL, LargeIronSignSetSymbolPayload::trim,
+                    PacketCodecs.BOOLEAN, LargeIronSignSetSymbolPayload::trim,
                     LargeIronSignSetSymbolPayload::new).cast();
 }

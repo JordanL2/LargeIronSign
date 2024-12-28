@@ -3,152 +3,135 @@ package com.jordanl2.largeironsign;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.renderer.v1.Renderer;
-import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.fabricmc.fabric.api.renderer.v1.material.BlendMode;
 import net.fabricmc.fabric.api.renderer.v1.material.MaterialFinder;
 import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
-import net.fabricmc.fabric.api.renderer.v1.mesh.Mesh;
-import net.fabricmc.fabric.api.renderer.v1.mesh.MeshBuilder;
 import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
 import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
 import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper;
-import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.data.VariantSettings;
+import net.minecraft.client.model.SpriteGetter;
 import net.minecraft.client.render.model.*;
-import net.minecraft.client.render.model.json.ModelOverrideList;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.render.model.json.Transformation;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.data.client.VariantSettings;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PlayerScreenHandler;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockRenderView;
-import org.joml.Vector3f;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static com.jordanl2.largeironsign.LargeIronSignBlock.THICKNESS;
 import static com.jordanl2.largeironsign.LargeIronSignBlock.TRIM_WIDTH;
 
 @Environment(EnvType.CLIENT)
-public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBakedModel {
+public class LargeIronSignBakedModel implements BakedModel, FabricBakedModel {
+    
+    private static final Identifier BLOCK_ATLAS_TEXTURE = Identifier.ofVanilla("textures/atlas/blocks.png");
     
     public static final float TEXT_DEPTH = 0.001f;
-    
-    private final Sprite[] sprites = new Sprite[LargeIronSignCharacter.values().length];
-    private Sprite spriteFront;
-    private Sprite spriteBack;
-    private Sprite spriteEdge;
-    private Sprite spriteTrimFront;
-    private Sprite spriteTrimBack;
-    private Sprite spriteTrimEdge;
-    private Sprite spriteTrimInside;
-    private Sprite spriteTrimCornerEdge;
-    private Sprite spriteTrimCornerFront;
-    private Sprite spriteTrimInnerCornerFront;
-    private Sprite spriteTrimInnerCornerBack;
-    
+
     private final static DirectionUtil directionUtil = new DirectionUtil();
     
-    private ModelTransformation transformation;
-    private RenderMaterial cutoutMaterial;
+    private final Sprite[] sprites = new Sprite[LargeIronSignCharacter.values().length];
+    private final Sprite spriteFront;
+    private final Sprite spriteBack;
+    private final Sprite spriteEdge;
+    private final Sprite spriteTrimFront;
+    private final Sprite spriteTrimBack;
+    private final Sprite spriteTrimEdge;
+    private final Sprite spriteTrimInside;
+    private final Sprite spriteTrimCornerEdge;
+    private final Sprite spriteTrimCornerFront;
+    private final Sprite spriteTrimInnerCornerFront;
+    private final Sprite spriteTrimInnerCornerBack;
     
+    private final ModelTransformation modelTransformation;
+    private final RenderMaterial cutoutMaterial;
     
-    // UnbakedModel methods
-    
-    @Override
-    public void resolve(Resolver resolver) {
-    }
-    
-    @Override
-    public BakedModel bake(final Baker baker, final Function<SpriteIdentifier, Sprite> textureGetter,
-                           final ModelBakeSettings rotationContainer) {
+    public LargeIronSignBakedModel(final Baker baker) {
         // Make model transformation
-        Transformation gui = new Transformation(
-                new Vector3f(ModelHelper.MODEL_TRANSFORM_BLOCK.gui.rotation),
-                new Vector3f(ModelHelper.MODEL_TRANSFORM_BLOCK.gui.translation),
-                new Vector3f(ModelHelper.MODEL_TRANSFORM_BLOCK.gui.scale));
-        transformation = new ModelTransformation(
-                ModelHelper.MODEL_TRANSFORM_BLOCK.thirdPersonLeftHand,
-                ModelHelper.MODEL_TRANSFORM_BLOCK.thirdPersonRightHand,
-                ModelHelper.MODEL_TRANSFORM_BLOCK.firstPersonLeftHand,
-                ModelHelper.MODEL_TRANSFORM_BLOCK.firstPersonRightHand,
-                ModelHelper.MODEL_TRANSFORM_BLOCK.head,
-                gui,
-                ModelHelper.MODEL_TRANSFORM_BLOCK.ground,
-                ModelHelper.MODEL_TRANSFORM_BLOCK.fixed);
-        transformation.gui.translation.add(0.2f, -0.1f, 0f);
+        modelTransformation = new ModelTransformation(
+                ModelHelper.TRANSFORM_BLOCK_3RD_PERSON_RIGHT,
+                ModelHelper.TRANSFORM_BLOCK_3RD_PERSON_RIGHT,
+                ModelHelper.TRANSFORM_BLOCK_1ST_PERSON_LEFT,
+                ModelHelper.TRANSFORM_BLOCK_1ST_PERSON_RIGHT,
+                Transformation.IDENTITY,
+                ModelHelper.TRANSFORM_BLOCK_GUI,
+                ModelHelper.TRANSFORM_BLOCK_GROUND,
+                ModelHelper.TRANSFORM_BLOCK_FIXED);
+        modelTransformation.gui().translation.add(0.2f, -0.1f, 0f);
         
         // Load sprites
+        SpriteGetter textureGetter = baker.getSpriteGetter();
         for (LargeIronSignCharacter character : LargeIronSignCharacter.values()) {
-            SpriteIdentifier spriteId = new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
+            SpriteIdentifier spriteId = new SpriteIdentifier(BLOCK_ATLAS_TEXTURE,
                     character.getBlockTextureIdentifier());
-            sprites[character.ordinal()] = textureGetter.apply(spriteId);
+            sprites[character.ordinal()] = textureGetter.get(spriteId);
         }
-        spriteFront = textureGetter.apply(
+        spriteFront = textureGetter.get(
                 new SpriteIdentifier(
-                        PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
+                        BLOCK_ATLAS_TEXTURE,
                         LargeIronSignBlock.FRONT_TEXTURE));
-        spriteBack = textureGetter.apply(
+        spriteBack = textureGetter.get(
                 new SpriteIdentifier(
-                        PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
+                        BLOCK_ATLAS_TEXTURE,
                         LargeIronSignBlock.BACK_TEXTURE));
-        spriteEdge = textureGetter.apply(
+        spriteEdge = textureGetter.get(
                 new SpriteIdentifier(
-                        PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
+                        BLOCK_ATLAS_TEXTURE,
                         LargeIronSignBlock.EDGE_TEXTURE));
         
-        spriteTrimFront = textureGetter.apply(
+        spriteTrimFront = textureGetter.get(
                 new SpriteIdentifier(
-                        PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
+                        BLOCK_ATLAS_TEXTURE,
                         LargeIronSignBlock.TRIM_FRONT_TEXTURE));
-        spriteTrimBack = textureGetter.apply(
+        spriteTrimBack = textureGetter.get(
                 new SpriteIdentifier(
-                        PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
+                        BLOCK_ATLAS_TEXTURE,
                         LargeIronSignBlock.TRIM_BACK_TEXTURE));
-        spriteTrimEdge = textureGetter.apply(
+        spriteTrimEdge = textureGetter.get(
                 new SpriteIdentifier(
-                        PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
+                        BLOCK_ATLAS_TEXTURE,
                         LargeIronSignBlock.TRIM_EDGE_TEXTURE));
-        spriteTrimInside = textureGetter.apply(
+        spriteTrimInside = textureGetter.get(
                 new SpriteIdentifier(
-                        PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
+                        BLOCK_ATLAS_TEXTURE,
                         LargeIronSignBlock.TRIM_INSIDE_TEXTURE));
-        spriteTrimCornerFront = textureGetter.apply(
+        spriteTrimCornerFront = textureGetter.get(
                 new SpriteIdentifier(
-                        PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
+                        BLOCK_ATLAS_TEXTURE,
                         LargeIronSignBlock.TRIM_CORNER_FRONT_TEXTURE));
-        spriteTrimCornerEdge = textureGetter.apply(
+        spriteTrimCornerEdge = textureGetter.get(
                 new SpriteIdentifier(
-                        PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
+                        BLOCK_ATLAS_TEXTURE,
                         LargeIronSignBlock.TRIM_CORNER_EDGE_TEXTURE));
-        spriteTrimInnerCornerFront = textureGetter.apply(
+        spriteTrimInnerCornerFront = textureGetter.get(
                 new SpriteIdentifier(
-                        PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
+                        BLOCK_ATLAS_TEXTURE,
                         LargeIronSignBlock.TRIM_INNER_CORNER_FRONT_TEXTURE));
-        spriteTrimInnerCornerBack = textureGetter.apply(
+        spriteTrimInnerCornerBack = textureGetter.get(
                 new SpriteIdentifier(
-                        PlayerScreenHandler.BLOCK_ATLAS_TEXTURE,
+                        BLOCK_ATLAS_TEXTURE,
                         LargeIronSignBlock.TRIM_INNER_CORNER_BACK_TEXTURE));
         
         // Find cutout material
-        MaterialFinder finder = Objects.requireNonNull(RendererAccess.INSTANCE.getRenderer()).materialFinder();
+        MaterialFinder finder = Renderer.get().materialFinder();
         cutoutMaterial = finder.blendMode(BlendMode.CUTOUT).find();
-        
-        return this;
     }
     
     
     // BakedModel methods
-    
+
     @Override
     public List<BakedQuad> getQuads(final BlockState var1, final Direction var2, final Random var3) {
         return List.of();
@@ -170,23 +153,13 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
     }
     
     @Override
-    public boolean isBuiltin() {
-        return false;
-    }
-    
-    @Override
     public Sprite getParticleSprite() {
         return sprites[LargeIronSignCharacter.SPACE.ordinal()];
     }
     
     @Override
     public ModelTransformation getTransformation() {
-        return transformation;
-    }
-    
-    @Override
-    public ModelOverrideList getOverrides() {
-        return ModelOverrideList.EMPTY;
+        return modelTransformation;
     }
     
     
@@ -198,8 +171,9 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
     }
     
     @Override
-    public void emitBlockQuads(final BlockRenderView blockView, final BlockState state,final  BlockPos pos,
-                               final Supplier<Random> randomSupplier, final RenderContext context) {
+    public void emitBlockQuads(final QuadEmitter emitter, final BlockRenderView blockView, final BlockState state,
+                               final BlockPos pos, final Supplier<Random> randomSupplier,
+                               final Predicate<@Nullable Direction> cullTest) {
         Direction direction = state.get(LargeIronSignBlock.FACING);
         Object entityStateObject = blockView.getBlockEntityRenderData(pos);
         if (!(entityStateObject instanceof LargeIronSignBlockEntity entityState)) {
@@ -208,23 +182,31 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
         
         LargeIronSignBlockNeighbourState neighbourState = new LargeIronSignBlockNeighbourState(blockView, state, pos);
         
-        Mesh mesh = buildMesh(
+        buildMesh(
+                emitter,
                 direction,
                 entityState.character,
                 entityState.foreground,
                 entityState.background,
                 state.get(LargeIronSignBlock.TRIM),
                 neighbourState);
-        mesh.outputTo(context.getEmitter());
     }
     
-    private Mesh buildMesh(final Direction direction, final LargeIronSignCharacter character,
+    @Override
+    public void emitItemQuads(QuadEmitter emitter, Supplier<Random> randomSupplier) {
+        buildMesh(
+                emitter,
+                Direction.NORTH,
+                LargeIronSignCharacter.KEY_A,
+                LargeIronSignBlock.DEFAULT_COLOUR_FOREGROUND,
+                LargeIronSignBlock.DEFAULT_COLOUR_BACKGROUND,
+                false,
+                new LargeIronSignBlockNeighbourState());
+    }
+    
+    private void buildMesh(final QuadEmitter emitter, final Direction direction, final LargeIronSignCharacter character,
                            final int foreground, final int background, final boolean trim,
                            final LargeIronSignBlockNeighbourState neighbourState) {
-        final Renderer renderer = RendererAccess.INSTANCE.getRenderer();
-        assert renderer != null;
-        final MeshBuilder builder = renderer.meshBuilder();
-        final QuadEmitter emitter = builder.getEmitter();
         
         final boolean innerCornerTopLeft = neighbourState.innerCornerTopLeft();
         final boolean innerCornerTopRight = neighbourState.innerCornerTopRight();
@@ -782,8 +764,6 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
             emitter.color(-1, -1, -1, -1);
             emitter.emit();
         }
-        
-        return builder.build();
     }
     
     private void setUV(final QuadEmitter emitter,
@@ -792,19 +772,6 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
         emitter.uv(1, minU, maxV);
         emitter.uv(2, maxU, maxV);
         emitter.uv(3, maxU, minV);
-    }
-    
-    @Override
-    public void emitItemQuads(final ItemStack itemStack, final Supplier<Random> randomSupplier,
-                              final RenderContext context) {
-        Mesh mesh = buildMesh(
-                Direction.NORTH,
-                LargeIronSignCharacter.KEY_A,
-                LargeIronSignBlock.DEFAULT_COLOUR_FOREGROUND,
-                LargeIronSignBlock.DEFAULT_COLOUR_BACKGROUND,
-                false,
-                new LargeIronSignBlockNeighbourState());
-        mesh.outputTo(context.getEmitter());
     }
     
 }

@@ -1,6 +1,6 @@
 package com.jordanl2.largeironsign;
 
-import net.minecraft.data.client.VariantSettings;
+import net.minecraft.client.data.VariantSettings;
 
 public class Quad {
     
