@@ -37,7 +37,7 @@ public class LargeIronSign implements ModInitializer {
                 content.add(LargeIronSignBlock.LARGE_IRON_SIGN_BLOCK_ITEM));
         
         // Network
-        PayloadTypeRegistry.playC2S().register(LargeIronSignScreenOpenPayload.PACKET_ID, LargeIronSignScreenOpenPayload.PACKET_CODEC);
+        PayloadTypeRegistry.playS2C().register(LargeIronSignScreenOpenPayload.PACKET_ID, LargeIronSignScreenOpenPayload.PACKET_CODEC);
         PayloadTypeRegistry.playC2S().register(LargeIronSignSetSymbolPayload.PACKET_ID, LargeIronSignSetSymbolPayload.PACKET_CODEC);
         ServerPlayNetworking.registerGlobalReceiver(
                 LargeIronSignSetSymbolPayload.PACKET_ID,
