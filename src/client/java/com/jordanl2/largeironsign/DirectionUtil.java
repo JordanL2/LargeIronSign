@@ -1,6 +1,6 @@
 package com.jordanl2.largeironsign;
 
-import net.minecraft.client.data.VariantSettings.Rotation;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.Direction;
 
 public class DirectionUtil {
@@ -12,30 +12,30 @@ public class DirectionUtil {
             Direction.WEST
     };
     
-    public static final Rotation[] ROTATIONS = new Rotation[]{
-            Rotation.R0,
-            Rotation.R90,
-            Rotation.R180,
-            Rotation.R270
+    public static final BlockRotation[] ROTATIONS = new BlockRotation[]{
+            BlockRotation.NONE,
+            BlockRotation.CLOCKWISE_90,
+            BlockRotation.CLOCKWISE_180,
+            BlockRotation.COUNTERCLOCKWISE_90
     };
     
-    public Direction rotate(final Direction direction, final Rotation rotation) {
+    public Direction rotate(final Direction direction, final BlockRotation rotation) {
         int i = 0;
         while (DIRECTIONS[i] != direction) {
             i++;
         }
         
         switch (rotation) {
-            case R90:
+            case CLOCKWISE_90:
                 i += 1;
                 break;
-            case R180:
+            case CLOCKWISE_180:
                 i += 2;
                 break;
-            case R270:
+            case COUNTERCLOCKWISE_90:
                 i += 3;
                 break;
-            case R0:
+            case NONE:
             default:
                 break;
         }
@@ -44,7 +44,7 @@ public class DirectionUtil {
         return DIRECTIONS[i];
     }
     
-    public Rotation getRotation(final Direction direction1, final Direction direction2) {
+    public BlockRotation getRotation(final Direction direction1, final Direction direction2) {
         int i = 0;
         while (DIRECTIONS[i] != direction1) {
             i++;

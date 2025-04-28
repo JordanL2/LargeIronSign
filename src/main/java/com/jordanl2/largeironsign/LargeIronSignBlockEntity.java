@@ -38,9 +38,9 @@ public class LargeIronSignBlockEntity extends BlockEntity {
     public void readNbt(final NbtCompound nbt, final RegistryWrapper.WrapperLookup wrapperLookup) {
         super.readNbt(nbt, wrapperLookup);
         
-        character = LargeIronSignCharacter.valueOf(nbt.getString("character"));
-        foreground = nbt.getInt("foreground");
-        background = nbt.getInt("background");
+        character = LargeIronSignCharacter.valueOf(nbt.getString("character").get());
+        foreground = nbt.getInt("foreground").get();
+        background = nbt.getInt("background").get();
     }
     
     @Override

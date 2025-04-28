@@ -1,6 +1,7 @@
 package com.jordanl2.largeironsign;
 
-import net.minecraft.client.data.VariantSettings;
+
+import net.minecraft.util.BlockRotation;
 
 public class Quad {
     
@@ -19,12 +20,12 @@ public class Quad {
         this.top = top;
     }
     
-    public void rotate(final VariantSettings.Rotation rotation) {
+    public void rotate(final BlockRotation rotation) {
         switch (rotation) {
-            case R0 -> rotate(0);
-            case R90 -> rotate(1);
-            case R180 -> rotate(2);
-            case R270 -> rotate(3);
+            case NONE -> rotate(0);
+            case CLOCKWISE_90 -> rotate(1);
+            case CLOCKWISE_180 -> rotate(2);
+            case COUNTERCLOCKWISE_90 -> rotate(3);
         }
     }
     
