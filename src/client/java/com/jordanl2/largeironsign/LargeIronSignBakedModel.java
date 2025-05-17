@@ -154,7 +154,7 @@ public class LargeIronSignBakedModel implements BakedModel, FabricBakedModel {
     
     @Override
     public Sprite getParticleSprite() {
-        return sprites[LargeIronSignCharacter.SPACE.ordinal()];
+        return spriteFront;
     }
     
     @Override
