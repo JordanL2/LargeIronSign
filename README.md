@@ -49,3 +49,18 @@ If you have a dye in both hands, you can set both the text and background colour
 ## Credits
 
 Textures based on font: https://www.dafont.com/vcr-osd-mono.font
+
+
+## Changelog
+
+# 1.0.3 - 17 May 2025
+- Fixed item appearance in item frames and when on ground.
+
+# 1.0.2 - 08 March 2025
+- Fixed opening set symbol screen on discrete server.
+
+# 1.0.1 - 23 November 2024
+- Fixed small textures breaking mipmap levels.
+
+# 1.0.0 - 06 October 2024
+Initial Version.

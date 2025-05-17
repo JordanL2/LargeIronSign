@@ -19,8 +19,7 @@ public class LargeIronSignModelLoadingPlugin implements ModelLoadingPlugin {
             @Override
             public @Nullable UnbakedModel resolveModel(final Context context) {
                 if (context.id().getNamespace().equals(LargeIronSign.MOD_ID)
-                        && (context.id().getPath().equals(LargeIronSignBlock.BLOCK_PATH)
-                        || context.id().getPath().equals(LargeIronSignBlock.ITEM_PATH))) {
+                        && context.id().getPath().equals(LargeIronSignBlock.BLOCK_PATH)) {
                     return LARGE_IRON_SIGN_MODEL;
                 }
                 return null;
