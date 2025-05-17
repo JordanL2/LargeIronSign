@@ -1,3 +1,67 @@
 {
-  "parent": "item/handheld"
+  "gui_light": "side",
+  "display": {
+    "gui": {
+      "rotation": [ 30, 45, 0 ],
+      "translation": [3.75, -1.75, 0],
+      "scale":[ 0.7, 0.7, 0.7 ]
+    },
+    "ground": {
+      "rotation": [ 0, 0, 0 ],
+      "translation": [ 0, 3, 1.875],
+      "scale":[ 0.25, 0.25, 0.25 ]
+    },
+    "fixed": {
+      "rotation": [ 0, 180, 0 ],
+      "translation": [ 0, 0, -3],
+      "scale":[ 0.5, 0.5, 0.5 ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [ 0, 0, 0 ],
+      "translation": [ 0, 2.3, 3.7],
+      "scale": [ 0.375, 0.375, 0.375 ]
+    },
+    "firstperson_righthand": {
+      "rotation": [ 0, 0, 0 ],
+      "translation": [ 0, 0, 0 ],
+      "scale": [ 0.50, 0.50, 0.50 ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [ 0, 0, 0 ],
+      "translation": [ 0, 0, 0 ],
+      "scale": [ 0.50, 0.50, 0.50 ]
+    }
+  },
+  "textures": {
+    "particle": "largeironsign:block/large_iron_sign_space",
+    "edge": "largeironsign:block/large_iron_sign_edge",
+    "back": "largeironsign:block/large_iron_sign_back",
+    "front": "largeironsign:block/large_iron_sign_front"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 1],
+      "faces": {
+        "up": {
+          "texture": "#edge"
+        },
+        "down": {
+          "texture": "#edge"
+        },
+        "north": {
+          "texture": "#back"
+        },
+        "south": {
+          "texture": "#front"
+        },
+        "west": {
+          "texture": "#edge"
+        },
+        "east": {
+          "texture": "#edge"
+        }
+      }
+    }
+  ]
 }
