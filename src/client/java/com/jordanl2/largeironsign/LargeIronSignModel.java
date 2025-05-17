@@ -183,7 +183,7 @@ public class LargeIronSignModel implements UnbakedModel, BakedModel, FabricBaked
     
     @Override
     public Sprite getParticleSprite() {
-        return sprites[LargeIronSignCharacter.SPACE.ordinal()];
+        return spriteFront;
     }
     
     @Override
