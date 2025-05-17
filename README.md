@@ -56,6 +56,9 @@ Textures based on font: https://www.dafont.com/vcr-osd-mono.font
 
 ## Changelog
 
+### 1.0.4 - 18 May 2025
+- Fixed particle sprites not being visible
+
 ### 1.0.3 - 17 May 2025
 - Fixed item appearance in item frames and when on ground.
 

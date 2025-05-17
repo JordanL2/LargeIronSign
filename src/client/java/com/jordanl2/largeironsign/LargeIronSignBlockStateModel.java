@@ -104,7 +104,7 @@ public class LargeIronSignBlockStateModel implements BlockStateModel, SimpleMode
     
     @Override
     public Sprite particleSprite() {
-        return sprites[LargeIronSignCharacter.SPACE.ordinal()];
+        return spriteFront;
     }
     
     @Override
