@@ -121,10 +121,5 @@ public class LargeIronSignScreen extends Screen {
     public boolean shouldPause() {
         return false;
     }
-    
-    @Override
-    public void render(final DrawContext context, final int mouseX, final int mouseY, final float delta) {
-        renderBackground(context, mouseX, mouseY, delta);
-        super.render(context, mouseX, mouseY, delta);
-    }
+
 }

@@ -1,6 +1,8 @@
 package com.jordanl2.largeironsign;
 
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.block.BlockState;
@@ -26,21 +28,21 @@ public class LargeIronSignBlockEntity extends BlockEntity {
     }
     
     @Override
-    public void writeNbt(final NbtCompound nbt, final RegistryWrapper.WrapperLookup wrapperLookup) {
-        nbt.putString("character", character.name());
-        nbt.putInt("foreground", foreground);
-        nbt.putInt("background", background);
+    protected void writeData(final WriteView view) {
+        view.putString("character", character.name());
+        view.putInt("foreground", foreground);
+        view.putInt("background", background);
         
-        super.writeNbt(nbt, wrapperLookup);
+        super.writeData(view);
     }
     
     @Override
-    public void readNbt(final NbtCompound nbt, final RegistryWrapper.WrapperLookup wrapperLookup) {
-        super.readNbt(nbt, wrapperLookup);
+    protected void readData(final ReadView view) {
+        super.readData(view);
         
-        character = LargeIronSignCharacter.valueOf(nbt.getString("character").get());
-        foreground = nbt.getInt("foreground").get();
-        background = nbt.getInt("background").get();
+        character = LargeIronSignCharacter.valueOf(view.getString("character", "x"));
+        foreground = view.getInt("foreground", 0);
+        background = view.getInt("background", 0);
     }
     
     @Override

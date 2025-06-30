@@ -2,13 +2,10 @@ package com.jordanl2.largeironsign;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.renderer.v1.Renderer;
-import net.fabricmc.fabric.api.renderer.v1.material.BlendMode;
-import net.fabricmc.fabric.api.renderer.v1.material.MaterialFinder;
-import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
 import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
 import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.model.*;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.SpriteIdentifier;
@@ -47,8 +44,6 @@ public class LargeIronSignBlockStateModel implements BlockStateModel, SimpleMode
     private final Sprite spriteTrimCornerFront;
     private final Sprite spriteTrimInnerCornerFront;
     private final Sprite spriteTrimInnerCornerBack;
-    
-    private final RenderMaterial cutoutMaterial;
     
     public LargeIronSignBlockStateModel(final Baker baker) {
         ErrorCollectingSpriteGetter spriteGetter = baker.getSpriteGetter();
@@ -91,10 +86,6 @@ public class LargeIronSignBlockStateModel implements BlockStateModel, SimpleMode
         spriteTrimInnerCornerBack = spriteGetter.get(new SpriteIdentifier(
                         BLOCK_ATLAS_TEXTURE,
                         LargeIronSignBlock.TRIM_INNER_CORNER_BACK_TEXTURE), this);
-        
-        // Find cutout material
-        MaterialFinder finder = Renderer.get().materialFinder();
-        cutoutMaterial = finder.blendMode(BlendMode.CUTOUT).find();
     }
     
     @Override
@@ -188,7 +179,7 @@ public class LargeIronSignBlockStateModel implements BlockStateModel, SimpleMode
         // Front - Text
         emitter.square(direction, 0f, 0f, 1f, 1f, 1f - THICKNESS - TEXT_DEPTH);
         emitter.spriteBake(sprites[character.ordinal()], MutableQuadView.BAKE_LOCK_UV);
-        emitter.material(cutoutMaterial);
+        emitter.renderLayer(BlockRenderLayer.CUTOUT);
         emitter.color(foreground, foreground, foreground, foreground);
         emitter.emit();
         
