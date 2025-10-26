@@ -18,7 +18,7 @@ public class LargeIronSignSetSymbolHandler implements ServerPlayNetworking.PlayP
         
         MinecraftServer server = context.server();
         server.execute(() -> {
-            World world = context.player().getWorld();
+            World world = context.player().getEntityWorld();
             BlockState blockState = world.getBlockState(pos);
             if (blockState.getBlock() instanceof LargeIronSignBlock) {
                 BlockEntity blockEntity = world.getBlockEntity(pos);
